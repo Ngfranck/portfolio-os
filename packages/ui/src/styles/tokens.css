@@ -1,0 +1,178 @@
+:root {
+  /* =========================================================
+     COLORS
+     ========================================================= */
+
+  --portfolio-background: #fbfbfb;
+  --portfolio-surface: #ffffff;
+
+  --portfolio-text-primary: #111111;
+  --portfolio-text-secondary: #666666;
+  --portfolio-text-muted: #999999;
+
+  --portfolio-border: #e5e5e2;
+
+  --portfolio-dark: #111111;
+  --portfolio-dark-text: #f7f7f5;
+
+  /* Accent — utilisé avec parcimonie */
+  --portfolio-accent: #e30613;
+  --portfolio-accent-green: #22c55e;
+  --portfolio-accent-soft: #fde8ea;
+
+  /* =========================================================
+     SPACING
+     ========================================================= */
+
+  --portfolio-space-1: 4px;
+  --portfolio-space-2: 8px;
+  --portfolio-space-3: 12px;
+  --portfolio-space-4: 16px;
+  --portfolio-space-5: 24px;
+  --portfolio-space-6: 32px;
+  --portfolio-space-7: 40px;
+  --portfolio-space-8: 48px;
+  --portfolio-space-9: 64px;
+  --portfolio-space-10: 80px;
+  --portfolio-space-11: 96px;
+  --portfolio-space-12: 120px;
+  --portfolio-space-13: 160px;
+
+  /* =========================================================
+     RADIUS
+     ========================================================= */
+
+  --portfolio-radius-xs: 4px;
+  --portfolio-radius-sm: 8px;
+  --portfolio-radius-md: 12px;
+  --portfolio-radius-lg: 16px;
+  --portfolio-radius-xl: 24px;
+  --portfolio-radius-full: 9999px;
+
+  /* =========================================================
+     MOTION
+     ========================================================= */
+
+  --portfolio-motion-fast: 150ms;
+  --portfolio-motion-normal: 250ms;
+  --portfolio-motion-slow: 500ms;
+
+  /* =========================================================
+     TYPOGRAPHY
+     ========================================================= */
+
+  --portfolio-font-display: var(--font-sf-pro-display);
+  --portfolio-font-body: var(--font-sf-pro-display);
+  --portfolio-font-signature: var(--font-signatrue);
+
+  /* =========================================================
+     FONT WEIGHTS
+     ========================================================= */
+
+  --portfolio-weight-thin: 100;
+  --portfolio-weight-extralight: 200;
+  --portfolio-weight-light: 300;
+  --portfolio-weight-regular: 400;
+  --portfolio-weight-medium: 500;
+  --portfolio-weight-semibold: 600;
+  --portfolio-weight-bold: 700;
+  --portfolio-weight-heavy: 800;
+  --portfolio-weight-black: 900;
+
+  /* =========================================================
+     FONT SIZES
+     ========================================================= */
+
+  --portfolio-text-display: clamp(3.5rem, 7vw, 6rem);
+  --portfolio-text-h1: clamp(3rem, 5.5vw, 4.5rem);
+  --portfolio-text-h2: clamp(2.5rem, 4.5vw, 3.5rem);
+  --portfolio-text-h3: clamp(2rem, 3.5vw, 2.5rem);
+  --portfolio-text-h4: clamp(1.625rem, 2.5vw, 2rem);
+
+  --portfolio-text-body-lg: clamp(
+    1.125rem,
+    1.5vw,
+    1.25rem
+  );
+
+  --portfolio-text-body: 1.125rem;
+  --portfolio-text-small: 1rem;
+  --portfolio-text-caption: 0.875rem;
+
+  /* =========================================================
+     LINE HEIGHTS
+     ========================================================= */
+
+  --portfolio-leading-display: 0.95;
+  --portfolio-leading-h1: 1;
+  --portfolio-leading-h2: 1.05;
+  --portfolio-leading-h3: 1.1;
+  --portfolio-leading-h4: 1.15;
+
+  --portfolio-leading-body-lg: 1.5;
+  --portfolio-leading-body: 1.55;
+  --portfolio-leading-small: 1.5;
+  --portfolio-leading-caption: 1.4;
+
+  /* =========================================================
+     LETTER SPACING
+     ========================================================= */
+
+  --portfolio-tracking-display: -0.04em;
+  --portfolio-tracking-h1: -0.035em;
+  --portfolio-tracking-h2: -0.03em;
+  --portfolio-tracking-h3: -0.02em;
+  --portfolio-tracking-h4: -0.015em;
+
+  --portfolio-tracking-body-lg: -0.01em;
+  --portfolio-tracking-body: 0;
+  --portfolio-tracking-small: 0;
+  --portfolio-tracking-caption: 0.02em;
+
+  /* =========================================================
+     TAILWIND ALIASES
+     ========================================================= */
+
+  --leading-display: var(--portfolio-leading-display);
+  --leading-h1: var(--portfolio-leading-h1);
+  --leading-h2: var(--portfolio-leading-h2);
+  --leading-h3: var(--portfolio-leading-h3);
+  --leading-h4: var(--portfolio-leading-h4);
+
+  --leading-body-lg: var(--portfolio-leading-body-lg);
+  --leading-body: var(--portfolio-leading-body);
+  --leading-small: var(--portfolio-leading-small);
+  --leading-caption: var(--portfolio-leading-caption);
+
+  --tracking-display: var(--portfolio-tracking-display);
+  --tracking-h1: var(--portfolio-tracking-h1);
+  --tracking-h2: var(--portfolio-tracking-h2);
+  --tracking-h3: var(--portfolio-tracking-h3);
+  --tracking-h4: var(--portfolio-tracking-h4);
+
+  --tracking-body-lg: var(--portfolio-tracking-body-lg);
+  --tracking-body: var(--portfolio-tracking-body);
+  --tracking-small: var(--portfolio-tracking-small);
+  --tracking-caption: var(--portfolio-tracking-caption);
+}
+
+/* =========================================================
+   DARK MODE
+   ========================================================= */
+
+.dark {
+  --portfolio-background: #000000;
+  --portfolio-surface: #0a0a0a;
+
+  --portfolio-text-primary: #f7f7f5;
+  --portfolio-text-secondary: #b5b5b5;
+  --portfolio-text-muted: #777777;
+
+  --portfolio-border: #232323;
+
+  --portfolio-dark: #f7f7f5;
+  --portfolio-dark-text: #111111;
+
+  --portfolio-accent: #e30613;
+  --portfolio-accent-soft: #3a171a;
+}

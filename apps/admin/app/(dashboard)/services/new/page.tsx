@@ -1,0 +1,629 @@
+
+"use client";
+
+import Link from "next/link";
+import { useState, type FormEvent, type ReactNode } from "react";
+import { useRouter } from "next/navigation";
+import { HugeiconsIcon } from "@hugeicons/react";
+import {
+  ArrowLeft01Icon,
+  Briefcase01Icon,
+  FloppyDiskIcon,
+  StarIcon,
+} from "@hugeicons/core-free-icons";
+
+import {
+  createService,
+  type ServiceInput,
+} from "../actions";
+
+type FormState = {
+  title: string;
+  slug: string;
+  shortDescription: string;
+  description: string;
+  icon: string;
+  featured: boolean;
+  sortOrder: string;
+};
+
+const initialFormState: FormState = {
+  title: "",
+  slug: "",
+  shortDescription: "",
+  description: "",
+  icon: "",
+  featured: false,
+  sortOrder: "0",
+};
+
+function slugify(value: string): string {
+  return value
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
+const inputClass =
+  "h-11 w-full rounded-xl border border-neutral-200 bg-white px-3 text-sm text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-2 focus:ring-neutral-100";
+
+const textareaClass =
+  "w-full resize-y rounded-xl border border-neutral-200 bg-white px-3 py-3 text-sm leading-6 text-neutral-950 outline-none transition placeholder:text-neutral-400 focus:border-neutral-400 focus:ring-2 focus:ring-neutral-100";
+
+export default function NewServicePage() {
+  const router = useRouter();
+
+  const [form, setForm] = useState<FormState>(initialFormState);
+  const [isSaving, setIsSaving] = useState(false);
+  const [error, setError] = useState<string | null>(null);
+
+  const updateField = <K extends keyof FormState>(
+    field: K,
+    value: FormState[K],
+  ) => {
+    setForm((current) => ({
+      ...current,
+      [field]: value,
+    }));
+  };
+
+  const handleTitleChange = (value: string) => {
+    setForm((current) => {
+      const generatedSlug = slugify(current.title);
+      const shouldUpdateSlug =
+        current.slug === "" || current.slug === generatedSlug;
+
+      return {
+        ...current,
+        title: value,
+        slug: shouldUpdateSlug ? slugify(value) : current.slug,
+      };
+    });
+  };
+
+  const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    if (isSaving) return;
+
+    setError(null);
+
+    const title = form.title.trim();
+    const slug = form.slug.trim();
+    const shortDescription = form.shortDescription.trim();
+    const description = form.description.trim();
+    const icon = form.icon.trim();
+
+    if (!title) {
+      setError("Le titre du service est obligatoire.");
+      return;
+    }
+
+    if (!slug) {
+      setError("Le slug du service est obligatoire.");
+      return;
+    }
+
+    if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) {
+      setError(
+        "Le slug doit contenir uniquement des lettres minuscules, des chiffres et des tirets.",
+      );
+      return;
+    }
+
+    if (!shortDescription) {
+      setError("La description courte est obligatoire.");
+      return;
+    }
+
+    if (shortDescription.length > 300) {
+      setError("La description courte ne peut pas dépasser 300 caractères.");
+      return;
+    }
+
+    if (description.length > 5000) {
+      setError("La description détaillée ne peut pas dépasser 5 000 caractères.");
+      return;
+    }
+
+    const sortOrder = Number(form.sortOrder);
+
+    if (
+      !Number.isInteger(sortOrder) ||
+      sortOrder < 0 ||
+      form.sortOrder.trim() === ""
+    ) {
+      setError(
+        "L'ordre d'affichage doit être un entier positif ou égal à zéro.",
+      );
+      return;
+    }
+
+    const input: ServiceInput = {
+      title,
+      slug,
+      shortDescription,
+      description: description || null,
+      icon: icon || null,
+      featured: form.featured,
+      sortOrder,
+    };
+
+    setIsSaving(true);
+
+    try {
+      const result = await createService(input);
+
+      if (!result.success) {
+        setError(result.error);
+        return;
+      }
+
+      router.push("/services");
+      router.refresh();
+    } catch (err) {
+      console.error("Erreur lors de la création du service :", err);
+      setError(
+        "Une erreur est survenue lors de la création du service.",
+      );
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  return (
+    <main className="min-h-full bg-[#f7f7f5]">
+      <div className="mx-auto max-w-[1200px] px-4 py-6 sm:px-6 lg:px-8 lg:py-8">
+        <div className="space-y-8">
+          {/* En-tête */}
+          <header>
+            <Link
+              href="/services"
+              className="inline-flex items-center gap-2 text-sm font-medium text-neutral-500 transition hover:text-neutral-950"
+            >
+              <HugeiconsIcon
+                icon={ArrowLeft01Icon}
+                size={18}
+                strokeWidth={1.8}
+              />
+              Retour aux services
+            </Link>
+
+            <div className="mt-6">
+              <div className="mb-3 flex items-center gap-2 text-[11px] font-medium uppercase tracking-[0.16em] text-neutral-400">
+                <span>Contenu</span>
+                <span>/</span>
+                <span>Services</span>
+                <span>/</span>
+                <span className="text-neutral-700">Création</span>
+              </div>
+
+              <h1 className="text-[34px] font-semibold tracking-[-0.035em] text-neutral-950 sm:text-[40px]">
+                Nouveau service
+              </h1>
+
+              <p className="mt-3 max-w-2xl text-sm leading-6 text-neutral-500">
+                Crée une nouvelle prestation et configure sa présentation
+                dans ton portfolio.
+              </p>
+            </div>
+          </header>
+
+          {/* Erreur */}
+          {error && (
+            <div
+              role="alert"
+              className="flex items-start justify-between gap-4 rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-800"
+            >
+              <p className="leading-6">{error}</p>
+              <button
+                type="button"
+                onClick={() => setError(null)}
+                className="shrink-0 text-xs font-medium underline underline-offset-4"
+              >
+                Fermer
+              </button>
+            </div>
+          )}
+
+          {/* Formulaire et aperçu */}
+          <form
+            onSubmit={handleSubmit}
+            className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_320px]"
+          >
+            {/* Colonne principale */}
+            <div className="space-y-6">
+              <section className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+                <div className="border-b border-neutral-200 px-5 py-5 sm:px-6">
+                  <h2 className="text-sm font-semibold text-neutral-950">
+                    Contenu du service
+                  </h2>
+                  <p className="mt-1 text-xs leading-5 text-neutral-400">
+                    Les informations qui présenteront cette prestation.
+                  </p>
+                </div>
+
+                <div className="space-y-6 p-5 sm:p-6">
+                  <Field
+                    label="Nom du service"
+                    htmlFor="service-title"
+                    required
+                  >
+                    <input
+                      id="service-title"
+                      type="text"
+                      value={form.title}
+                      onChange={(event) =>
+                        handleTitleChange(event.target.value)
+                      }
+                      placeholder="Ex. UX/UI Design"
+                      maxLength={160}
+                      autoFocus
+                      className={inputClass}
+                    />
+                    <FieldHint>
+                      160 caractères maximum.
+                    </FieldHint>
+                  </Field>
+
+                  <Field label="Slug" htmlFor="service-slug" required>
+                    <div className="relative">
+                      <span className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-xs text-neutral-400">
+                        /
+                      </span>
+                      <input
+                        id="service-slug"
+                        type="text"
+                        value={form.slug}
+                        onChange={(event) =>
+                          updateField(
+                            "slug",
+                            slugify(event.target.value),
+                          )
+                        }
+                        placeholder="ux-ui-design"
+                        maxLength={180}
+                        className={`${inputClass} pl-7 font-mono`}
+                      />
+                    </div>
+                    <FieldHint>
+                      Utilisé comme identifiant dans les URLs.
+                    </FieldHint>
+                  </Field>
+
+                  <Field
+                    label="Description courte"
+                    htmlFor="service-short-description"
+                    required
+                  >
+                    <textarea
+                      id="service-short-description"
+                      value={form.shortDescription}
+                      onChange={(event) =>
+                        updateField(
+                          "shortDescription",
+                          event.target.value,
+                        )
+                      }
+                      placeholder="Présente rapidement cette prestation..."
+                      maxLength={300}
+                      rows={4}
+                      className={textareaClass}
+                    />
+                    <div className="mt-2 flex justify-between gap-4">
+                      <FieldHint>
+                        Une présentation concise de la prestation.
+                      </FieldHint>
+                      <span className="shrink-0 text-[11px] tabular-nums text-neutral-400">
+                        {form.shortDescription.length}/300
+                      </span>
+                    </div>
+                  </Field>
+
+                  <Field
+                    label="Description détaillée"
+                    htmlFor="service-description"
+                  >
+                    <textarea
+                      id="service-description"
+                      value={form.description}
+                      onChange={(event) =>
+                        updateField("description", event.target.value)
+                      }
+                      placeholder="Décris plus précisément ce que comprend cette prestation..."
+                      maxLength={5000}
+                      rows={9}
+                      className={textareaClass}
+                    />
+                    <div className="mt-2 flex justify-between gap-4">
+                      <FieldHint>
+                        Facultatif. 5 000 caractères maximum.
+                      </FieldHint>
+                      <span className="shrink-0 text-[11px] tabular-nums text-neutral-400">
+                        {form.description.length}/5000
+                      </span>
+                    </div>
+                  </Field>
+                </div>
+              </section>
+
+              {/* Configuration */}
+              <section className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+                <div className="border-b border-neutral-200 px-5 py-5 sm:px-6">
+                  <h2 className="text-sm font-semibold text-neutral-950">
+                    Configuration
+                  </h2>
+                  <p className="mt-1 text-xs leading-5 text-neutral-400">
+                    Paramètres d'affichage de la prestation.
+                  </p>
+                </div>
+
+                <div className="space-y-6 p-5 sm:p-6">
+                  <Field label="Icône" htmlFor="service-icon">
+                    <input
+                      id="service-icon"
+                      type="text"
+                      value={form.icon}
+                      onChange={(event) =>
+                        updateField("icon", event.target.value)
+                      }
+                      placeholder="Ex. pen-tool"
+                      maxLength={100}
+                      className={inputClass}
+                    />
+                    <FieldHint>
+                      Nom ou identifiant de l'icône utilisé par le frontend.
+                    </FieldHint>
+                  </Field>
+
+                  <Field
+                    label="Ordre d'affichage"
+                    htmlFor="service-sort-order"
+                  >
+                    <input
+                      id="service-sort-order"
+                      type="number"
+                      min={0}
+                      step={1}
+                      value={form.sortOrder}
+                      onChange={(event) =>
+                        updateField("sortOrder", event.target.value)
+                      }
+                      className={`${inputClass} sm:max-w-[180px]`}
+                    />
+                    <FieldHint>
+                      Plus la valeur est faible, plus le service apparaît tôt.
+                    </FieldHint>
+                  </Field>
+
+                  <label className="flex cursor-pointer items-start gap-3 rounded-xl border border-neutral-200 p-4 transition hover:bg-neutral-50">
+                    <input
+                      type="checkbox"
+                      checked={form.featured}
+                      onChange={(event) =>
+                        updateField("featured", event.target.checked)
+                      }
+                      className="mt-0.5 h-4 w-4 rounded border-neutral-300 accent-[#E30613]"
+                    />
+                    <span className="min-w-0">
+                      <span className="flex items-center gap-2 text-sm font-medium text-neutral-900">
+                        <HugeiconsIcon
+                          icon={StarIcon}
+                          size={15}
+                          strokeWidth={1.8}
+                          className="text-neutral-400"
+                        />
+                        Mettre en avant
+                      </span>
+                      <span className="mt-1 block text-xs leading-5 text-neutral-500">
+                        Distingue cette prestation comme service important.
+                      </span>
+                    </span>
+                  </label>
+                </div>
+              </section>
+
+              {/* Actions desktop */}
+              <div className="hidden items-center justify-between rounded-2xl border border-neutral-200 bg-white p-3 sm:flex">
+                <Link
+                  href="/services"
+                  className="inline-flex h-10 items-center justify-center rounded-xl px-4 text-xs font-medium text-neutral-500 transition hover:bg-neutral-50 hover:text-neutral-900"
+                >
+                  Annuler
+                </Link>
+
+                <button
+                  type="submit"
+                  disabled={isSaving}
+                  className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 text-xs font-medium text-white transition hover:bg-neutral-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-neutral-400 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                >
+                  {isSaving ? (
+                    <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                  ) : (
+                    <HugeiconsIcon
+                      icon={FloppyDiskIcon}
+                      size={17}
+                      strokeWidth={1.8}
+                    />
+                  )}
+                  {isSaving ? "Création..." : "Créer le service"}
+                </button>
+              </div>
+            </div>
+
+            {/* Colonne latérale */}
+            <aside className="space-y-6">
+              <div className="space-y-6 lg:sticky lg:top-6">
+                {/* Aperçu */}
+                <section className="overflow-hidden rounded-2xl border border-neutral-200 bg-white">
+                  <div className="border-b border-neutral-200 px-5 py-4">
+                    <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-400">
+                      Aperçu
+                    </p>
+                    <h2 className="mt-1 text-sm font-semibold text-neutral-950">
+                      Carte du service
+                    </h2>
+                  </div>
+
+                  <div className="p-5">
+                    <div className="rounded-2xl border border-neutral-200 bg-[#f7f7f5] p-5">
+                      <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-white text-neutral-500 shadow-sm">
+                        <HugeiconsIcon
+                          icon={Briefcase01Icon}
+                          size={20}
+                          strokeWidth={1.7}
+                        />
+                      </div>
+
+                      <div className="mt-6">
+                        <div className="flex flex-wrap items-center gap-2">
+                          <h3 className="text-lg font-semibold tracking-tight text-neutral-950">
+                            {form.title || "Nom du service"}
+                          </h3>
+                          {form.featured && (
+                            <span className="rounded-full bg-[#FDE8EA] px-2 py-0.5 text-[10px] font-medium text-[#B30A16]">
+                              En avant
+                            </span>
+                          )}
+                        </div>
+
+                        <p className="mt-2 break-words text-sm leading-6 text-neutral-500">
+                          {form.shortDescription ||
+                            "La description courte du service apparaîtra ici."}
+                        </p>
+                      </div>
+
+                      <div className="mt-5 border-t border-neutral-200 pt-4">
+                        <p className="break-all font-mono text-[10px] text-neutral-400">
+                          /{form.slug || "service-slug"}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+
+                {/* Résumé */}
+                <section className="rounded-2xl border border-neutral-200 bg-white p-5">
+                  <p className="text-[10px] font-semibold uppercase tracking-[0.14em] text-neutral-400">
+                    Résumé
+                  </p>
+
+                  <div className="mt-4 space-y-4">
+                    <MetaRow
+                      label="Visibilité"
+                      value={
+                        form.featured ? "Mis en avant" : "Standard"
+                      }
+                      accent={form.featured}
+                    />
+                    <MetaRow
+                      label="Ordre"
+                      value={form.sortOrder || "0"}
+                    />
+                    <MetaRow
+                      label="Description"
+                      value={
+                        form.description.trim()
+                          ? "Renseignée"
+                          : "Non renseignée"
+                      }
+                    />
+                  </div>
+                </section>
+
+                {/* Actions mobile */}
+                <div className="flex flex-col gap-2 sm:hidden">
+                  <button
+                    type="submit"
+                    disabled={isSaving}
+                    className="inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-neutral-950 px-5 text-sm font-medium text-white transition hover:bg-neutral-800 disabled:cursor-not-allowed disabled:opacity-50"
+                  >
+                    {isSaving ? (
+                      <span className="h-4 w-4 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                    ) : (
+                      <HugeiconsIcon
+                        icon={FloppyDiskIcon}
+                        size={18}
+                        strokeWidth={1.8}
+                      />
+                    )}
+                    {isSaving ? "Création..." : "Créer le service"}
+                  </button>
+
+                  <Link
+                    href="/services"
+                    className="inline-flex h-10 items-center justify-center rounded-xl px-4 text-xs font-medium text-neutral-500"
+                  >
+                    Annuler
+                  </Link>
+                </div>
+              </div>
+            </aside>
+          </form>
+        </div>
+      </div>
+    </main>
+  );
+}
+
+function Field({
+  label,
+  htmlFor,
+  required = false,
+  children,
+}: {
+  label: string;
+  htmlFor: string;
+  required?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <div>
+      <label
+        htmlFor={htmlFor}
+        className="mb-2 block text-xs font-semibold text-neutral-800"
+      >
+        {label}
+        {required && (
+          <span className="ml-1 text-[#E30613]">*</span>
+        )}
+      </label>
+      {children}
+    </div>
+  );
+}
+
+function FieldHint({ children }: { children: ReactNode }) {
+  return (
+    <p className="mt-2 text-[11px] leading-5 text-neutral-400">
+      {children}
+    </p>
+  );
+}
+
+function MetaRow({
+  label,
+  value,
+  accent = false,
+}: {
+  label: string;
+  value: string;
+  accent?: boolean;
+}) {
+  return (
+    <div className="flex items-center justify-between gap-4">
+      <span className="text-xs text-neutral-400">{label}</span>
+      <span
+        className={
+          accent
+            ? "text-xs font-medium text-[#B30A16]"
+            : "text-xs font-medium text-neutral-700"
+        }
+      >
+        {value}
+      </span>
+    </div>
+  );
+}

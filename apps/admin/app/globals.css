@@ -1,0 +1,32 @@
+@import "tailwindcss";
+
+@source "../../../packages/ui/src";
+
+@import "../../../packages/ui/src/styles/tokens.css";
+@import "../../../packages/ui/src/styles/globals.css";
+
+@theme inline {
+  --color-background: var(--portfolio-background);
+  --color-surface: var(--portfolio-surface);
+  --color-text-primary: var(--portfolio-text-primary);
+  --color-text-secondary: var(--portfolio-text-secondary);
+  --color-text-muted: var(--portfolio-text-muted);
+  --color-border: var(--portfolio-border);
+  --color-accent: var(--portfolio-accent);
+  --color-accent-green: var(--portfolio-accent-green);
+  --color-accent-soft: var(--portfolio-accent-soft);
+
+  --font-sans: var(--font-sf-pro-display);
+  --font-display: var(--font-sf-pro-display);
+  --font-signature: var(--font-signatrue);
+
+  --text-display: var(--portfolio-text-display);
+  --text-h1: var(--portfolio-text-h1);
+  --text-h2: var(--portfolio-text-h2);
+  --text-h3: var(--portfolio-text-h3);
+  --text-h4: var(--portfolio-text-h4);
+  --text-body-lg: var(--portfolio-text-body-lg);
+  --text-body: var(--portfolio-text-body);
+  --text-small: var(--portfolio-text-small);
+  --text-caption: var(--portfolio-text-caption);
+}
