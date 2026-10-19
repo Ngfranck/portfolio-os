@@ -42,7 +42,13 @@ const experiences = [
   },
 ];
 
-export function About() {
+type AboutSettings = {
+  linkedinUrl: string | null;
+  behanceUrl: string | null;
+  instagramUrl: string | null;
+};
+
+export function About({ settings }: { settings: AboutSettings }) {
   const sectionRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -545,9 +551,7 @@ export function About() {
               Web & Brand Designer
             </span>
 
-            <span className="text-[var(--portfolio-text-muted)]">
-              ·
-            </span>
+            <span className="text-[var(--portfolio-text-muted)]">·</span>
 
             <span
               className="
@@ -739,92 +743,114 @@ export function About() {
 
               {/* SOCIALS */}
 
-              <div
-                className="
-                  mt-6
-                  flex
-                  items-center
-                  gap-3
-                  border-b
-                  border-[var(--portfolio-border)]
-                  pb-6
-                "
-              >
-                <a
-                  data-about-social
-                  data-cursor="magnetic"
-                  href="#"
-                  aria-label="LinkedIn"
+              {(settings.linkedinUrl ||
+                settings.behanceUrl ||
+                settings.instagramUrl) && (
+                <div
                   className="
+                    mt-6
                     flex
-                    h-9
-                    w-9
                     items-center
-                    justify-center
-                    rounded-full
-                    border
+                    gap-3
+                    border-b
                     border-[var(--portfolio-border)]
-                    font-body
-                    text-xs
-                    text-[var(--portfolio-text-primary)]
-                    transition-colors
-                    hover:border-[var(--portfolio-border)]
-                    will-change-transform
+                    pb-6
                   "
                 >
-                  in
-                </a>
+                  {settings.linkedinUrl && (
+                    <a
+                      data-about-social
+                      data-cursor="magnetic"
+                      href={settings.linkedinUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="LinkedIn"
+                      className="
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-[var(--portfolio-border)]
+                        font-body
+                        text-xs
+                        text-[var(--portfolio-text-primary)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        hover:-translate-y-[1px]
+                        hover:bg-[var(--portfolio-background)]
+                        will-change-transform
+                      "
+                    >
+                      in
+                    </a>
+                  )}
 
-                <a
-                  data-about-social
-                  data-cursor="magnetic"
-                  href="#"
-                  aria-label="Behance"
-                  className="
-                    flex
-                    h-9
-                    w-9
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-[var(--portfolio-border)]
-                    font-body
-                    text-xs
-                    text-[var(--portfolio-text-primary)]
-                    transition-colors
-                    hover:border-[var(--portfolio-border)]
-                    will-change-transform
-                  "
-                >
-                  Be
-                </a>
+                  {settings.behanceUrl && (
+                    <a
+                      data-about-social
+                      data-cursor="magnetic"
+                      href={settings.behanceUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Behance"
+                      className="
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-[var(--portfolio-border)]
+                        font-body
+                        text-xs
+                        text-[var(--portfolio-text-primary)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        hover:-translate-y-[1px]
+                        hover:bg-[var(--portfolio-background)]
+                        will-change-transform
+                      "
+                    >
+                      Be
+                    </a>
+                  )}
 
-                <a
-                  data-about-social
-                  data-cursor="magnetic"
-                  href="#"
-                  aria-label="Instagram"
-                  className="
-                    flex
-                    h-9
-                    w-9
-                    items-center
-                    justify-center
-                    rounded-full
-                    border
-                    border-[var(--portfolio-border)]
-                    font-body
-                    text-xs
-                    text-[var(--portfolio-text-primary)]
-                    transition-colors
-                    hover:border-[var(--portfolio-border)]
-                    will-change-transform
-                  "
-                >
-                  Ig
-                </a>
-              </div>
+                  {settings.instagramUrl && (
+                    <a
+                      data-about-social
+                      data-cursor="magnetic"
+                      href={settings.instagramUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label="Instagram"
+                      className="
+                        flex
+                        h-9
+                        w-9
+                        items-center
+                        justify-center
+                        rounded-full
+                        border
+                        border-[var(--portfolio-border)]
+                        font-body
+                        text-xs
+                        text-[var(--portfolio-text-primary)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        hover:-translate-y-[1px]
+                        hover:bg-[var(--portfolio-background)]
+                        will-change-transform
+                      "
+                    >
+                      Ig
+                    </a>
+                  )}
+                </div>
+              )}
 
               <Link
                 href="/cv"

@@ -281,6 +281,7 @@ model SiteSettings {
   ownerName               String?
   contactEmail            String?
   contactPhone            String?
+  whatsappUrl             String?
   location                String?
   isAvailableForProjects  Boolean  @default(true)
 
@@ -288,7 +289,7 @@ model SiteSettings {
   behanceUrl              String?
   dribbbleUrl             String?
   githubUrl               String?
-  instagramUrl            String?
+  instagramUrl             String?
 
   seoTitle                String?
   seoDescription          String?

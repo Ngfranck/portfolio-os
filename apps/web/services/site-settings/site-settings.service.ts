@@ -7,6 +7,7 @@ const siteSettingsSelect = {
   ownerName: true,
   contactEmail: true,
   contactPhone: true,
+  whatsappUrl: true,
   location: true,
   isAvailableForProjects: true,
   linkedinUrl: true,

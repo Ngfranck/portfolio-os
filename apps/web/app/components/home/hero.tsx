@@ -1,17 +1,11 @@
+
 "use client";
 
 import { useRef } from "react";
-
-import Image from "next/image";
-
 import gsap from "gsap";
-
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-
 import { useGSAP } from "@gsap/react";
-
 import { HugeiconsIcon } from "@hugeicons/react";
-
 import { ArrowUpRight01Icon } from "@hugeicons/core-free-icons";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -32,46 +26,42 @@ export function Hero({
   isAvailableForProjects,
 }: HeroProps) {
   const heroRef = useRef<HTMLElement>(null);
-
-  const imageRef = useRef<HTMLImageElement>(null);
-
-  const imageGlowRef = useRef<HTMLDivElement>(null);
-
-  const imageVignetteRef = useRef<HTMLDivElement>(null);
-
+  const wolfRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
-
   const nameRef = useRef<HTMLHeadingElement>(null);
-
   const badgeRef = useRef<HTMLDivElement>(null);
-
   const descriptionRef = useRef<HTMLParagraphElement>(null);
-
   const actionsRef = useRef<HTMLDivElement>(null);
 
   useGSAP(
     () => {
+      const hero = heroRef.current;
+      const wolf = wolfRef.current;
+      const glow = glowRef.current;
+      const content = contentRef.current;
+      const name = nameRef.current;
+      const badge = badgeRef.current;
+      const description = descriptionRef.current;
+      const actions = actionsRef.current;
+
       if (
-        !heroRef.current ||
-        !imageRef.current ||
-        !imageGlowRef.current ||
-        !imageVignetteRef.current ||
-        !contentRef.current ||
-        !nameRef.current ||
-        !badgeRef.current ||
-        !descriptionRef.current ||
-        !actionsRef.current
+        !hero ||
+        !wolf ||
+        !glow ||
+        !content ||
+        !name ||
+        !badge ||
+        !description ||
+        !actions
       ) {
         return;
       }
 
-      const hero = heroRef.current;
-
-      const image = imageRef.current;
-
-      const imageGlow = imageGlowRef.current;
-
-      const imageVignette = imageVignetteRef.current;
+      const stars = gsap.utils.toArray<HTMLElement>(
+        ".hero-shooting-star",
+        hero
+      );
 
       const mm = gsap.matchMedia();
 
@@ -86,257 +76,244 @@ export function Hero({
             reducedMotion: boolean;
           };
 
-          /*
-           * --------------------------------------------------
-           * REDUCED MOTION
-           * --------------------------------------------------
-           */
+          // ACCESSIBILITÉ : afficher le contenu sans animation.
 
           if (reducedMotion) {
-            gsap.set(
-              [
-                image,
-                imageGlow,
-                imageVignette,
-                nameRef.current,
-                badgeRef.current,
-                descriptionRef.current,
-                actionsRef.current,
-              ],
-              {
-                clearProps: "all",
-              }
-            );
+            gsap.set(wolf, {
+              opacity: 1,
+              scale: 1,
+              x: 0,
+              y: 0,
+              clipPath: "none",
+            });
+
+            gsap.set([name, badge, description, actions], {
+              clearProps: "all",
+            });
+
+            gsap.set(glow, {
+              opacity: 0.2,
+              scale: 1,
+            });
+
+            gsap.set(stars, {
+              opacity: 0,
+            });
 
             return;
           }
 
-          /*
-           * --------------------------------------------------
-           * INITIAL STATES
-           * --------------------------------------------------
-           */
+          // ÉTAT INITIAL
 
-          gsap.set(image, {
-            scale: 1.1,
+          gsap.set(wolf, {
+            opacity: 0,
+            scale: 0.88,
             x: 0,
             y: 0,
-            yPercent: 0,
+            clipPath: "circle(0% at 50% 45%)",
             transformOrigin: "center center",
           });
 
-          gsap.set(imageGlow, {
+          gsap.set(glow, {
+            opacity: 0,
+            scale: 0.65,
             xPercent: -50,
             yPercent: -50,
+          });
+
+          gsap.set(name, {
             opacity: 0,
-            scale: 0.8,
+            y: 36,
+            clipPath: "inset(0% 0% 100% 0%)",
           });
 
-          gsap.set(imageVignette, {
-            opacity: 0.35,
-          });
-
-          gsap.set(nameRef.current, {
-            y: 100,
+          gsap.set([badge, description, actions], {
             opacity: 0,
-            clipPath: "inset(100% 0% 0% 0%)",
+            y: 24,
           });
 
-          gsap.set(badgeRef.current, {
-            y: 40,
+          gsap.set(stars, {
             opacity: 0,
+            transformOrigin: "left center",
           });
 
-          gsap.set(descriptionRef.current, {
-            y: 40,
-            opacity: 0,
-          });
-
-          gsap.set(actionsRef.current, {
-            y: 35,
-            opacity: 0,
-          });
-
-          /*
-           * --------------------------------------------------
-           * HERO ENTRANCE
-           * --------------------------------------------------
-           */
+          // APPARITION CINÉMATIQUE DU LOUP
 
           const entrance = gsap.timeline({
             defaults: {
-              ease: "power2.out",
+              ease: "power3.out",
             },
           });
 
           entrance
             .to(
-              image,
+              wolf,
               {
+                opacity: 1,
                 scale: 1,
-                duration: 3.2,
+                clipPath: "circle(85% at 50% 45%)",
+                duration: 2.1,
                 ease: "power2.inOut",
               },
               0
             )
             .to(
-              imageGlow,
+              glow,
               {
-                opacity: 0.5,
+                opacity: 0.42,
                 scale: 1,
-                duration: 2.4,
+                duration: 2,
                 ease: "power2.out",
               },
-              0.6
+              0.35
             )
             .to(
-              imageVignette,
+              name,
               {
-                opacity: 0.65,
-                duration: 2.2,
-                ease: "power2.out",
-              },
-              0.4
-            )
-            .to(
-              nameRef.current,
-              {
-                y: 0,
                 opacity: 1,
+                y: 0,
                 clipPath: "inset(0% 0% 0% 0%)",
-                duration: 1.8,
-                ease: "power3.out",
-              },
-              0.45
-            )
-            .to(
-              badgeRef.current,
-              {
-                y: 0,
-                opacity: 1,
                 duration: 1.15,
-                ease: "power2.out",
               },
-              1.05
+              0.55
             )
             .to(
-              descriptionRef.current,
+              badge,
               {
-                y: 0,
                 opacity: 1,
-                duration: 1.2,
-                ease: "power2.out",
+                y: 0,
+                duration: 0.8,
               },
-              1.25
+              0.95
             )
             .to(
-              actionsRef.current,
+              description,
               {
-                y: 0,
                 opacity: 1,
-                duration: 1.15,
-                ease: "power2.out",
+                y: 0,
+                duration: 0.9,
               },
-              1.5
+              1.1
+            )
+            .to(
+              actions,
+              {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+              },
+              1.3
             );
 
-          /*
-           * --------------------------------------------------
-           * CINEMATIC IMAGE BREATHING
-           * --------------------------------------------------
-           */
+          // RESPIRATION DISCRÈTE
 
-          const breathing = gsap.to(image, {
-            scale: 1.035,
-            duration: 7,
-            ease: "sine.inOut",
+          const breathing = gsap.to(wolf, {
+            scale: 1.018,
+            duration: 6,
             repeat: -1,
             yoyo: true,
+            ease: "sine.inOut",
+            delay: 2.2,
           });
 
-          /*
-           * --------------------------------------------------
-           * DESKTOP PARALLAX
-           * --------------------------------------------------
-           */
+          // ÉTOILES FILANTES ROUGES
 
-          if (desktop) {
-            gsap.to(image, {
-              yPercent: 7,
-              ease: "none",
-              scrollTrigger: {
-                trigger: hero,
-                start: "top top",
-                end: "bottom top",
-                scrub: 2.2,
-              },
+          const starAnimations: gsap.core.Timeline[] = [];
+
+          stars.forEach((star, index) => {
+            const starAnimation = gsap.timeline({
+              repeat: -1,
+              repeatDelay: 3.5 + index * 1.1,
+              delay: 1.8 + index * 1.4,
             });
 
-            gsap.to(contentRef.current, {
-              yPercent: -3,
-              ease: "none",
-              scrollTrigger: {
-                trigger: hero,
-                start: "top top",
-                end: "bottom top",
-                scrub: 2.4,
-              },
-            });
-
-            /*
-             * ------------------------------------------------
-             * DYNAMIC CINEMATIC SPOTLIGHT
-             * ------------------------------------------------
-             */
-
-            const handleMouseMove = (event: MouseEvent) => {
-              const rect = hero.getBoundingClientRect();
-
-              const x = event.clientX - rect.left;
-
-              const y = event.clientY - rect.top;
-
-              const normalizedX = x / rect.width;
-
-              const normalizedY = y / rect.height;
-
-              gsap.to(imageGlow, {
-                x,
-                y,
-                opacity: 0.7,
-                scale: 1,
-                duration: 0.8,
-                ease: "power3.out",
-                overwrite: true,
+            starAnimation
+              .set(star, {
+                x: -35,
+                y: -18,
+                opacity: 0,
+                scaleX: 0.45,
+              })
+              .to(star, {
+                opacity: 0.9,
+                scaleX: 1,
+                duration: 0.2,
+                ease: "power1.out",
+              })
+              .to(star, {
+                x: 125,
+                y: 72,
+                opacity: 0,
+                scaleX: 0.55,
+                duration: 1.15,
+                ease: "power2.out",
               });
 
-              /*
-               * Subtle image movement
-               */
+            starAnimations.push(starAnimation);
+          });
 
-              gsap.to(image, {
-                x: (normalizedX - 0.5) * -10,
-                y: (normalizedY - 0.5) * -7,
-                duration: 1.2,
-                ease: "power3.out",
+          // PARALLAXE DESKTOP
+
+          let handleMouseMove: ((event: MouseEvent) => void) | undefined;
+          let handleMouseLeave: (() => void) | undefined;
+
+          if (desktop) {
+            gsap.to(wolf, {
+              yPercent: 3,
+              ease: "none",
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                scrub: 2,
+              },
+            });
+
+            gsap.to(content, {
+              yPercent: -2,
+              ease: "none",
+              scrollTrigger: {
+                trigger: hero,
+                start: "top top",
+                end: "bottom top",
+                scrub: 2.5,
+              },
+            });
+
+            handleMouseMove = (event: MouseEvent) => {
+              const rect = hero.getBoundingClientRect();
+              const x = event.clientX - rect.left;
+              const y = event.clientY - rect.top;
+
+              gsap.to(glow, {
+                x,
+                y,
+                opacity: 0.48,
+                duration: 0.7,
+                ease: "power2.out",
+                overwrite: "auto",
+              });
+
+              gsap.to(wolf, {
+                x: (x / rect.width - 0.5) * -6,
+                duration: 1,
+                ease: "power2.out",
                 overwrite: "auto",
               });
             };
 
-            const handleMouseLeave = () => {
-              gsap.to(imageGlow, {
+            handleMouseLeave = () => {
+              gsap.to(glow, {
                 opacity: 0,
-                scale: 0.75,
-                duration: 0.8,
-                ease: "power3.out",
-                overwrite: true,
+                duration: 0.6,
+                ease: "power2.out",
+                overwrite: "auto",
               });
 
-              gsap.to(image, {
+              gsap.to(wolf, {
                 x: 0,
-                y: 0,
-                duration: 1.2,
-                ease: "power3.out",
+                duration: 0.9,
+                ease: "power2.out",
                 overwrite: "auto",
               });
             };
@@ -346,53 +323,34 @@ export function Hero({
             });
 
             hero.addEventListener("mouseleave", handleMouseLeave);
-
-            return () => {
-              hero.removeEventListener("mousemove", handleMouseMove);
-
-              hero.removeEventListener("mouseleave", handleMouseLeave);
-
-              entrance.kill();
-
-              breathing.kill();
-
-              gsap.killTweensOf([
-                image,
-                imageGlow,
-                imageVignette,
-                contentRef.current,
-              ]);
-            };
           }
 
           return () => {
             entrance.kill();
-
             breathing.kill();
 
-            gsap.killTweensOf([
-              image,
-              imageGlow,
-              imageVignette,
-              contentRef.current,
-            ]);
+            starAnimations.forEach((animation) => animation.kill());
+
+            if (handleMouseMove) {
+              hero.removeEventListener("mousemove", handleMouseMove);
+            }
+
+            if (handleMouseLeave) {
+              hero.removeEventListener("mouseleave", handleMouseLeave);
+            }
+
+            gsap.killTweensOf([wolf, glow, content]);
           };
         }
       );
 
-      return () => {
-        mm.revert();
-      };
+      return () => mm.revert();
     },
-    {
-      scope: heroRef,
-    }
+    { scope: heroRef }
   );
 
   const displayName = ownerName?.trim() || siteName;
-
-  const displayTagline =
-    siteTagline?.trim() || "Web & Brand Designer";
+  const displayTagline = siteTagline?.trim() || "Web & Brand Designer";
 
   const displayDescription =
     siteDescription?.trim() ||
@@ -404,8 +362,8 @@ export function Hero({
       id="home"
       aria-labelledby="hero-title"
       className="
-        relative
-        min-h-[calc(100vh+96px)]
+        relative isolate
+        min-h-[100svh]
         overflow-hidden
         bg-[var(--portfolio-background)]
         text-[var(--portfolio-text-primary)]
@@ -413,170 +371,149 @@ export function Hero({
         duration-[var(--portfolio-motion-normal)]
       "
     >
-      {/* =====================================================
-          HERO IMAGE
-      ===================================================== */}
+      {/* BACKGROUND */}
 
       <div
         aria-hidden="true"
-        className="
-          absolute
-          inset-0
-          z-0
-          overflow-hidden
-          bg-[#0a0a0a]
-        "
+        className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        <Image
-          ref={imageRef}
-          src="/images/hero/hero.jpg"
-          alt=""
-          fill
-          priority
-          sizes="100vw"
-          className="
-            object-cover
-            object-center
-            opacity-100
-            will-change-transform
-          "
-        />
-
-        {/* -------------------------------------------------
-            CINEMATIC SPOTLIGHT
-        ------------------------------------------------- */}
+        {/* ILLUSTRATION DU LOUP */}
 
         <div
-          ref={imageGlowRef}
+          ref={wolfRef}
           className="
-            pointer-events-none
             absolute
-            left-0
-            top-0
-            h-[420px]
-            w-[420px]
+            left-1/2
+            top-[20%]
+            w-[min(72vw,380px)]
+            aspect-[473.25/573.72]
+            -translate-x-1/2
+            -translate-y-1/2
+            bg-[var(--portfolio-text-primary)]
+            opacity-0
+            will-change-[transform,opacity,clip-path]
+          "
+          style={{
+            WebkitMaskImage: "url('/images/hero/wolf.svg')",
+            maskImage: "url('/images/hero/wolf.svg')",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+          }}
+        />
+
+        {/* HALO LUMINEUX */}
+
+        <div
+          ref={glowRef}
+          className="
+            absolute
+            left-1/2
+            top-[34%]
+            h-[min(75vw,440px)]
+            w-[min(75vw,440px)]
             -translate-x-1/2
             -translate-y-1/2
             rounded-full
-            bg-[radial-gradient(circle,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0.055)_28%,transparent_68%)]
-            mix-blend-screen
-            blur-[45px]
             opacity-0
+            blur-[75px]
             will-change-transform
           "
+          style={{
+            background:
+              "radial-gradient(circle, color-mix(in srgb, var(--portfolio-text-primary) 12%, transparent) 0%, transparent 70%)",
+          }}
         />
 
-        {/* -------------------------------------------------
-            IMAGE ATMOSPHERE
-        ------------------------------------------------- */}
+        {/* GRILLE TECHNIQUE */}
 
         <div
           className="
-            pointer-events-none
-            absolute
-            inset-0
-            bg-black/25
-          "
-        />
-
-        <div
-          className="
-            pointer-events-none
-            absolute
-            inset-0
-            bg-[radial-gradient(circle_at_center,transparent_15%,rgba(0,0,0,0.58)_100%)]
-          "
-        />
-
-        {/* -------------------------------------------------
-            CINEMATIC VIGNETTE
-        ------------------------------------------------- */}
-
-        <div
-          ref={imageVignetteRef}
-          className="
-            pointer-events-none
-            absolute
-            inset-0
-            bg-[radial-gradient(ellipse_at_center,transparent_35%,rgba(0,0,0,0.55)_100%)]
-            mix-blend-multiply
-          "
-        />
-
-        {/* -------------------------------------------------
-            BOTTOM CONTENT GRADIENT
-        ------------------------------------------------- */}
-
-        <div
-          className="
-            absolute
-            inset-x-0
-            bottom-0
-            h-[65%]
-            bg-gradient-to-t
-            from-black
-            via-black/65
-            to-transparent
-            opacity-[0.92]
-          "
-        />
-
-        {/* -------------------------------------------------
-            TOP ATMOSPHERIC FADE
-        ------------------------------------------------- */}
-
-        <div
-          className="
-            absolute
-            inset-x-0
-            top-0
-            h-[220px]
-            bg-gradient-to-b
-            from-black/55
-            to-transparent
-          "
-        />
-
-        {/* -------------------------------------------------
-            TECHNICAL GRID
-        ------------------------------------------------- */}
-
-        <div
-          className="
-            absolute
-            inset-0
-            text-white/[0.035]
+            absolute inset-0
+            text-[var(--portfolio-text-primary)]
           "
           style={{
             backgroundImage: `
               linear-gradient(currentColor 1px, transparent 1px),
               linear-gradient(90deg, currentColor 1px, transparent 1px)
             `,
-            backgroundSize: "72px 72px",
+            backgroundSize: "64px 64px",
+            opacity: 0.045,
             maskImage:
-              "linear-gradient(to bottom, transparent 0%, black 20%, black 72%, transparent 100%)",
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 75%, transparent 100%)",
             WebkitMaskImage:
-              "linear-gradient(to bottom, transparent 0%, black 20%, black 72%, transparent 100%)",
-            animation: "heroGridMove 28s linear infinite",
+              "linear-gradient(to bottom, transparent 0%, black 18%, black 75%, transparent 100%)",
           }}
         />
 
-        {/* -------------------------------------------------
-            RED ATMOSPHERIC GLOW
-        ------------------------------------------------- */}
+        {/* ÉTOILES FILANTES ROUGES */}
+
+        <div
+          className="hero-shooting-star absolute left-[8%] top-[26%] h-px w-20"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--portfolio-accent))",
+            boxShadow: "0 0 8px var(--portfolio-accent)",
+            transform: "rotate(30deg)",
+          }}
+        />
+
+        <div
+          className="hero-shooting-star absolute left-[66%] top-[19%] h-px w-24"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--portfolio-accent))",
+            boxShadow: "0 0 8px var(--portfolio-accent)",
+            transform: "rotate(30deg)",
+          }}
+        />
+
+        <div
+          className="hero-shooting-star absolute left-[72%] top-[47%] h-px w-16"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--portfolio-accent))",
+            boxShadow: "0 0 8px var(--portfolio-accent)",
+            transform: "rotate(30deg)",
+          }}
+        />
+
+        <div
+          className="hero-shooting-star absolute left-[18%] top-[54%] h-px w-24"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--portfolio-accent))",
+            boxShadow: "0 0 8px var(--portfolio-accent)",
+            transform: "rotate(30deg)",
+          }}
+        />
+
+        <div
+          className="hero-shooting-star absolute left-[48%] top-[13%] h-px w-16"
+          style={{
+            background:
+              "linear-gradient(90deg, transparent, var(--portfolio-accent))",
+            boxShadow: "0 0 8px var(--portfolio-accent)",
+            transform: "rotate(30deg)",
+          }}
+        />
+
+        {/* LUEURS ROUGES SUBTILES */}
 
         <div
           className="
             absolute
-            left-[5%]
-            top-[30%]
-            h-[500px]
-            w-[500px]
+            left-[4%]
+            top-[28%]
+            h-[320px]
+            w-[320px]
             rounded-full
             bg-[radial-gradient(circle,var(--portfolio-accent)_0%,transparent_70%)]
-            opacity-[0.035]
+            opacity-[0.045]
             blur-[100px]
-            animate-[heroGlowSecondary_16s_ease-in-out_infinite]
           "
         />
 
@@ -584,228 +521,176 @@ export function Hero({
           className="
             absolute
             left-1/2
-            top-[20%]
-            h-[700px]
-            w-[700px]
+            top-[25%]
+            h-[480px]
+            w-[480px]
             -translate-x-1/2
             rounded-full
-            bg-[radial-gradient(circle,var(--portfolio-accent-soft)_0%,transparent_68%)]
-            opacity-[0.12]
-            blur-[20px]
-            animate-[heroGlow_12s_ease-in-out_infinite]
+            bg-[radial-gradient(circle,var(--portfolio-accent-soft)_0%,transparent_70%)]
+            opacity-[0.10]
+            blur-[35px]
           "
         />
       </div>
 
-      {/* =====================================================
-          HERO CONTENT
-      ===================================================== */}
+      {/* CONTENU */}
 
       <div
         ref={contentRef}
         className="
-          relative
-          z-10
-          mx-auto
-          flex
-          min-h-[calc(100vh+96px)]
-          w-full
-          max-w-none
-          flex-col
-          justify-end
-          px-4
-          pb-16
-          pt-[140px]
-          sm:px-6
-          sm:pb-20
-          lg:px-8
-          lg:pb-24
-          xl:px-10
-          xl:pb-28
+          relative z-10
+          mx-auto flex
+          min-h-[100svh]
+          w-full max-w-[1800px]
+          flex-col justify-end
+          px-5 pb-10 pt-28
+          sm:px-8 sm:pb-12
+          lg:px-12 lg:pb-14
+          xl:px-16
         "
       >
-        {/* =================================================
-            BOTTOM CONTENT GRID
-        ================================================= */}
+        {/* SIGNATURE SUPÉRIEURE */}
+
+        <div className="mb-auto flex items-center justify-between gap-4 pt-2">
+          <span className="font-body text-xs tracking-[0.18em] text-[var(--portfolio-text-muted)] uppercase">
+            Portfolio · Gonar.ui
+          </span>
+
+          <span className="flex items-center gap-2 font-body text-xs text-[var(--portfolio-text-secondary)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[var(--portfolio-accent)]" />
+            Design with intention
+          </span>
+        </div>
+
+        {/* INFORMATIONS ET NOM */}
 
         <div
           className="
-            grid
-            w-full
-            grid-cols-1
-            items-end
-            gap-8
-            lg:grid-cols-[minmax(0,1fr)_minmax(420px,520px)]
+            grid w-full grid-cols-1
+            items-end gap-7
+            lg:grid-cols-[minmax(0,1fr)_minmax(320px,440px)]
             lg:gap-12
-            xl:grid-cols-[minmax(0,1fr)_540px]
+            xl:grid-cols-[minmax(0,1fr)_460px]
             xl:gap-16
           "
         >
-          {/* =================================================
-              NAME
-          ================================================= */}
+          {/* NOM */}
 
-          <div
-            className="
-              flex
-              h-full
-              min-w-0
-              items-end
-              self-end
-            "
-          >
+          <div className="min-w-0">
+            <p className="mb-3 font-body text-xs tracking-[0.2em] text-[var(--portfolio-text-muted)] uppercase sm:text-sm">
+              Bonjour, je suis
+            </p>
+
             <h1
               ref={nameRef}
               id="hero-title"
               className="
-                w-full
-                whitespace-nowrap
+                max-w-full
+                break-words
                 font-display
-                text-[clamp(3rem,8.8vw,9.5rem)]
+                text-[clamp(2.5rem,5.5vw,5rem)]
                 font-semibold
-                leading-[0.9]
-                tracking-[-0.07em]
-                text-white
+                leading-[0.95]
+                tracking-[-0.055em]
+                text-[var(--portfolio-text-primary)]
                 will-change-[transform,opacity,clip-path]
+                lg:whitespace-nowrap
               "
             >
               {displayName}
             </h1>
+
+            <p className="mt-4 max-w-xl font-signature text-sm leading-relaxed text-[var(--portfolio-text-secondary)] sm:text-base">
+              {displayTagline}
+            </p>
           </div>
 
-          {/* =================================================
-              INFORMATION / CTA
-          ================================================= */}
+          {/* PRÉSENTATION ET ACTIONS */}
 
-          <div
-            className="
-              flex
-              w-full
-              max-w-[540px]
-              flex-col
-              items-start
-              lg:justify-self-end
-            "
-          >
-            {/* -------------------------------------------------
-                BADGE
-            ------------------------------------------------- */}
+          <div className="flex w-full flex-col items-start lg:justify-self-end">
+            {/* DISPONIBILITÉ */}
 
             <div
               ref={badgeRef}
               className="
-                mb-6
-                inline-flex
-                items-center
-                gap-2
-                rounded-full
-                border
-                border-white/15
-                bg-black/25
-                px-3.5
-                py-2
-                font-body
-                text-[13px]
-                font-medium
-                text-white
-                backdrop-blur-md
+                mb-5 inline-flex max-w-full
+                flex-wrap items-center gap-2
+                rounded-full border
+                border-[var(--portfolio-border)]
+                bg-[var(--portfolio-background)]
+                px-3 py-2
+                font-body text-xs
+                text-[var(--portfolio-text-secondary)]
+                sm:text-[13px]
                 will-change-[transform,opacity]
               "
             >
               <span
                 aria-hidden="true"
                 className="
-                  h-2
-                  w-2
-                  animate-[pulse_1.8s_ease-in-out_infinite]
-                  rounded-full
+                  h-2 w-2 shrink-0 rounded-full
                   bg-[var(--portfolio-accent)]
-                  shadow-[0_0_0_3px_rgba(227,6,19,0.15)]
+                  shadow-[0_0_0_3px_rgba(227,6,19,0.12)]
                 "
               />
 
-              <span>{displayTagline}</span>
-
-              <span
-                aria-hidden="true"
-                className="text-white/35"
-              >
-                ·
-              </span>
-
-              <span className="text-white/55">
+              <span>
                 {isAvailableForProjects
-                  ? "Available for projects"
-                  : "Currently unavailable"}
+                  ? "Disponible pour vos projets"
+                  : "Actuellement indisponible"}
               </span>
             </div>
 
-            {/* -------------------------------------------------
-                DESCRIPTION
-            ------------------------------------------------- */}
+            {/* DESCRIPTION */}
 
             <p
               ref={descriptionRef}
               className="
-                max-w-[520px]
+                max-w-[440px]
                 font-body
-                text-[clamp(1rem,1.5vw,1.25rem)]
-                leading-[1.45]
+                text-base
+                leading-[1.6]
                 tracking-[-0.01em]
-                text-white/70
+                text-[var(--portfolio-text-secondary)]
+                sm:text-lg
                 will-change-[transform,opacity]
               "
             >
               {displayDescription}
             </p>
 
-            {/* -------------------------------------------------
-                CTA
-            ------------------------------------------------- */}
+            {/* BOUTONS */}
 
             <div
               ref={actionsRef}
               className="
-                mt-7
-                flex
-                flex-col
-                gap-3
-                sm:flex-row
+                mt-6 flex w-full flex-col gap-3
+                sm:w-auto sm:flex-row
                 will-change-[transform,opacity]
               "
             >
-              {/* PRIMARY */}
-
               <a
                 href="#projects"
                 data-cursor="magnetic"
                 className="
-                  group
-                  inline-flex
-                  h-12
-                  items-center
-                  justify-center
-                  gap-2
+                  group inline-flex h-12
+                  items-center justify-center gap-2
                   rounded-full
-                  bg-white
+                  bg-[var(--portfolio-text-primary)]
                   px-6
-                  font-body
-                  text-sm
-                  font-medium
-                  text-black
-                  shadow-[0_8px_30px_rgba(0,0,0,0.18)]
-                  transition-all
+                  font-body text-sm font-medium
+                  text-[var(--portfolio-background)]
+                  transition-transform
                   duration-[var(--portfolio-motion-fast)]
-                  hover:-translate-y-[1px]
+                  hover:-translate-y-0.5
                   hover:scale-[1.02]
-                  hover:shadow-[0_14px_35px_rgba(0,0,0,0.25)]
                 "
               >
                 Voir mes projets
 
                 <HugeiconsIcon
                   icon={ArrowUpRight01Icon}
-                  size={14}
+                  size={16}
                   strokeWidth={1.8}
                   color="var(--portfolio-accent)"
                   aria-hidden="true"
@@ -818,37 +703,53 @@ export function Hero({
                 />
               </a>
 
-              {/* SECONDARY */}
-
               <a
                 href="#about"
                 data-cursor="magnetic"
                 className="
-                  inline-flex
-                  h-12
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-white/20
-                  bg-white/[0.06]
+                  inline-flex h-12
+                  items-center justify-center
+                  rounded-full border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-background)]
                   px-6
-                  font-body
-                  text-sm
-                  font-medium
-                  text-white
-                  backdrop-blur-md
-                  transition-all
+                  font-body text-sm font-medium
+                  text-[var(--portfolio-text-primary)]
+                  transition-transform
                   duration-[var(--portfolio-motion-fast)]
-                  hover:-translate-y-[1px]
-                  hover:border-white/35
-                  hover:bg-white/[0.1]
+                  hover:-translate-y-0.5
                 "
               >
                 À propos de moi
               </a>
             </div>
           </div>
+        </div>
+
+        {/* PIED DU HERO */}
+
+        <div
+          className="
+            mt-10 flex items-center justify-between gap-4
+            border-t border-[var(--portfolio-border)]
+            pt-4
+          "
+        >
+          <span className="font-body text-[10px] tracking-[0.12em] text-[var(--portfolio-text-muted)] uppercase sm:text-xs">
+            UX/UI · Brand identity · Digital
+          </span>
+
+          <a
+            href="#projects"
+            className="
+              font-body text-xs
+              text-[var(--portfolio-text-secondary)]
+              transition-colors
+              hover:text-[var(--portfolio-accent)]
+            "
+          >
+            Explorer ↓
+          </a>
         </div>
       </div>
     </section>

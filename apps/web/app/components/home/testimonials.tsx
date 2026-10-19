@@ -646,63 +646,49 @@ export function TestimonialsSection({
               >
                 {/* AVATAR */}
 
-                <div
-                  className="
-                    flex
-                    min-w-0
-                    items-center
-                    gap-3
-                  "
-                >
-                  <div
-                    className="
-                      flex
-                      h-10
-                      w-10
-                      shrink-0
-                      items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-black/[0.07]
-                      bg-white
-                      font-display
-                      text-[12px]
-                      font-semibold
-                      text-[var(--portfolio-text-primary)]
-                      dark:border-white/[0.08]
-                      dark:bg-white/[0.06]
-                    "
-                  >
-                    {testimonial.name.charAt(0).toUpperCase()}
-                  </div>
-
-                  <div className="min-w-0">
-                    <div
-                      className="
-                        truncate
-                        font-display
-                        text-[13px]
-                        font-semibold
-                        text-[var(--portfolio-text-primary)]
-                      "
-                    >
-                      {testimonial.name}
-                    </div>
-
-                    <div
-                      className="
-                        mt-1
-                        truncate
-                        font-body
-                        text-[12px]
-                        text-[var(--portfolio-text-secondary)]
-                      "
-                    >
-                      {testimonial.role ?? "Client"}
-                    </div>
-                  </div>
-                </div>
+               <div
+  className="
+    flex
+    h-12
+    w-12
+    shrink-0
+    items-center
+    justify-center
+    overflow-hidden
+    rounded-[14px]
+    border
+    border-black/[0.07]
+    bg-white
+    dark:border-white/[0.08]
+    dark:bg-white/[0.06]
+  "
+>
+  {testimonial.avatar ? (
+    <img
+      src={testimonial.avatar}
+      alt={`Photo de ${testimonial.name}`}
+      className="
+        h-full
+        w-full
+        object-cover
+      "
+      loading="lazy"
+      decoding="async"
+    />
+  ) : (
+    <span
+      className="
+        font-display
+        text-[13px]
+        font-semibold
+        text-[var(--portfolio-text-primary)]
+      "
+      aria-hidden="true"
+    >
+      {testimonial.name.charAt(0).toUpperCase()}
+    </span>
+  )}
+</div>
 
                 {/* COMPANY */}
 

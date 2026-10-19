@@ -1,14 +1,15 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
-  ArrowRight01Icon,
   ArrowUpRight01Icon,
   Mail01Icon,
   SparklesIcon,
 } from "@hugeicons/core-free-icons";
+
+import { createContactMessage } from "../../(public)/contact/actions";
 
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,16 +17,96 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function ContactSection() {
+type ContactFormData = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type ContactSettings = {
+  contactEmail: string | null;
+  contactPhone: string | null;
+  whatsappUrl: string | null;
+  location: string | null;
+  isAvailableForProjects: boolean;
+  linkedinUrl: string | null;
+  behanceUrl: string | null;
+  dribbbleUrl: string | null;
+  githubUrl: string | null;
+  instagramUrl: string | null;
+};
+
+export function ContactSection({
+  settings,
+}: {
+  settings: ContactSettings;
+}) {
   const sectionRef = useRef<HTMLElement>(null);
+
+  const [formData, setFormData] = useState<ContactFormData>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+
+  function handleChange(
+    event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) {
+    const { name, value } = event.target;
+
+    setFormData((previous) => ({
+      ...previous,
+      [name]: value,
+    }));
+
+    setSuccessMessage("");
+    setErrorMessage("");
+  }
+
+  async function handleSubmit(
+    event: React.FormEvent<HTMLFormElement>
+  ) {
+    event.preventDefault();
+
+    setSuccessMessage("");
+    setErrorMessage("");
+    setIsSubmitting(true);
+
+    try {
+      const result = await createContactMessage(formData);
+
+      if (result.success) {
+        setSuccessMessage(result.message);
+
+        setFormData({
+          name: "",
+          email: "",
+          subject: "",
+          message: "",
+        });
+      } else {
+        setErrorMessage(result.error);
+      }
+    } catch {
+      setErrorMessage(
+        "Une erreur inattendue est survenue. Veuillez réessayer ou me contacter directement par email."
+      );
+    } finally {
+      setIsSubmitting(false);
+    }
+  }
 
   useGSAP(
     () => {
-      if (!sectionRef.current) {
-        return;
-      }
-
       const section = sectionRef.current;
+
+      if (!section) return;
 
       if (
         window.matchMedia("(prefers-reduced-motion: reduce)").matches
@@ -48,6 +129,10 @@ export function ContactSection() {
           "[data-contact-availability-content]"
         );
 
+        const contactForm = section.querySelector(
+          "[data-contact-form]"
+        );
+
         const contactLinks = section.querySelector(
           "[data-contact-links]"
         );
@@ -61,9 +146,6 @@ export function ContactSection() {
         const footerMessage = section.querySelector(
           "[data-contact-footer-message]"
         );
-        const backToTop = section.querySelector(
-          "[data-contact-back-top]"
-        );
 
         /*
          * =====================================================
@@ -71,89 +153,68 @@ export function ContactSection() {
          * =====================================================
          */
 
-        if (badge) {
-          gsap.set(badge, {
+        gsap.set(
+          [
+            badge,
+            description,
+            cta,
+            availabilityContent,
+            contactForm,
+            footerLine,
+            footerMessage,
+          ].filter(Boolean),
+          {
             opacity: 0,
-            y: 25,
-          });
-        }
+          }
+        );
 
-        if (title) {
-          gsap.set(title, {
-            opacity: 0,
-            y: 45,
-          });
-        }
+        gsap.set(
+          [badge, description, availabilityContent, footerLine].filter(
+            Boolean
+          ),
+          {
+            y: 24,
+          }
+        );
 
-        if (description) {
-          gsap.set(description, {
-            opacity: 0,
-            y: 25,
-          });
-        }
+        gsap.set(title, {
+          opacity: 0,
+          y: 45,
+        });
 
-        if (cta) {
-          gsap.set(cta, {
-            opacity: 0,
-            y: 25,
-            scale: 0.97,
-          });
-        }
+        gsap.set(cta, {
+          y: 24,
+          scale: 0.97,
+        });
 
-        if (availabilityCard) {
-          gsap.set(availabilityCard, {
-            opacity: 0,
-            x: 35,
-            y: 20,
-          });
-        }
+        gsap.set(availabilityCard, {
+          opacity: 0,
+          x: 35,
+          y: 20,
+        });
 
-        if (availabilityContent) {
-          gsap.set(availabilityContent, {
-            opacity: 0,
-            y: 18,
-          });
-        }
+        gsap.set(contactForm, {
+          y: 20,
+        });
 
-        if (contactLinks) {
-          gsap.set(contactLinks, {
-            opacity: 0,
-            x: 35,
-            y: 20,
-          });
-        }
+        gsap.set(contactLinks, {
+          opacity: 0,
+          x: 35,
+          y: 20,
+        });
 
-        if (contactItems.length > 0) {
-          gsap.set(contactItems, {
-            opacity: 0,
-            x: 25,
-          });
-        }
+        gsap.set(contactItems, {
+          opacity: 0,
+          x: 25,
+        });
 
-        if (footerLine) {
-          gsap.set(footerLine, {
-            opacity: 0,
-            y: 20,
-          });
-        }
-
-        if (footerMessage) {
-          gsap.set(footerMessage, {
-            opacity: 0,
-            x: -20,
-          });
-        }
-
-        if (backToTop) {
-          gsap.set(backToTop, {
-            opacity: 0,
-            x: 20,
-          });
-        }
+        gsap.set(footerMessage, {
+          x: -20,
+        });
 
         /*
          * =====================================================
-         * LEFT SIDE — INTRO
+         * INTRO
          * =====================================================
          */
 
@@ -162,7 +223,6 @@ export function ContactSection() {
             scrollTrigger: {
               trigger: section,
               start: "top 78%",
-              end: "bottom 20%",
               toggleActions: "play reverse play reverse",
             },
           });
@@ -209,7 +269,7 @@ export function ContactSection() {
 
         /*
          * =====================================================
-         * RIGHT SIDE — AVAILABILITY
+         * AVAILABILITY
          * =====================================================
          */
 
@@ -218,7 +278,6 @@ export function ContactSection() {
             scrollTrigger: {
               trigger: availabilityCard,
               start: "top 82%",
-              end: "bottom 20%",
               toggleActions: "play reverse play reverse",
             },
           });
@@ -245,16 +304,35 @@ export function ContactSection() {
 
         /*
          * =====================================================
-         * RIGHT SIDE — CONTACT LINKS
+         * CONTACT FORM
          * =====================================================
          */
 
-        if (contactLinks && contactItems.length > 0) {
+        if (contactForm) {
+          gsap.to(contactForm, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+            scrollTrigger: {
+              trigger: contactForm,
+              start: "top 88%",
+              toggleActions: "play reverse play reverse",
+            },
+          });
+        }
+
+        /*
+         * =====================================================
+         * CONTACT LINKS
+         * =====================================================
+         */
+
+        if (contactLinks && contactItems.length) {
           const linksTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: contactLinks,
               start: "top 86%",
-              end: "bottom 20%",
               toggleActions: "play reverse play reverse",
             },
           });
@@ -282,16 +360,15 @@ export function ContactSection() {
 
         /*
          * =====================================================
-         * FOOTER LINE
+         * FOOTER
          * =====================================================
          */
 
-        if (footerLine && footerMessage && backToTop) {
+        if (footerLine && footerMessage) {
           const footerTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: footerLine,
               start: "top 90%",
-              end: "bottom 20%",
               toggleActions: "play reverse play reverse",
             },
           });
@@ -312,16 +389,6 @@ export function ContactSection() {
                 ease: "power3.out",
               },
               "-=0.3"
-            )
-            .to(
-              backToTop,
-              {
-                opacity: 1,
-                x: 0,
-                duration: 0.5,
-                ease: "power3.out",
-              },
-              "-=0.35"
             );
         }
 
@@ -339,10 +406,44 @@ export function ContactSection() {
     }
   );
 
+  const fieldClassName = `
+    w-full
+    rounded-[var(--portfolio-radius-md)]
+    border
+    border-[var(--portfolio-border)]
+    bg-[var(--portfolio-background)]
+    px-4
+    py-3.5
+    font-body
+    text-sm
+    text-[var(--portfolio-text-primary)]
+    outline-none
+    transition-colors
+    duration-[var(--portfolio-motion-fast)]
+    placeholder:text-[var(--portfolio-text-muted)]
+    focus:border-[var(--portfolio-text-primary)]
+    focus-visible:ring-2
+    focus-visible:ring-[var(--portfolio-accent)]
+    focus-visible:ring-offset-2
+  `;
+
+  const labelClassName = `
+    mb-2
+    block
+    font-display
+    text-[12px]
+    font-medium
+    tracking-[-0.01em]
+    text-[var(--portfolio-text-primary)]
+  `;
+
+  const isAvailable = settings.isAvailableForProjects;
+
   return (
     <section
       ref={sectionRef}
       id="contact"
+      aria-labelledby="contact-title"
       className="
         relative
         overflow-hidden
@@ -366,9 +467,13 @@ export function ContactSection() {
             lg:gap-20
           "
         >
-          {/* LEFT */}
+          {/* =================================================
+              LEFT — INTRO
+          ================================================= */}
+
           <div>
             {/* BADGE */}
+
             <div
               data-contact-badge
               className="
@@ -402,34 +507,49 @@ export function ContactSection() {
                   items-center
                   justify-center
                 "
+                aria-hidden="true"
               >
                 <span
-                  className="
+                  className={`
                     contact-pulse
                     absolute
                     h-[7px]
                     w-[7px]
                     rounded-full
-                    bg-[var(--portfolio-accent)]
-                  "
+                    ${
+                      isAvailable
+                        ? "bg-[var(--portfolio-accent-green)]"
+                        : "bg-[var(--portfolio-text-muted)]"
+                    }
+                  `}
                 />
 
                 <span
-                  className="
+                  className={`
                     relative
                     h-[5px]
                     w-[5px]
                     rounded-full
-                    bg-[var(--portfolio-accent)]
-                  "
+                    ${
+                      isAvailable
+                        ? "bg-[var(--portfolio-accent-green)]"
+                        : "bg-[var(--portfolio-text-muted)]"
+                    }
+                  `}
                 />
               </span>
 
-              <span>Let's work together</span>
+              <span>
+                {isAvailable
+                  ? "Disponible pour de nouveaux projets"
+                  : "Actuellement indisponible"}
+              </span>
             </div>
 
             {/* TITLE */}
+
             <h2
+              id="contact-title"
               data-contact-title
               className="
                 mt-7
@@ -442,7 +562,7 @@ export function ContactSection() {
               "
             >
               <span className="text-[var(--portfolio-text-primary)]">
-                Have a project
+                Un projet en
               </span>
 
               <br />
@@ -453,11 +573,12 @@ export function ContactSection() {
                   text-[var(--portfolio-text-muted)]
                 "
               >
-                in mind?
+                tête ?
               </span>
             </h2>
 
             {/* DESCRIPTION */}
+
             <p
               data-contact-description
               className="
@@ -471,72 +592,80 @@ export function ContactSection() {
               "
             >
               Vous avez une idée, un projet ou simplement
-              l'envie d'échanger ? Parlons-en et voyons
+              l&apos;envie d&apos;échanger ? Parlons-en et voyons
               comment transformer votre vision en une
               expérience digitale claire, élégante et
               mémorable.
             </p>
 
             {/* CTA */}
+
             <div className="mt-8">
-              <a
-                data-contact-cta
-                data-cursor="magnetic"
-                href="mailto:hello@franck.ui"
-                className="
-                  group
-                  inline-flex
-                  h-12
-                  items-center
-                  gap-2.5
-                  rounded-full
-                  bg-[var(--portfolio-text-primary)]
-                  px-6
-                  font-display
-                  text-[13px]
-                  font-medium
-                  tracking-[-0.01em]
-                  text-[var(--portfolio-background)]
-                  transition-all
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:-translate-y-[1px]
-                  hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)]
-                  dark:hover:shadow-[0_12px_30px_rgba(0,0,0,0.25)]
-                "
-              >
-                <HugeiconsIcon
-                  icon={Mail01Icon}
-                  size={16}
-                  strokeWidth={1.7}
-                />
-
-                <span>Parlons de votre projet</span>
-
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={15}
-                  strokeWidth={1.7}
+              {settings.contactEmail && (
+                <a
+                  data-contact-cta
+                  data-cursor="magnetic"
+                  href={`mailto:${settings.contactEmail}`}
+                  aria-label={`Envoyer un email à ${settings.contactEmail}`}
                   className="
-                    text-[var(--portfolio-accent)]
-                    transition-transform
+                    group
+                    inline-flex
+                    h-12
+                    items-center
+                    gap-2.5
+                    rounded-full
+                    bg-[var(--portfolio-text-primary)]
+                    px-6
+                    font-display
+                    text-[13px]
+                    font-medium
+                    tracking-[-0.01em]
+                    text-[var(--portfolio-background)]
+                    transition-all
                     duration-[var(--portfolio-motion-fast)]
-                    group-hover:-translate-y-[1px]
-                    group-hover:translate-x-[1px]
+                    hover:-translate-y-[1px]
+                    hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)]
+                    focus-visible:outline-none
+                    focus-visible:ring-2
+                    focus-visible:ring-[var(--portfolio-accent)]
+                    focus-visible:ring-offset-2
+                    dark:hover:shadow-[0_12px_30px_rgba(0,0,0,0.25)]
                   "
-                />
-              </a>
+                >
+                  <HugeiconsIcon
+                    icon={Mail01Icon}
+                    size={16}
+                    strokeWidth={1.7}
+                    aria-hidden="true"
+                  />
+
+                  <span>Parlons de votre projet</span>
+
+                  <HugeiconsIcon
+                    icon={ArrowUpRight01Icon}
+                    size={15}
+                    strokeWidth={1.7}
+                    aria-hidden="true"
+                    className="
+                      text-[var(--portfolio-accent)]
+                      transition-transform
+                      duration-[var(--portfolio-motion-fast)]
+                      group-hover:-translate-y-[1px]
+                      group-hover:translate-x-[1px]
+                    "
+                  />
+                </a>
+              )}
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div
-            className="
-              flex
-              flex-col
-              justify-end
-            "
-          >
-            {/* AVAILABILITY CARD */}
+          {/* =================================================
+              RIGHT — CONTACT FORM AND INFORMATION
+          ================================================= */}
+
+          <div className="flex flex-col justify-end">
+            {/* AVAILABILITY */}
+
             <div
               data-contact-availability
               className="
@@ -554,12 +683,7 @@ export function ContactSection() {
             >
               <div
                 data-contact-availability-content
-                className="
-                  flex
-                  items-center
-                  justify-between
-                  gap-4
-                "
+                className="flex items-center justify-between gap-4"
               >
                 <div
                   className="
@@ -573,44 +697,46 @@ export function ContactSection() {
                     text-[var(--portfolio-text-primary)]
                   "
                 >
-                  {/* STATUS */}
-                  <span
-                    className="
-                      relative
-                      flex
-                      h-2
-                      w-2
-                    "
-                  >
+                  <span className="relative flex h-2 w-2" aria-hidden="true">
                     <span
-                      className="
+                      className={`
                         absolute
                         inset-0
-                        animate-ping
                         rounded-full
-                        bg-[var(--portfolio-accent-green)]
                         opacity-30
-                      "
+                        ${
+                          isAvailable
+                            ? "animate-ping bg-[var(--portfolio-accent-green)]"
+                            : "bg-[var(--portfolio-text-muted)]"
+                        }
+                      `}
                     />
 
                     <span
-                      className="
+                      className={`
                         relative
                         h-2
                         w-2
                         rounded-full
-                        bg-[var(--portfolio-accent-green)]
-                      "
+                        ${
+                          isAvailable
+                            ? "bg-[var(--portfolio-accent-green)]"
+                            : "bg-[var(--portfolio-text-muted)]"
+                        }
+                      `}
                     />
                   </span>
 
-                  Available for new projects
+                  {isAvailable
+                    ? "Disponible pour de nouveaux projets"
+                    : "Actuellement indisponible"}
                 </div>
 
                 <HugeiconsIcon
                   icon={SparklesIcon}
                   size={18}
                   strokeWidth={1.5}
+                  aria-hidden="true"
                   className="text-[var(--portfolio-accent)]"
                 />
               </div>
@@ -625,283 +751,573 @@ export function ContactSection() {
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                Je suis actuellement disponible pour
-                accompagner de nouveaux projets et
-                collaborations.
+                {isAvailable
+                  ? "Je suis actuellement disponible pour accompagner de nouveaux projets et collaborations."
+                  : "Je ne suis actuellement pas disponible pour de nouveaux projets, mais vous pouvez tout de même me laisser un message."}
               </p>
             </div>
 
-            {/* CONTACT LINKS */}
-            <div
-              data-contact-links
+            {/* CONTACT FORM */}
+
+            <form
+              data-contact-form
+              onSubmit={handleSubmit}
+              aria-label="Formulaire de contact"
               className="
-                mt-4
-                overflow-hidden
+                mt-6
+                space-y-5
                 rounded-[var(--portfolio-radius-lg)]
                 border
                 border-[var(--portfolio-border)]
                 bg-[var(--portfolio-surface)]
-                backdrop-blur-md
+                p-5
+                sm:p-6
               "
             >
+              <div>
+                <h3
+                  className="
+                    font-display
+                    text-xl
+                    font-semibold
+                    tracking-[-0.03em]
+                  "
+                >
+                  Envoyez-moi un message
+                </h3>
+
+                <p
+                  className="
+                    mt-2
+                    font-body
+                    text-[13px]
+                    leading-relaxed
+                    text-[var(--portfolio-text-secondary)]
+                  "
+                >
+                  Présentez-moi votre projet et vos besoins.
+                </p>
+              </div>
+
+              {/* NAME */}
+
+              <div>
+                <label
+                  htmlFor="contact-name"
+                  className={labelClassName}
+                >
+                  Nom
+                </label>
+
+                <input
+                  id="contact-name"
+                  name="name"
+                  type="text"
+                  autoComplete="name"
+                  required
+                  minLength={2}
+                  maxLength={100}
+                  value={formData.name}
+                  onChange={handleChange}
+                  placeholder="Votre nom complet"
+                  className={fieldClassName}
+                />
+              </div>
+
               {/* EMAIL */}
-              <a
-                data-contact-item
-                data-cursor="magnetic"
-                href="mailto:hello@franck.ui"
+
+              <div>
+                <label
+                  htmlFor="contact-email"
+                  className={labelClassName}
+                >
+                  Email
+                </label>
+
+                <input
+                  id="contact-email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  maxLength={254}
+                  value={formData.email}
+                  onChange={handleChange}
+                  placeholder="vous@exemple.com"
+                  className={fieldClassName}
+                />
+              </div>
+
+              {/* SUBJECT */}
+
+              <div>
+                <label
+                  htmlFor="contact-subject"
+                  className={labelClassName}
+                >
+                  Sujet
+                </label>
+
+                <input
+                  id="contact-subject"
+                  name="subject"
+                  type="text"
+                  required
+                  minLength={3}
+                  maxLength={150}
+                  value={formData.subject}
+                  onChange={handleChange}
+                  placeholder="Quel est votre projet ?"
+                  className={fieldClassName}
+                />
+              </div>
+
+              {/* MESSAGE */}
+
+              <div>
+                <label
+                  htmlFor="contact-message"
+                  className={labelClassName}
+                >
+                  Message
+                </label>
+
+                <textarea
+                  id="contact-message"
+                  name="message"
+                  required
+                  minLength={10}
+                  maxLength={5000}
+                  rows={5}
+                  value={formData.message}
+                  onChange={handleChange}
+                  placeholder="Décrivez votre projet, vos objectifs et vos besoins..."
+                  className={`${fieldClassName} min-h-[140px] resize-y`}
+                />
+              </div>
+
+              {/* ERROR MESSAGE */}
+
+              {errorMessage && (
+                <p
+                  role="alert"
+                  className="
+                    rounded-[var(--portfolio-radius-md)]
+                    border
+                    border-[var(--portfolio-border)]
+                    px-4
+                    py-3
+                    text-sm
+                    leading-relaxed
+                    text-[var(--portfolio-text-secondary)]
+                  "
+                >
+                  {errorMessage}
+                </p>
+              )}
+
+              {/* SUCCESS MESSAGE */}
+
+              {successMessage && (
+                <p
+                  role="status"
+                  className="
+                    rounded-[var(--portfolio-radius-md)]
+                    border
+                    border-[var(--portfolio-border)]
+                    px-4
+                    py-3
+                    text-sm
+                    leading-relaxed
+                    text-[var(--portfolio-text-primary)]
+                  "
+                >
+                  {successMessage}
+                </p>
+              )}
+
+              {/* SUBMIT */}
+
+              <button
+                type="submit"
+                disabled={isSubmitting}
                 className="
                   group
-                  flex
+                  inline-flex
+                  min-h-12
+                  w-full
                   items-center
-                  justify-between
-                  gap-4
-                  border-b
+                  justify-center
+                  gap-3
+                  rounded-full
+                  border
                   border-[var(--portfolio-border)]
-                  p-5
-                  transition-colors
+                  px-5
+                  py-3
+                  font-display
+                  text-[13px]
+                  font-medium
+                  text-[var(--portfolio-text-primary)]
+                  transition-all
                   duration-[var(--portfolio-motion-fast)]
+                  hover:-translate-y-[1px]
                   hover:bg-black/[0.025]
+                  focus-visible:outline-none
+                  focus-visible:ring-2
+                  focus-visible:ring-[var(--portfolio-accent)]
+                  focus-visible:ring-offset-2
+                  disabled:cursor-not-allowed
+                  disabled:opacity-50
                   dark:hover:bg-white/[0.04]
                 "
               >
-                <div className="flex items-center gap-4">
-                  <div
+                <span>
+                  {isSubmitting
+                    ? "Envoi en cours..."
+                    : "Envoyer le message"}
+                </span>
+
+                <HugeiconsIcon
+                  icon={ArrowUpRight01Icon}
+                  size={16}
+                  strokeWidth={1.7}
+                  aria-hidden="true"
+                  className="
+                    text-[var(--portfolio-accent)]
+                    transition-transform
+                    duration-[var(--portfolio-motion-fast)]
+                    group-hover:-translate-y-[1px]
+                    group-hover:translate-x-[1px]
+                  "
+                />
+              </button>
+
+              <p
+                className="
+                  font-body
+                  text-[11px]
+                  leading-relaxed
+                  text-[var(--portfolio-text-muted)]
+                "
+              >
+                Vos informations sont utilisées uniquement
+                pour répondre à votre demande.
+              </p>
+            </form>
+
+            {/* CONTACT LINKS */}
+
+            {(settings.contactEmail ||
+              settings.whatsappUrl ||
+              settings.linkedinUrl) && (
+              <div
+                data-contact-links
+                className="
+                  mt-4
+                  overflow-hidden
+                  rounded-[var(--portfolio-radius-lg)]
+                  border
+                  border-[var(--portfolio-border)]
+                  bg-[var(--portfolio-surface)]
+                  backdrop-blur-md
+                "
+              >
+                {/* EMAIL */}
+
+                {settings.contactEmail && (
+                  <a
+                    data-contact-item
+                    data-cursor="magnetic"
+                    href={`mailto:${settings.contactEmail}`}
+                    aria-label={`Envoyer un email à ${settings.contactEmail}`}
                     className="
+                      group
                       flex
-                      h-10
-                      w-10
-                      shrink-0
                       items-center
-                      justify-center
-                      rounded-full
-                      border
+                      justify-between
+                      gap-4
+                      border-b
                       border-[var(--portfolio-border)]
-                      bg-[var(--portfolio-background)]
+                      p-5
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:bg-black/[0.025]
+                      focus-visible:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-inset
+                      focus-visible:ring-[var(--portfolio-accent)]
+                      dark:hover:bg-white/[0.04]
                     "
                   >
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="
+                          flex
+                          h-10
+                          w-10
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          border
+                          border-[var(--portfolio-border)]
+                          bg-[var(--portfolio-background)]
+                        "
+                        aria-hidden="true"
+                      >
+                        <HugeiconsIcon
+                          icon={Mail01Icon}
+                          size={17}
+                          strokeWidth={1.6}
+                        />
+                      </div>
+
+                      <div>
+                        <span
+                          className="
+                            block
+                            font-display
+                            text-[12px]
+                            font-medium
+                            text-[var(--portfolio-text-muted)]
+                          "
+                        >
+                          Email
+                        </span>
+
+                        <span
+                          className="
+                            mt-1
+                            block
+                            font-display
+                            text-[14px]
+                            font-medium
+                            text-[var(--portfolio-text-primary)]
+                          "
+                        >
+                          {settings.contactEmail}
+                        </span>
+                      </div>
+                    </div>
+
                     <HugeiconsIcon
-                      icon={Mail01Icon}
+                      icon={ArrowUpRight01Icon}
                       size={17}
-                      strokeWidth={1.6}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                      className="
+                        shrink-0
+                        text-[var(--portfolio-text-muted)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-1
+                        group-hover:-translate-y-1
+                        group-hover:text-[var(--portfolio-accent)]
+                      "
                     />
-                  </div>
+                  </a>
+                )}
 
-                  <div>
-                    <span
-                      className="
-                        block
-                        font-display
-                        text-[12px]
-                        font-medium
-                        text-[var(--portfolio-text-muted)]
-                      "
-                    >
-                      Email
-                    </span>
+                {/* WHATSAPP */}
 
-                    <span
-                      className="
-                        mt-1
-                        block
-                        font-display
-                        text-[14px]
-                        font-medium
-                        text-[var(--portfolio-text-primary)]
-                      "
-                    >
-                      hello@franck.ui
-                    </span>
-                  </div>
-                </div>
-
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={17}
-                  strokeWidth={1.5}
-                  className="
-                    shrink-0
-                    text-[var(--portfolio-text-muted)]
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-1
-                    group-hover:-translate-y-1
-                    group-hover:text-[var(--portfolio-accent)]
-                  "
-                />
-              </a>
-
-              {/* WHATSAPP */}
-              <a
-                data-contact-item
-                data-cursor="magnetic"
-                href="#"
-                className="
-                  group
-                  flex
-                  items-center
-                  justify-between
-                  gap-4
-                  border-b
-                  border-[var(--portfolio-border)]
-                  p-5
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:bg-black/[0.025]
-                  dark:hover:bg-white/[0.04]
-                "
-              >
-                <div className="flex items-center gap-4">
-                  <div
+                {settings.whatsappUrl && (
+                  <a
+                    data-contact-item
+                    data-cursor="magnetic"
+                    href={settings.whatsappUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Contacter Gonar.ui sur WhatsApp"
                     className="
+                      group
                       flex
-                      h-10
-                      w-10
-                      shrink-0
                       items-center
-                      justify-center
-                      rounded-full
-                      border
+                      justify-between
+                      gap-4
+                      border-b
                       border-[var(--portfolio-border)]
-                      bg-[var(--portfolio-background)]
-                      font-display
-                      text-[11px]
-                      font-semibold
+                      p-5
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:bg-black/[0.025]
+                      focus-visible:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-inset
+                      focus-visible:ring-[var(--portfolio-accent)]
+                      dark:hover:bg-white/[0.04]
                     "
                   >
-                    WA
-                  </div>
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="
+                          flex
+                          h-10
+                          w-10
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          border
+                          border-[var(--portfolio-border)]
+                          bg-[var(--portfolio-background)]
+                          font-display
+                          text-[11px]
+                          font-semibold
+                        "
+                        aria-hidden="true"
+                      >
+                        WA
+                      </div>
 
-                  <div>
-                    <span
+                      <div>
+                        <span
+                          className="
+                            block
+                            font-display
+                            text-[12px]
+                            font-medium
+                            text-[var(--portfolio-text-muted)]
+                          "
+                        >
+                          WhatsApp
+                        </span>
+
+                        <span
+                          className="
+                            mt-1
+                            block
+                            font-display
+                            text-[14px]
+                            font-medium
+                            text-[var(--portfolio-text-primary)]
+                          "
+                        >
+                          Échanger avec moi
+                        </span>
+                      </div>
+                    </div>
+
+                    <HugeiconsIcon
+                      icon={ArrowUpRight01Icon}
+                      size={17}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
                       className="
-                        block
-                        font-display
-                        text-[12px]
-                        font-medium
+                        shrink-0
                         text-[var(--portfolio-text-muted)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-1
+                        group-hover:-translate-y-1
+                        group-hover:text-[var(--portfolio-accent)]
                       "
-                    >
-                      WhatsApp
-                    </span>
+                    />
+                  </a>
+                )}
 
-                    <span
-                      className="
-                        mt-1
-                        block
-                        font-display
-                        text-[14px]
-                        font-medium
-                        text-[var(--portfolio-text-primary)]
-                      "
-                    >
-                      Let's chat
-                    </span>
-                  </div>
-                </div>
+                {/* LINKEDIN */}
 
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={17}
-                  strokeWidth={1.5}
-                  className="
-                    shrink-0
-                    text-[var(--portfolio-text-muted)]
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-1
-                    group-hover:-translate-y-1
-                    group-hover:text-[var(--portfolio-accent)]
-                  "
-                />
-              </a>
-
-              {/* LINKEDIN */}
-              <a
-                data-contact-item
-                data-cursor="magnetic"
-                href="#"
-                className="
-                  group
-                  flex
-                  items-center
-                  justify-between
-                  gap-4
-                  p-5
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:bg-black/[0.025]
-                  dark:hover:bg-white/[0.04]
-                "
-              >
-                <div className="flex items-center gap-4">
-                  <div
+                {settings.linkedinUrl && (
+                  <a
+                    data-contact-item
+                    data-cursor="magnetic"
+                    href={settings.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Voir le profil LinkedIn de Gonar.ui"
                     className="
+                      group
                       flex
-                      h-10
-                      w-10
-                      shrink-0
                       items-center
-                      justify-center
-                      rounded-full
-                      border
-                      border-[var(--portfolio-border)]
-                      bg-[var(--portfolio-background)]
-                      font-display
-                      text-[11px]
-                      font-semibold
+                      justify-between
+                      gap-4
+                      p-5
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:bg-black/[0.025]
+                      focus-visible:outline-none
+                      focus-visible:ring-2
+                      focus-visible:ring-inset
+                      focus-visible:ring-[var(--portfolio-accent)]
+                      dark:hover:bg-white/[0.04]
                     "
                   >
-                    in
-                  </div>
+                    <div className="flex items-center gap-4">
+                      <div
+                        className="
+                          flex
+                          h-10
+                          w-10
+                          shrink-0
+                          items-center
+                          justify-center
+                          rounded-full
+                          border
+                          border-[var(--portfolio-border)]
+                          bg-[var(--portfolio-background)]
+                          font-display
+                          text-[11px]
+                          font-semibold
+                        "
+                        aria-hidden="true"
+                      >
+                        in
+                      </div>
 
-                  <div>
-                    <span
+                      <div>
+                        <span
+                          className="
+                            block
+                            font-display
+                            text-[12px]
+                            font-medium
+                            text-[var(--portfolio-text-muted)]
+                          "
+                        >
+                          LinkedIn
+                        </span>
+
+                        <span
+                          className="
+                            mt-1
+                            block
+                            font-display
+                            text-[14px]
+                            font-medium
+                            text-[var(--portfolio-text-primary)]
+                          "
+                        >
+                          Me retrouver sur LinkedIn
+                        </span>
+                      </div>
+                    </div>
+
+                    <HugeiconsIcon
+                      icon={ArrowUpRight01Icon}
+                      size={17}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
                       className="
-                        block
-                        font-display
-                        text-[12px]
-                        font-medium
+                        shrink-0
                         text-[var(--portfolio-text-muted)]
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-1
+                        group-hover:-translate-y-1
+                        group-hover:text-[var(--portfolio-accent)]
                       "
-                    >
-                      LinkedIn
-                    </span>
-
-                    <span
-                      className="
-                        mt-1
-                        block
-                        font-display
-                        text-[14px]
-                        font-medium
-                        text-[var(--portfolio-text-primary)]
-                      "
-                    >
-                      Connect with me
-                    </span>
-                  </div>
-                </div>
-
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={17}
-                  strokeWidth={1.5}
-                  className="
-                    shrink-0
-                    text-[var(--portfolio-text-muted)]
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-1
-                    group-hover:-translate-y-1
-                    group-hover:text-[var(--portfolio-accent)]
-                  "
-                />
-              </a>
-            </div>
+                    />
+                  </a>
+                )}
+              </div>
+            )}
           </div>
         </div>
 
-        {/* FOOTER LINE */}
+        {/* ===================================================
+            FOOTER — WITHOUT BACK TO TOP
+        =================================================== */}
+
         <div
           data-contact-footer
           className="
@@ -933,6 +1349,7 @@ export function ContactSection() {
               icon={SparklesIcon}
               size={15}
               strokeWidth={1.5}
+              aria-hidden="true"
               className="text-[var(--portfolio-accent)]"
             />
 
@@ -940,40 +1357,6 @@ export function ContactSection() {
               The right design for the right problem.
             </span>
           </div>
-
-          <a
-            data-contact-back-top
-            data-cursor="magnetic"
-            href="/#top"
-            className="
-              group
-              inline-flex
-              items-center
-              gap-2
-              font-display
-              text-[13px]
-              font-medium
-              text-[var(--portfolio-text-secondary)]
-              transition-colors
-              duration-[var(--portfolio-motion-fast)]
-              hover:text-[var(--portfolio-text-primary)]
-            "
-          >
-            <span>Back to top</span>
-
-            <HugeiconsIcon
-              icon={ArrowRight01Icon}
-              size={15}
-              strokeWidth={1.6}
-              className="
-                rotate-[-90deg]
-                text-[var(--portfolio-accent)]
-                transition-transform
-                duration-[var(--portfolio-motion-fast)]
-                group-hover:-translate-y-0.5
-              "
-            />
-          </a>
         </div>
       </div>
     </section>

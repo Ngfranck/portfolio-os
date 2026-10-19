@@ -74,7 +74,13 @@ export default async function HomePage() {
         }
       />
 
-      <About />
+      <About
+  settings={{
+    linkedinUrl: settings.linkedinUrl,
+    behanceUrl: settings.behanceUrl,
+    instagramUrl: settings.instagramUrl,
+  }}
+/>
 
       <ProjectsSection projects={featuredProjects} />
 
@@ -88,9 +94,15 @@ export default async function HomePage() {
 
       <TestimonialsSection testimonials={testimonials} />
 
-      <ContactSection />
+      <ContactSection settings={settings} />
 
-      <Footer />
+      <Footer
+  settings={{
+    linkedinUrl: settings.linkedinUrl,
+    behanceUrl: settings.behanceUrl,
+    githubUrl: settings.githubUrl,
+  }}
+/>
     </main>
   );
 }

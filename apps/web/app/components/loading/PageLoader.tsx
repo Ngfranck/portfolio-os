@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-
 import gsap from "gsap";
 
 export function PageLoader() {
@@ -50,10 +49,11 @@ export function PageLoader() {
 
       gsap.set(loader, {
         autoAlpha: 1,
+        clipPath: "inset(0 0 0 0)",
       });
 
       gsap.set(wordmark, {
-        y: 20,
+        y: 24,
         opacity: 0,
       });
 
@@ -64,6 +64,7 @@ export function PageLoader() {
 
       const intro = gsap.timeline();
 
+      // Apparition de Gonar
       intro.to(wordmark, {
         y: 0,
         opacity: 1,
@@ -71,6 +72,7 @@ export function PageLoader() {
         ease: "power3.out",
       });
 
+      // Compteur
       intro.to(
         counterValue,
         {
@@ -86,6 +88,7 @@ export function PageLoader() {
         "-=0.25"
       );
 
+      // Barre de progression
       intro.to(
         progress,
         {
@@ -96,8 +99,12 @@ export function PageLoader() {
         "<"
       );
 
-      intro.to({}, { duration: 0.25 });
+      // Petit temps de respiration
+      intro.to({}, {
+        duration: 0.25,
+      });
 
+      // Transition vers la Hero
       intro.to(loader, {
         clipPath: "inset(0 0 100% 0)",
         duration: 1.1,
@@ -122,76 +129,78 @@ export function PageLoader() {
   return (
     <div
       ref={loaderRef}
-      className="fixed inset-0 z-[10000] flex h-screen w-screen items-center justify-center overflow-hidden bg-[#050505] text-white"
+      className="fixed inset-0 z-[10000] h-screen w-screen overflow-hidden bg-[#050505] text-white"
       aria-label="Chargement du portfolio"
       role="status"
     >
-      <div className="relative flex w-[min(420px,80vw)] flex-col items-center">
+      {/* Main loading area */}
+      <div
+        className="
+          absolute
+          bottom-[8vh]
+          left-1/2
+          w-[calc(100%-3rem)]
+          max-w-[1400px]
+          -translate-x-1/2
+        "
+      >
         <div
           ref={wordmarkRef}
-          className="mb-10 flex items-baseline leading-none"
+          className="
+            flex
+            w-full
+            items-baseline
+            gap-6
+            leading-none
+          "
         >
-          <span className="font-sans text-3xl font-medium tracking-[-0.05em] sm:text-4xl">
+          {/* Brand name */}
+          <span
+            className="
+              shrink-0
+              font-sans
+              text-[clamp(3rem,7vw,7rem)]
+              font-medium
+              leading-[0.85]
+              tracking-[-0.07em]
+            "
+          >
             Gonar
           </span>
 
-          <span className="font-sans text-3xl font-medium tracking-[-0.05em] text-[#E30613] sm:text-4xl">
-            .ui
-          </span>
-        </div>
+          {/* Loading line */}
+          <div className="flex min-w-0 flex-1 items-center">
+            <div
+              className="
+                h-px
+                w-full
+                overflow-hidden
+                bg-white/15
+              "
+            >
+              <div
+                ref={progressRef}
+                className="h-full w-full bg-white"
+              />
+            </div>
+          </div>
 
-        <div className="flex w-full items-center justify-between">
-          <span className="font-sans text-[10px] uppercase tracking-[0.28em] text-white/40">
-            Portfolio
-          </span>
-
+          {/* Percentage */}
           <span
             ref={counterRef}
-            className="font-sans text-[10px] font-medium tabular-nums tracking-[0.2em] text-white/60"
+            className="
+              shrink-0
+              font-sans
+              text-[clamp(0.7rem,1vw,0.9rem)]
+              font-medium
+              tabular-nums
+              tracking-[-0.02em]
+              text-white/70
+            "
           >
             0
           </span>
         </div>
-
-        <div className="mt-3 h-px w-full overflow-hidden bg-white/10">
-          <div
-            ref={progressRef}
-            className="h-full w-full bg-[#E30613]"
-          />
-        </div>
-
-        <div className="mt-4 flex w-full items-center justify-between">
-          <span className="font-sans text-[9px] uppercase tracking-[0.24em] text-white/20">
-            Web &amp; Brand Designer
-          </span>
-
-          <span className="font-sans text-[9px] uppercase tracking-[0.24em] text-white/20">
-            2026
-          </span>
-        </div>
-      </div>
-
-      <div
-        className="pointer-events-none absolute inset-0 opacity-40"
-        aria-hidden="true"
-        style={{
-          background:
-            "radial-gradient(circle at 50% 50%, rgba(227,6,19,0.08), transparent 38%)",
-        }}
-      />
-
-      <div
-        className="pointer-events-none absolute bottom-8 left-8 font-sans text-[9px] uppercase tracking-[0.3em] text-white/20"
-        aria-hidden="true"
-      >
-        F.01
-      </div>
-
-      <div
-        className="pointer-events-none absolute bottom-8 right-8 font-sans text-[9px] uppercase tracking-[0.3em] text-white/20"
-        aria-hidden="true"
-      >
-        Digital Portfolio
       </div>
     </div>
   );

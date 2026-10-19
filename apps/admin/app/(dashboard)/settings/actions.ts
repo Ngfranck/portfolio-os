@@ -1,4 +1,3 @@
-
 "use server";
 
 import { revalidatePath } from "next/cache";
@@ -50,6 +49,7 @@ const siteSettingsSchema = z.object({
   ownerName: nullableText(100),
   contactEmail: nullableEmail,
   contactPhone: nullableText(40),
+  whatsappUrl: nullableUrl,
   location: nullableText(120),
   isAvailableForProjects: z.boolean(),
   linkedinUrl: nullableUrl,
@@ -71,6 +71,7 @@ const settingsSelect = {
   ownerName: true,
   contactEmail: true,
   contactPhone: true,
+  whatsappUrl: true,
   location: true,
   isAvailableForProjects: true,
   linkedinUrl: true,
@@ -121,7 +122,7 @@ export async function updateSiteSettings(
       success: true,
       message: "Les paramètres ont été enregistrés avec succès.",
     };
-    } catch (error: unknown) {
+  } catch (error: unknown) {
     console.error(
       "Erreur lors de la sauvegarde des paramètres :",
       error

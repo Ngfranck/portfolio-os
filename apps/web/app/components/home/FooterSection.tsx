@@ -19,7 +19,17 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-export function Footer() {
+type FooterSettings = {
+  linkedinUrl: string | null;
+  behanceUrl: string | null;
+  githubUrl: string | null;
+};
+
+export function Footer({
+  settings,
+}: {
+  settings: FooterSettings;
+}) {
   const footerRef = useRef<HTMLElement>(null);
 
   useGSAP(
@@ -32,7 +42,7 @@ export function Footer() {
 
       if (
         window.matchMedia(
-          "(prefers-reduced-motion: reduce)"
+          "(prefers-reduced-motion: reduce)",
         ).matches
       ) {
         return;
@@ -40,93 +50,116 @@ export function Footer() {
 
       const badge = footer.querySelector("[data-footer-badge]");
       const titlePrimary = footer.querySelector(
-        "[data-footer-title-primary]"
+        "[data-footer-title-primary]",
       );
       const titleSecondary = footer.querySelector(
-        "[data-footer-title-secondary]"
+        "[data-footer-title-secondary]",
       );
       const description = footer.querySelector(
-        "[data-footer-description]"
+        "[data-footer-description]",
       );
       const cta = footer.querySelector("[data-footer-cta]");
       const brand = footer.querySelector("[data-footer-brand]");
       const navigation = footer.querySelector(
-        "[data-footer-navigation]"
+        "[data-footer-navigation]",
       );
       const socials = footer.querySelector("[data-footer-socials]");
       const navigationItems = footer.querySelectorAll(
-        "[data-footer-navigation-item]"
+        "[data-footer-navigation-item]",
       );
       const socialItems = footer.querySelectorAll(
-        "[data-footer-social-item]"
+        "[data-footer-social-item]",
       );
       const bottomBar = footer.querySelector(
-        "[data-footer-bottom]"
+        "[data-footer-bottom]",
       );
       const copyright = footer.querySelector(
-        "[data-footer-copyright]"
+        "[data-footer-copyright]",
       );
       const microMessage = footer.querySelector(
-        "[data-footer-message]"
+        "[data-footer-message]",
       );
       const backToTop = footer.querySelector(
-        "[data-footer-back-top]"
+        "[data-footer-back-top]",
       );
 
       // =====================================================
       // INITIAL STATES
       // =====================================================
 
-      gsap.set(badge, {
-        opacity: 0,
-        y: 25,
-      });
+      if (badge) {
+        gsap.set(badge, {
+          opacity: 0,
+          y: 25,
+        });
+      }
 
-      gsap.set(titlePrimary, {
-        opacity: 0,
-        y: 45,
-      });
+      if (titlePrimary) {
+        gsap.set(titlePrimary, {
+          opacity: 0,
+          y: 45,
+        });
+      }
 
-      gsap.set(titleSecondary, {
-        opacity: 0,
-        y: 45,
-      });
+      if (titleSecondary) {
+        gsap.set(titleSecondary, {
+          opacity: 0,
+          y: 45,
+        });
+      }
 
-      gsap.set(description, {
-        opacity: 0,
-        y: 25,
-      });
+      if (description) {
+        gsap.set(description, {
+          opacity: 0,
+          y: 25,
+        });
+      }
 
-      gsap.set(cta, {
-        opacity: 0,
-        x: 30,
-        scale: 0.97,
-      });
+      if (cta) {
+        gsap.set(cta, {
+          opacity: 0,
+          x: 30,
+          scale: 0.97,
+        });
+      }
 
-      gsap.set([brand, navigation, socials], {
-        opacity: 0,
-        y: 30,
-      });
+      if (brand || navigation || socials) {
+        gsap.set([brand, navigation, socials].filter(Boolean), {
+          opacity: 0,
+          y: 30,
+        });
+      }
 
-      gsap.set(navigationItems, {
-        opacity: 0,
-        x: -15,
-      });
+      if (navigationItems.length) {
+        gsap.set(navigationItems, {
+          opacity: 0,
+          x: -15,
+        });
+      }
 
-      gsap.set(socialItems, {
-        opacity: 0,
-        x: 15,
-      });
+      if (socialItems.length) {
+        gsap.set(socialItems, {
+          opacity: 0,
+          x: 15,
+        });
+      }
 
-      gsap.set(bottomBar, {
-        opacity: 0,
-        y: 20,
-      });
+      if (bottomBar) {
+        gsap.set(bottomBar, {
+          opacity: 0,
+          y: 20,
+        });
+      }
 
-      gsap.set([copyright, microMessage, backToTop], {
-        opacity: 0,
-        y: 10,
-      });
+      if (copyright || microMessage || backToTop) {
+        gsap.set(
+          [copyright, microMessage, backToTop].filter(Boolean),
+          {
+            opacity: 0,
+            y: 10,
+          },
+        );
+      }
 
       // =====================================================
       // CTA — MAIN FOOTER INTRO
@@ -141,14 +174,17 @@ export function Footer() {
         },
       });
 
-      ctaTimeline
-        .to(badge, {
+      if (badge) {
+        ctaTimeline.to(badge, {
           opacity: 1,
           y: 0,
           duration: 0.55,
           ease: "power3.out",
-        })
-        .to(
+        });
+      }
+
+      if (titlePrimary) {
+        ctaTimeline.to(
           titlePrimary,
           {
             opacity: 1,
@@ -156,9 +192,12 @@ export function Footer() {
             duration: 0.75,
             ease: "power3.out",
           },
-          "-=0.25"
-        )
-        .to(
+          "-=0.25",
+        );
+      }
+
+      if (titleSecondary) {
+        ctaTimeline.to(
           titleSecondary,
           {
             opacity: 1,
@@ -166,9 +205,12 @@ export function Footer() {
             duration: 0.75,
             ease: "power3.out",
           },
-          "-=0.48"
-        )
-        .to(
+          "-=0.48",
+        );
+      }
+
+      if (description) {
+        ctaTimeline.to(
           description,
           {
             opacity: 1,
@@ -176,9 +218,12 @@ export function Footer() {
             duration: 0.6,
             ease: "power3.out",
           },
-          "-=0.3"
-        )
-        .to(
+          "-=0.3",
+        );
+      }
+
+      if (cta) {
+        ctaTimeline.to(
           cta,
           {
             opacity: 1,
@@ -187,8 +232,9 @@ export function Footer() {
             duration: 0.65,
             ease: "power3.out",
           },
-          "-=0.3"
+          "-=0.3",
         );
+      }
 
       // =====================================================
       // FOOTER MAIN — COLUMNS
@@ -203,14 +249,17 @@ export function Footer() {
         },
       });
 
-      columnsTimeline
-        .to(brand, {
+      if (brand) {
+        columnsTimeline.to(brand, {
           opacity: 1,
           y: 0,
           duration: 0.65,
           ease: "power3.out",
-        })
-        .to(
+        });
+      }
+
+      if (navigation) {
+        columnsTimeline.to(
           navigation,
           {
             opacity: 1,
@@ -218,9 +267,12 @@ export function Footer() {
             duration: 0.6,
             ease: "power3.out",
           },
-          "-=0.4"
-        )
-        .to(
+          "-=0.4",
+        );
+      }
+
+      if (socials) {
+        columnsTimeline.to(
           socials,
           {
             opacity: 1,
@@ -228,9 +280,12 @@ export function Footer() {
             duration: 0.6,
             ease: "power3.out",
           },
-          "-=0.4"
-        )
-        .to(
+          "-=0.4",
+        );
+      }
+
+      if (navigationItems.length) {
+        columnsTimeline.to(
           navigationItems,
           {
             opacity: 1,
@@ -239,9 +294,12 @@ export function Footer() {
             stagger: 0.08,
             ease: "power3.out",
           },
-          "-=0.25"
-        )
-        .to(
+          "-=0.25",
+        );
+      }
+
+      if (socialItems.length) {
+        columnsTimeline.to(
           socialItems,
           {
             opacity: 1,
@@ -250,8 +308,9 @@ export function Footer() {
             stagger: 0.08,
             ease: "power3.out",
           },
-          "-=0.3"
+          "-=0.3",
         );
+      }
 
       // =====================================================
       // BOTTOM BAR
@@ -266,14 +325,17 @@ export function Footer() {
         },
       });
 
-      bottomTimeline
-        .to(bottomBar, {
+      if (bottomBar) {
+        bottomTimeline.to(bottomBar, {
           opacity: 1,
           y: 0,
           duration: 0.6,
           ease: "power3.out",
-        })
-        .to(
+        });
+      }
+
+      if (copyright) {
+        bottomTimeline.to(
           copyright,
           {
             opacity: 1,
@@ -281,9 +343,12 @@ export function Footer() {
             duration: 0.45,
             ease: "power3.out",
           },
-          "-=0.3"
-        )
-        .to(
+          "-=0.3",
+        );
+      }
+
+      if (microMessage) {
+        bottomTimeline.to(
           microMessage,
           {
             opacity: 1,
@@ -291,9 +356,12 @@ export function Footer() {
             duration: 0.45,
             ease: "power3.out",
           },
-          "-=0.3"
-        )
-        .to(
+          "-=0.3",
+        );
+      }
+
+      if (backToTop) {
+        bottomTimeline.to(
           backToTop,
           {
             opacity: 1,
@@ -301,8 +369,9 @@ export function Footer() {
             duration: 0.45,
             ease: "power3.out",
           },
-          "-=0.3"
+          "-=0.3",
         );
+      }
 
       requestAnimationFrame(() => {
         ScrollTrigger.refresh();
@@ -310,7 +379,7 @@ export function Footer() {
     },
     {
       scope: footerRef,
-    }
+    },
   );
 
   return (
@@ -355,7 +424,9 @@ export function Footer() {
           lg:px-8
         "
       >
-        {/* CTA */}
+        {/* =====================================================
+            CTA
+        ===================================================== */}
 
         <div
           className="
@@ -540,7 +611,9 @@ export function Footer() {
           </div>
         </div>
 
-        {/* FOOTER MAIN */}
+        {/* =====================================================
+            FOOTER MAIN
+        ===================================================== */}
 
         <div
           className="
@@ -587,8 +660,8 @@ export function Footer() {
               "
             >
               Web & Brand Designer spécialisé dans la création
-              d'identités, d'interfaces et d'expériences digitales
-              pensées avec intention.
+              d&apos;identités, d&apos;interfaces et d&apos;expériences
+              digitales pensées avec intention.
             </p>
 
             <div
@@ -692,125 +765,146 @@ export function Footer() {
               Connect
             </p>
 
-            <nav className="mt-5 flex flex-col gap-3">
-              <a
-                data-footer-social-item
-                data-cursor="open"
-                href="#"
-                className="
-                  group
-                  flex
-                  w-fit
-                  items-center
-                  gap-2
-                  font-display
-                  text-[13px]
-                  font-medium
-                  text-[var(--portfolio-text-secondary)]
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:text-[var(--portfolio-text-primary)]
-                "
-              >
-                LinkedIn
+            {(settings.linkedinUrl ||
+              settings.behanceUrl ||
+              settings.githubUrl) && (
+              <nav className="mt-5 flex flex-col gap-3">
+                {settings.linkedinUrl && (
+                  <a
+                    data-footer-social-item
+                    data-cursor="open"
+                    href={settings.linkedinUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="LinkedIn"
+                    className="
+                      group
+                      flex
+                      w-fit
+                      items-center
+                      gap-2
+                      font-display
+                      text-[13px]
+                      font-medium
+                      text-[var(--portfolio-text-secondary)]
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:text-[var(--portfolio-text-primary)]
+                    "
+                  >
+                    LinkedIn
 
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={13}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                  className="
-                    text-[var(--portfolio-accent)]
-                    opacity-0
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-[2px]
-                    group-hover:-translate-y-[2px]
-                    group-hover:opacity-100
-                  "
-                />
-              </a>
+                    <HugeiconsIcon
+                      icon={ArrowUpRight01Icon}
+                      size={13}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                      className="
+                        text-[var(--portfolio-accent)]
+                        opacity-0
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-[2px]
+                        group-hover:-translate-y-[2px]
+                        group-hover:opacity-100
+                      "
+                    />
+                  </a>
+                )}
 
-              <a
-                data-footer-social-item
-                data-cursor="open"
-                href="#"
-                className="
-                  group
-                  flex
-                  w-fit
-                  items-center
-                  gap-2
-                  font-display
-                  text-[13px]
-                  font-medium
-                  text-[var(--portfolio-text-secondary)]
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:text-[var(--portfolio-text-primary)]
-                "
-              >
-                Behance
+                {settings.behanceUrl && (
+                  <a
+                    data-footer-social-item
+                    data-cursor="open"
+                    href={settings.behanceUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="Behance"
+                    className="
+                      group
+                      flex
+                      w-fit
+                      items-center
+                      gap-2
+                      font-display
+                      text-[13px]
+                      font-medium
+                      text-[var(--portfolio-text-secondary)]
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:text-[var(--portfolio-text-primary)]
+                    "
+                  >
+                    Behance
 
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={13}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                  className="
-                    text-[var(--portfolio-accent)]
-                    opacity-0
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-[2px]
-                    group-hover:-translate-y-[2px]
-                    group-hover:opacity-100
-                  "
-                />
-              </a>
+                    <HugeiconsIcon
+                      icon={ArrowUpRight01Icon}
+                      size={13}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                      className="
+                        text-[var(--portfolio-accent)]
+                        opacity-0
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-[2px]
+                        group-hover:-translate-y-[2px]
+                        group-hover:opacity-100
+                      "
+                    />
+                  </a>
+                )}
 
-              <a
-                data-footer-social-item
-                data-cursor="open"
-                href="#"
-                className="
-                  group
-                  flex
-                  w-fit
-                  items-center
-                  gap-2
-                  font-display
-                  text-[13px]
-                  font-medium
-                  text-[var(--portfolio-text-secondary)]
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  hover:text-[var(--portfolio-text-primary)]
-                "
-              >
-                GitHub
+                {settings.githubUrl && (
+                  <a
+                    data-footer-social-item
+                    data-cursor="open"
+                    href={settings.githubUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label="GitHub"
+                    className="
+                      group
+                      flex
+                      w-fit
+                      items-center
+                      gap-2
+                      font-display
+                      text-[13px]
+                      font-medium
+                      text-[var(--portfolio-text-secondary)]
+                      transition-colors
+                      duration-[var(--portfolio-motion-fast)]
+                      hover:text-[var(--portfolio-text-primary)]
+                    "
+                  >
+                    GitHub
 
-                <HugeiconsIcon
-                  icon={ArrowUpRight01Icon}
-                  size={13}
-                  strokeWidth={1.5}
-                  aria-hidden="true"
-                  className="
-                    text-[var(--portfolio-accent)]
-                    opacity-0
-                    transition-all
-                    duration-[var(--portfolio-motion-fast)]
-                    group-hover:translate-x-[2px]
-                    group-hover:-translate-y-[2px]
-                    group-hover:opacity-100
-                  "
-                />
-              </a>
-            </nav>
+                    <HugeiconsIcon
+                      icon={ArrowUpRight01Icon}
+                      size={13}
+                      strokeWidth={1.5}
+                      aria-hidden="true"
+                      className="
+                        text-[var(--portfolio-accent)]
+                        opacity-0
+                        transition-all
+                        duration-[var(--portfolio-motion-fast)]
+                        group-hover:translate-x-[2px]
+                        group-hover:-translate-y-[2px]
+                        group-hover:opacity-100
+                      "
+                    />
+                  </a>
+                )}
+              </nav>
+            )}
           </div>
         </div>
 
-        {/* BOTTOM BAR */}
+        {/* =====================================================
+            BOTTOM BAR
+        ===================================================== */}
 
         <div
           data-footer-bottom
