@@ -9,6 +9,7 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
+    "postinstall": "prisma generate --schema=./apps/web/prisma/schema.prisma",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write .",
