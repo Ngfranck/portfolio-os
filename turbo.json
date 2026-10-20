@@ -7,9 +7,8 @@
     },
     "build": {
       "dependsOn": ["^build"],
-      "outputs": [
-        ".next/**"
-      ]
+      "env": ["DATABASE_URL"],
+      "outputs": [".next/**"]
     },
     "lint": {
       "dependsOn": ["^lint"]
