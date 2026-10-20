@@ -9,11 +9,11 @@
   ],
   "scripts": {
     "dev": "turbo run dev",
+    "postinstall": "prisma generate --schema=./apps/web/prisma/schema.prisma",
     "build": "turbo run build",
     "lint": "turbo run lint",
     "format": "prettier --write .",
-    "check": "turbo run lint && turbo run build",
-    "postinstall": "prisma generate --schema=./prisma/schema.prisma"
+    "check": "turbo run lint && turbo run build"
   },
   "devDependencies": {
     "@types/pg": "^8.23.1",
