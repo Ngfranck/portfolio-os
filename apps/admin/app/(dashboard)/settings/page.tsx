@@ -20,6 +20,7 @@ const initialSettings: SiteSettingsInput = {
   ownerName: null,
   contactEmail: null,
   contactPhone: null,
+  whatsappUrl: null,
   location: null,
   isAvailableForProjects: true,
   linkedinUrl: null,
@@ -938,7 +939,7 @@ export default function SettingsPage() {
               <div className="mt-6 flex flex-col justify-between gap-4 rounded-xl border border-[#efefec] bg-[#fafaf9] p-4 sm:flex-row sm:items-center">
                 <div>
                   <p className="text-sm font-medium text-[#222222]">
-                    Disponibilité pour de nouveaux projets
+                    Available for selected projects
                   </p>
 
                   <p className="mt-1 text-xs leading-5 text-[#888882]">

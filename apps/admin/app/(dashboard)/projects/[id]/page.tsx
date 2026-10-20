@@ -3,9 +3,7 @@
 import {
   useEffect,
   useMemo,
-  useRef,
   useState,
-  type ChangeEvent,
   type ReactNode,
 } from "react";
 
@@ -552,10 +550,8 @@ export default function ProjectEditorPage() {
       name: string;
     } | null>(null);
 
-  // Permet de conserver l’image déjà enregistrée tant que le téléversement
-  // des nouveaux fichiers n’est pas connecté au stockage.
-  const [persistedCoverImageUrl, setPersistedCoverImageUrl] =
-    useState<string | null>(null);
+  const [galleryUrlDraft, setGalleryUrlDraft] = useState("");
+  const [galleryUrlError, setGalleryUrlError] = useState<string | null>(null);
 
   const [overview, setOverview] =
     useState<OverviewData>({
@@ -607,12 +603,6 @@ export default function ProjectEditorPage() {
 
   const [gallery, setGallery] =
     useState<GalleryItem[]>([]);
-
-  const coverInputRef =
-    useRef<HTMLInputElement | null>(null);
-
-  const galleryInputRef =
-    useRef<HTMLInputElement | null>(null);
 
   useEffect(() => {
     let active = true;
@@ -717,7 +707,6 @@ export default function ProjectEditorPage() {
         setFeatured(Boolean(project.featured));
 
         const savedCoverUrl = project.coverImage ?? null;
-        setPersistedCoverImageUrl(savedCoverUrl);
         setCoverImage(
           savedCoverUrl
             ? {
@@ -871,24 +860,6 @@ export default function ProjectEditorPage() {
       active = false;
     };
   }, [projectId, isCreateMode]);
-
-  useEffect(() => {
-    return () => {
-      if (coverImage?.url.startsWith("blob:")) {
-        URL.revokeObjectURL(
-          coverImage.url,
-        );
-      }
-
-      gallery.forEach((image) => {
-        if (image.url.startsWith("blob:")) {
-          URL.revokeObjectURL(
-            image.url,
-          );
-        }
-      });
-    };
-  }, [coverImage, gallery]);
 
   useEffect(() => {
     if (
@@ -1163,82 +1134,78 @@ export default function ProjectEditorPage() {
     );
   };
 
-  const handleCoverFile = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
-    const file =
-      event.target.files?.[0];
+  const updateCoverImageUrl = (value: string) => {
+    const url = value.trim();
 
-    if (!file) {
+    if (!url) {
+      setCoverImage(null);
       return;
     }
 
-    if (
-      coverImage?.url.startsWith("blob:")
-    ) {
-      URL.revokeObjectURL(
-        coverImage.url,
-      );
+    let name = "Image de couverture";
+    try {
+      const parsedUrl = new URL(url);
+      name = decodeURIComponent(parsedUrl.pathname.split("/").pop() || "Image de couverture");
+    } catch {
+      // L’URL peut être en cours de saisie ; la validation sera faite à l’enregistrement.
     }
 
-    const objectUrl =
-      URL.createObjectURL(file);
-
-    setCoverImage({
-      url: objectUrl,
-      name: file.name,
-    });
-
-    event.target.value = "";
+    setCoverImage({ url, name: name || "Image de couverture" });
   };
 
   const removeCoverImage = () => {
-    if (
-      coverImage?.url.startsWith("blob:")
-    ) {
-      URL.revokeObjectURL(
-        coverImage.url,
-      );
-    }
-
     setCoverImage(null);
   };
 
-  const handleGalleryFiles = (
-    event: ChangeEvent<HTMLInputElement>,
-  ) => {
-    const files = Array.from(
-      event.target.files ?? [],
-    );
+  const handleAddGalleryUrl = () => {
+    const url = galleryUrlDraft.trim();
 
-    files.forEach((file) => {
-      const objectUrl =
-        URL.createObjectURL(file);
+    if (!url) {
+      setGalleryUrlError("Collez d’abord l’URL de l’image hébergée sur ImageKit.");
+      return;
+    }
 
-      const image = new Image();
+    let parsedUrl: URL;
+    try {
+      parsedUrl = new URL(url);
+    } catch {
+      setGalleryUrlError("Cette URL n’est pas valide.");
+      return;
+    }
 
-      image.onload = () => {
-        setGallery((current) => [
-          ...current,
-          {
-            id: `gallery-${crypto.randomUUID()}`,
-            name: file.name,
-            url: objectUrl,
-            alt: "",
-            title: "",
-            width:
-              image.naturalWidth || null,
-            height:
-              image.naturalHeight || null,
-            sortOrder: current.length,
-          },
-        ]);
-      };
+    if (parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:") {
+      setGalleryUrlError("L’URL doit commencer par https:// ou http://.");
+      return;
+    }
 
-      image.src = objectUrl;
-    });
+    if (gallery.some((image) => image.url === url)) {
+      setGalleryUrlError("Cette image est déjà présente dans la galerie.");
+      return;
+    }
 
-    event.target.value = "";
+    const name = decodeURIComponent(parsedUrl.pathname.split("/").pop() || `Visuel ${gallery.length + 1}`);
+    const newItem: GalleryItem = {
+      id: `gallery-${crypto.randomUUID()}`,
+      name: name || `Visuel ${gallery.length + 1}`,
+      url,
+      alt: "",
+      title: "",
+      width: null,
+      height: null,
+      sortOrder: gallery.length,
+    };
+
+    setGallery((current) => [...current, { ...newItem, sortOrder: current.length }]);
+    setGalleryUrlDraft("");
+    setGalleryUrlError(null);
+
+    const image = new Image();
+    image.onload = () => {
+      setGallery((current) => current.map((item) => item.id === newItem.id
+        ? { ...item, width: image.naturalWidth || null, height: image.naturalHeight || null }
+        : item));
+    };
+    image.src = url;
   };
 
   const updateGalleryItem = (
@@ -1335,19 +1302,37 @@ export default function ProjectEditorPage() {
     setSaveState("saving");
     setSaveMessage(null);
 
-    const hasPendingMedia = Boolean(
-      coverImage?.url.startsWith("blob:") ||
-        gallery.some((image) => image.url.startsWith("blob:")),
-    );
+    const coverImageToSave = coverImage?.url.trim()
+      ? { url: coverImage.url.trim(), name: coverImage.name }
+      : null;
 
-    const coverImageToSave = coverImage?.url.startsWith("blob:")
-      ? persistedCoverImageUrl
-        ? {
-            url: persistedCoverImageUrl,
-            name: coverImage.name,
-          }
-        : null
-      : coverImage;
+    if (coverImageToSave) {
+      try {
+        const parsedCoverUrl = new URL(coverImageToSave.url);
+        if (parsedCoverUrl.protocol !== "https:" && parsedCoverUrl.protocol !== "http:") {
+          throw new Error("protocol");
+        }
+      } catch {
+        setSaveState("error");
+        setSaveMessage("L’URL de l’image de couverture est invalide. Utilisez une URL ImageKit commençant par https://.");
+        return;
+      }
+    }
+
+    const invalidGalleryUrl = gallery.find((image) => {
+      try {
+        const parsedUrl = new URL(image.url);
+        return parsedUrl.protocol !== "https:" && parsedUrl.protocol !== "http:";
+      } catch {
+        return true;
+      }
+    });
+
+    if (invalidGalleryUrl) {
+      setSaveState("error");
+      setSaveMessage(`L’URL du visuel « ${invalidGalleryUrl.name} » est invalide.`);
+      return;
+    }
 
     const payload = {
       title,
@@ -1395,10 +1380,8 @@ export default function ProjectEditorPage() {
           sortOrder: index,
         })),
       selectedSkills,
-      // Les URL blob sont des aperçus locaux : seules les images déjà hébergées
-      // peuvent être transmises aux actions Prisma.
+      // Les URL ImageKit sont persistées telles quelles dans la base de données.
       gallery: gallery
-        .filter((image) => !image.url.startsWith("blob:"))
         .map((image, index) => ({
           url: image.url,
           alt: image.alt.trim(),
@@ -1431,10 +1414,6 @@ export default function ProjectEditorPage() {
             : isCreateMode
               ? "Le brouillon a été créé avec succès."
               : "Le brouillon a été mis à jour avec succès."
-        }${
-          hasPendingMedia
-            ? " Les nouveaux fichiers restent des aperçus locaux et n’ont pas été téléversés. La couverture déjà enregistrée est conservée, le cas échéant."
-            : ""
         }`,
       );
 
@@ -2015,90 +1994,60 @@ export default function ProjectEditorPage() {
                 description="L’image principale du projet utilisée par le portfolio."
               />
 
-              <input
-                ref={coverInputRef}
-                type="file"
-                accept="image/png,image/jpeg,image/webp"
-                className="hidden"
-                onChange={handleCoverFile}
-              />
-
-              {coverImage ? (
-                <div className="overflow-hidden rounded-2xl border border-[#e5e5e2] bg-[#fafaf9]">
-                  <div className="relative aspect-[16/9] overflow-hidden bg-[#efefec]">
-                    {/* eslint-disable-next-line @next/next/no-img-element */}
-                    <img
-                      src={coverImage.url}
-                      alt={coverImage.name}
-                      className="h-full w-full object-cover"
-                    />
-
-                    <span className="absolute left-3 top-3 rounded-full bg-[#111] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
-                      Couverture
-                    </span>
-                  </div>
-
-                  <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="min-w-0">
-                      <p className="truncate text-sm font-medium text-[#111]">
-                        {coverImage.name}
-                      </p>
-
-                      <p className="mt-1 text-xs text-[#999]">
-                        La destination finale sera
-                        enregistrée dans
-                        <span className="ml-1 font-medium text-[#666]">
-                          Project.coverImage
-                        </span>
-                        .
-                      </p>
-                    </div>
-
-                    <div className="flex items-center gap-2">
-                      <button
-                        type="button"
-                        onClick={() =>
-                          coverInputRef.current?.click()
-                        }
-                        className="min-h-10 rounded-xl border border-[#e5e5e2] bg-white px-3.5 text-sm font-medium text-[#111] transition-colors hover:bg-[#fafaf9] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E30613]"
-                      >
-                        Remplacer
-                      </button>
-
-                      <RemoveButton
-                        label="Supprimer l’image de couverture"
-                        onClick={
-                          removeCoverImage
-                        }
-                      />
-                    </div>
-                  </div>
+              <div className="space-y-4">
+                <div>
+                  <label htmlFor="project-cover-image-url" className="mb-2 block text-sm font-medium text-[#111]">
+                    URL de l’image hébergée
+                  </label>
+                  <input
+                    id="project-cover-image-url"
+                    type="url"
+                    inputMode="url"
+                    value={coverImage?.url ?? ""}
+                    onChange={(event) => updateCoverImageUrl(event.target.value)}
+                    placeholder="https://ik.imagekit.io/votre-espace/farmbridge-cover.webp"
+                    className={inputClass}
+                  />
+                  <p className="mt-2 text-xs leading-5 text-[#999]">
+                    Téléversez d’abord l’image dans ImageKit, puis collez ici son URL publique complète. Cette URL sera enregistrée dans Project.coverImage.
+                  </p>
                 </div>
-              ) : (
-                <button
-                  type="button"
-                  onClick={() =>
-                    coverInputRef.current?.click()
-                  }
-                  className="flex min-h-52 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-[#d8d8d4] bg-[#fafaf9] px-6 text-center transition-colors duration-150 hover:border-[#bbb] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E30613] focus-visible:ring-offset-2"
-                >
-                  <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-xl bg-white text-[#666] shadow-[0_2px_8px_rgba(17,17,17,0.04)]">
-                    <HugeiconsIcon
-                      icon={Upload01Icon}
-                      size={21}
-                      strokeWidth={1.7}
-                    />
-                  </span>
 
-                  <span className="text-sm font-medium text-[#111]">
-                    Ajouter une image de couverture
-                  </span>
-
-                  <span className="mt-1 text-xs leading-5 text-[#999]">
-                    PNG, JPG ou WebP
-                  </span>
-                </button>
-              )}
+                {coverImage?.url ? (
+                  <div className="overflow-hidden rounded-2xl border border-[#e5e5e2] bg-[#fafaf9]">
+                    <div className="relative aspect-[16/9] overflow-hidden bg-[#efefec]">
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src={coverImage.url}
+                        alt={coverImage.name}
+                        className="h-full w-full object-cover"
+                        onError={(event) => {
+                          event.currentTarget.style.opacity = "0.25";
+                        }}
+                        onLoad={(event) => {
+                          event.currentTarget.style.opacity = "1";
+                        }}
+                      />
+                      <span className="absolute left-3 top-3 rounded-full bg-[#111] px-2.5 py-1 text-[10px] font-semibold uppercase tracking-[0.08em] text-white">
+                        Couverture
+                      </span>
+                    </div>
+                    <div className="flex flex-col gap-3 p-4 sm:flex-row sm:items-center sm:justify-between">
+                      <div className="min-w-0">
+                        <p className="truncate text-sm font-medium text-[#111]">{coverImage.name}</p>
+                        <p className="mt-1 break-all text-xs text-[#999]">URL conservée dans la base de données.</p>
+                      </div>
+                      <RemoveButton label="Supprimer l’image de couverture" onClick={removeCoverImage} />
+                    </div>
+                  </div>
+                ) : (
+                  <div className="flex min-h-36 flex-col items-center justify-center rounded-2xl border border-dashed border-[#d8d8d4] bg-[#fafaf9] px-6 text-center">
+                    <HugeiconsIcon icon={Upload01Icon} size={22} strokeWidth={1.7} className="mb-3 text-[#999]" />
+                    <p className="text-sm font-medium text-[#111]">Aucune couverture renseignée</p>
+                    <p className="mt-1 text-xs leading-5 text-[#999]">Ajoutez l’URL de votre image ImageKit ci-dessus.</p>
+                  </div>
+                )}
+              </div>
             </section>
 
             <section className="rounded-2xl border border-[#e5e5e2] bg-white p-5 sm:p-6 lg:p-7">
@@ -2681,55 +2630,45 @@ export default function ProjectEditorPage() {
               <SectionHeader
                 title="Galerie"
                 description="Ajoutez les visuels complémentaires de votre étude de cas."
-                action={
-                  <>
-                    <input
-                      ref={galleryInputRef}
-                      type="file"
-                      accept="image/png,image/jpeg,image/webp"
-                      multiple
-                      className="hidden"
-                      onChange={
-                        handleGalleryFiles
-                      }
-                    />
-
-                    <AddButton
-                      onClick={() =>
-                        galleryInputRef.current?.click()
-                      }
-                    >
-                      Ajouter des images
-                    </AddButton>
-                  </>
-                }
               />
 
+              <div className="mb-5 rounded-2xl border border-[#e5e5e2] bg-[#fafaf9] p-4">
+                <label htmlFor="project-gallery-image-url" className="mb-2 block text-sm font-medium text-[#111]">
+                  URL d’un visuel ImageKit
+                </label>
+                <div className="flex flex-col gap-2 sm:flex-row">
+                  <input
+                    id="project-gallery-image-url"
+                    type="url"
+                    inputMode="url"
+                    value={galleryUrlDraft}
+                    onChange={(event) => {
+                      setGalleryUrlDraft(event.target.value);
+                      setGalleryUrlError(null);
+                    }}
+                    onKeyDown={(event) => {
+                      if (event.key === "Enter") {
+                        event.preventDefault();
+                        handleAddGalleryUrl();
+                      }
+                    }}
+                    placeholder="https://ik.imagekit.io/votre-espace/farmbridge-screen.webp"
+                    className={inputClass}
+                  />
+                  <button type="button" onClick={handleAddGalleryUrl} className="min-h-12 shrink-0 rounded-xl bg-[#111] px-4 text-sm font-medium text-white transition-opacity hover:opacity-85 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E30613]">
+                    Ajouter
+                  </button>
+                </div>
+                <p className="mt-2 text-xs leading-5 text-[#999]">Ajoutez une URL à la fois. Les visuels ajoutés ici seront enregistrés avec l’étude de cas.</p>
+                {galleryUrlError && <p role="alert" className="mt-2 text-xs font-medium text-[#E30613]">{galleryUrlError}</p>}
+              </div>
+
               {gallery.length === 0 ? (
-                <button
-                  type="button"
-                  onClick={() =>
-                    galleryInputRef.current?.click()
-                  }
-                  className="flex min-h-44 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-[#d8d8d4] bg-[#fafaf9] px-6 text-center transition-colors duration-150 hover:border-[#bbb] hover:bg-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E30613] focus-visible:ring-offset-2"
-                >
-                  <span className="mb-3 flex h-11 w-11 items-center justify-center rounded-xl bg-white text-[#666] shadow-[0_2px_8px_rgba(17,17,17,0.04)]">
-                    <HugeiconsIcon
-                      icon={Upload01Icon}
-                      size={20}
-                      strokeWidth={1.7}
-                    />
-                  </span>
-
-                  <span className="text-sm font-medium text-[#111]">
-                    Ajouter des images
-                  </span>
-
-                  <span className="mt-1 text-xs leading-5 text-[#999]">
-                    PNG, JPG ou WebP · plusieurs
-                    fichiers acceptés
-                  </span>
-                </button>
+                <div className="flex min-h-32 w-full flex-col items-center justify-center rounded-2xl border border-dashed border-[#d8d8d4] bg-[#fafaf9] px-6 text-center">
+                  <HugeiconsIcon icon={Upload01Icon} size={20} strokeWidth={1.7} className="mb-3 text-[#999]" />
+                  <p className="text-sm font-medium text-[#111]">La galerie est vide</p>
+                  <p className="mt-1 text-xs leading-5 text-[#999]">Collez une URL ImageKit dans le champ ci-dessus.</p>
+                </div>
               ) : (
                 <div className="grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
                   {gallery.map(
