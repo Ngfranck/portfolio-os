@@ -11,34 +11,29 @@ import { useGSAP } from "@gsap/react";
 gsap.registerPlugin(ScrollTrigger);
 
 const skills = [
+  "UX / UI Design",
+  "Product Design",
   "Web Design",
   "Brand Design",
-  "UI / UX",
-  "Product Design",
   "Visual Design",
   "Digital Experience",
 ];
 
 const experiences = [
   {
-    role: "Web & Brand Designer",
-    company: "Nexma",
+    role: "UX/UI & Graphic Designer",
+    company: "Agency",
     year: "2026",
   },
   {
-    role: "Freelance Designer",
-    company: "Independent",
+    role: "UX/UI & Web Designer",
+    company: "Freelance",
     year: "2024",
   },
   {
-    role: "UI / UX Designer",
-    company: "Digital Projects",
+    role: "Designer",
+    company: "Independent Projects",
     year: "2023",
-  },
-  {
-    role: "Graphic Designer",
-    company: "Creative Projects",
-    year: "2022",
   },
 ];
 
@@ -548,7 +543,7 @@ export function About({ settings }: { settings: AboutSettings }) {
                 text-[var(--portfolio-text-primary)]
               "
             >
-              Web & Brand Designer
+              About me
             </span>
 
             <span className="text-[var(--portfolio-text-muted)]">·</span>
@@ -560,7 +555,7 @@ export function About({ settings }: { settings: AboutSettings }) {
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Available for projects
+              UX/UI & Brand Designer
             </span>
           </div>
 
@@ -574,7 +569,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               will-change-transform
             "
           >
-            A brief presentation of myself and my approach to design.
+            A designer focused on turning complexity into clarity.
           </p>
 
           <h2
@@ -589,14 +584,14 @@ export function About({ settings }: { settings: AboutSettings }) {
               will-change-transform
             "
           >
-            Ngoka Franck,{" "}
+            Designing with purpose,{" "}
             <span
               className="
                 font-normal
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Your Designer
+              not just aesthetics.
             </span>
           </h2>
         </div>
@@ -705,7 +700,7 @@ export function About({ settings }: { settings: AboutSettings }) {
                     text-white
                   "
                 >
-                  Available for work
+                  Available for selected projects
                 </span>
               </div>
             </div>
@@ -737,7 +732,7 @@ export function About({ settings }: { settings: AboutSettings }) {
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                Web & Brand Designer focused on creating meaningful
+                UX/UI & Web & Brand Designer focused on creating purposeful
                 digital experiences.
               </p>
 
@@ -876,7 +871,7 @@ export function About({ settings }: { settings: AboutSettings }) {
                   will-change-transform
                 "
               >
-                <span>Mon CV</span>
+                <span>View my CV</span>
 
                 <span
                   aria-hidden="true"
@@ -925,10 +920,21 @@ export function About({ settings }: { settings: AboutSettings }) {
                   sm:leading-8
                 "
               >
-                Je suis Franck, Web & Brand Designer. Je conçois des
-                identités visuelles, interfaces et expériences
-                digitales qui transforment les idées en expériences
-                claires, cohérentes et mémorables.
+                I&apos;m Franck, a UX/UI and Web & Brand Designer based in
+                Cameroon. With 3+ years of experience, I design digital
+                experiences and visual identities that bring clarity to
+                complex ideas.
+                <br />
+                <br />
+                My approach sits at the intersection of user experience,
+                visual design and brand thinking. I care about how a product
+                works, how it feels and how consistently its identity comes
+                through every interaction.
+                <br />
+                <br />
+                From early concepts and user flows to polished interfaces and
+                visual systems, I turn ideas into purposeful experiences that
+                are clear, functional and memorable.
               </p>
 
               <div

@@ -578,7 +578,7 @@ export function Hero({
 
           <div className="min-w-0">
             <p className="mb-3 font-body text-xs tracking-[0.2em] text-[var(--portfolio-text-muted)] uppercase sm:text-sm">
-              Bonjour, je suis
+              Hello, i am
             </p>
 
             <h1
@@ -686,7 +686,7 @@ export function Hero({
                   hover:scale-[1.02]
                 "
               >
-                Voir mes projets
+                View my work
 
                 <HugeiconsIcon
                   icon={ArrowUpRight01Icon}
@@ -704,7 +704,7 @@ export function Hero({
               </a>
 
               <a
-                href="#about"
+                href="#contact"
                 data-cursor="magnetic"
                 className="
                   inline-flex h-12
@@ -720,7 +720,7 @@ export function Hero({
                   hover:-translate-y-0.5
                 "
               >
-                À propos de moi
+                Let’s talk
               </a>
             </div>
           </div>

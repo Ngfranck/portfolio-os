@@ -18,9 +18,9 @@ const projects = [
     category: "Brand Identity",
     year: 2026,
     description:
-      "Une identité visuelle et une expérience digitale pensées pour construire une marque distinctive, cohérente et mémorable.",
+      "Brand identity and website design for Plumage, built around a distinctive visual system and a consistent digital experience.",
     shortDescription:
-      "Une identité visuelle et une expérience digitale pensées pour construire une marque distinctive et mémorable.",
+      "A distinctive brand identity and cohesive website design for Plumage.",
     role: ["Brand Designer", "UI/UX Designer"],
     services: ["Brand Identity", "UI/UX Design", "Web Design"],
     image: "/images/projects/plumage/cover.png",
@@ -80,9 +80,9 @@ const projects = [
     category: "Brand & Digital",
     year: 2026,
     description:
-      "Une expérience digitale moderne pensée pour connecter identité de marque, tourisme et expérience utilisateur.",
+      "Brand identity and UX/UI design for a travel platform, creating a clear digital experience for discovering destinations and booking trips.",
     shortDescription:
-      "Une expérience digitale moderne pensée pour connecter identité de marque, tourisme et expérience utilisateur.",
+      "A modern travel platform connecting brand identity with intuitive destination discovery and booking.",
     role: ["Brand Designer", "UI/UX Designer"],
     services: ["Brand Identity", "UI/UX Design", "Web Design"],
     image: "/images/projects/safara/cover.jpg",
@@ -142,9 +142,9 @@ const projects = [
     category: "Product Design",
     year: 2026,
     description:
-      "Une expérience mobile dédiée à la gestion financière, pensée pour rendre les données complexes plus simples à comprendre.",
+      "Mobile app UX/UI design for personal finance, making complex financial data easier to understand through clear information architecture and intuitive interactions.",
     shortDescription:
-      "Une expérience mobile dédiée à la gestion financière, pensée pour rendre les données complexes plus simples à comprendre.",
+      "A personal finance app designed to make financial data clearer and easier to navigate.",
     role: ["Product Designer", "UI/UX Designer"],
     services: ["UX Design", "UI Design", "Product Design"],
     image: "/images/projects/gestro/cover.jpg",
@@ -204,9 +204,9 @@ const projects = [
     category: "Product Design",
     year: 2026,
     description:
-      "Une plateforme digitale pensée pour simplifier la gestion des organisations, des collaborateurs et des opérations quotidiennes.",
+      "B2B SaaS product design for an operations platform, bringing employee management, contracts, attendance, and daily tasks into a clear, consistent experience.",
     shortDescription:
-      "Une expérience digitale conçue pour centraliser les opérations et rendre la gestion quotidienne plus claire et efficace.",
+      "A unified operations platform designed to make everyday business management clearer and more efficient.",
     role: ["Product Designer", "UI/UX Designer"],
     services: ["UX Design", "UI Design", "Product Design"],
     image: "/images/projects/nexma/cover.jpg",
