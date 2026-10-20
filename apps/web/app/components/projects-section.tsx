@@ -426,9 +426,10 @@ export function ProjectsSection({
                 will-change-transform
               "
             >
-              Une sélection de projets conçus pour transformer
-              des idées, des marques et des produits en expériences
-              digitales cohérentes et mémorables.
+              Explore selected brand identity, UI/UX, website design,
+              and digital product projects. Each case study shows how
+              thoughtful strategy and user-focused design turn ideas
+              into clear, memorable digital experiences.
             </p>
           </div>
 
@@ -437,7 +438,7 @@ export function ProjectsSection({
           =================================================== */}
 
           <Link
-            href="#projects"
+            href="/#contact"
             data-projects-view-all
             data-cursor="magnetic"
             className="
@@ -468,7 +469,7 @@ export function ProjectsSection({
               will-change-transform
             "
           >
-            <span>View all</span>
+            <span>Start a project</span>
 
             <HugeiconsIcon
               icon={ArrowUpRight01Icon}
@@ -541,7 +542,7 @@ export function ProjectsSection({
                   <Image
                     data-project-image
                     src={project.image}
-                    alt={`${project.title} project`}
+                    alt={`${project.title} ${project.category} portfolio project`}
                     fill
                     sizes="(max-width: 768px) 92vw, (max-width: 1280px) 48vw, 620px"
                     className="
