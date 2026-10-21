@@ -6,13 +6,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { useGSAP } from "@gsap/react";
 
-import { HugeiconsIcon } from "@hugeicons/react";
-
-import {
-  CheckmarkCircle02Icon,
-  ArrowUpRight01Icon,
-} from "@hugeicons/core-free-icons";
-
 gsap.registerPlugin(ScrollTrigger);
 
 interface ProjectResultsProps {
@@ -35,10 +28,6 @@ export function ProjectResults({
       ).matches;
 
       if (reduceMotion) return;
-
-      const backgroundGlow = section.querySelector(
-        "[data-results-glow]"
-      );
 
       const headerLabel = section.querySelector(
         "[data-results-label]"
@@ -64,24 +53,8 @@ export function ProjectResults({
         "[data-results-number]"
       );
 
-      const resultIcons = section.querySelectorAll(
-        "[data-results-icon]"
-      );
-
       const resultTexts = section.querySelectorAll(
         "[data-results-text]"
-      );
-
-      const bottomStatement = section.querySelector(
-        "[data-results-bottom]"
-      );
-
-      const bottomIcon = section.querySelector(
-        "[data-results-bottom-icon]"
-      );
-
-      const bottomOutcome = section.querySelector(
-        "[data-results-outcome]"
       );
 
       /*
@@ -89,11 +62,6 @@ export function ProjectResults({
        * INITIAL STATES
        * -------------------------------------------------------
        */
-
-      gsap.set(backgroundGlow, {
-        opacity: 0,
-        scale: 0.8,
-      });
 
       gsap.set(headerLabel, {
         opacity: 0,
@@ -127,30 +95,9 @@ export function ProjectResults({
         y: 10,
       });
 
-      gsap.set(resultIcons, {
-        opacity: 0,
-        scale: 0.75,
-        rotate: -12,
-      });
-
       gsap.set(resultTexts, {
         opacity: 0,
         y: 18,
-      });
-
-      gsap.set(bottomStatement, {
-        opacity: 0,
-        x: -20,
-      });
-
-      gsap.set(bottomIcon, {
-        opacity: 0,
-        scale: 0.8,
-      });
-
-      gsap.set(bottomOutcome, {
-        opacity: 0,
-        x: 20,
       });
 
       /*
@@ -169,22 +116,12 @@ export function ProjectResults({
       });
 
       headerTimeline
-        .to(backgroundGlow, {
+        .to(headerLabel, {
           opacity: 1,
-          scale: 1,
-          duration: 1.2,
-          ease: "power2.out",
+          y: 0,
+          duration: 0.55,
+          ease: "power3.out",
         })
-        .to(
-          headerLabel,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.55,
-            ease: "power3.out",
-          },
-          "-=0.8"
-        )
         .to(
           headerTitle,
           {
@@ -253,18 +190,6 @@ export function ProjectResults({
           "-=0.45"
         )
         .to(
-          resultIcons,
-          {
-            opacity: 1,
-            scale: 1,
-            rotate: 0,
-            duration: 0.55,
-            stagger: 0.1,
-            ease: "back.out(1.4)",
-          },
-          "-=0.4"
-        )
-        .to(
           resultTexts,
           {
             opacity: 1,
@@ -274,49 +199,6 @@ export function ProjectResults({
             ease: "power3.out",
           },
           "-=0.4"
-        );
-
-      /*
-       * -------------------------------------------------------
-       * BOTTOM STATEMENT
-       * -------------------------------------------------------
-       */
-
-      const bottomTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: bottomStatement,
-          start: "top 90%",
-          end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      bottomTimeline
-        .to(bottomStatement, {
-          opacity: 1,
-          x: 0,
-          duration: 0.6,
-          ease: "power3.out",
-        })
-        .to(
-          bottomIcon,
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.5,
-            ease: "back.out(1.4)",
-          },
-          "-=0.35"
-        )
-        .to(
-          bottomOutcome,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.55,
-            ease: "power3.out",
-          },
-          "-=0.3"
         );
 
       /*
@@ -354,28 +236,6 @@ export function ProjectResults({
         lg:py-36
       "
     >
-      {/* =====================================================
-          BACKGROUND DETAIL
-      ===================================================== */}
-
-      <div
-        data-results-glow
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          right-[-120px]
-          top-[25%]
-          h-[360px]
-          w-[360px]
-          rounded-full
-          bg-[var(--portfolio-accent)]
-          opacity-[0.018]
-          blur-[110px]
-          dark:opacity-[0.04]
-        "
-      />
-
       {/* =====================================================
           CONTAINER
       ===================================================== */}
@@ -421,9 +281,6 @@ export function ProjectResults({
                 uppercase
                 tracking-[0.08em]
                 text-[var(--portfolio-text-secondary)]
-                shadow-[0_4px_18px_rgba(0,0,0,0.025)]
-                dark:bg-white/[0.035]
-                dark:shadow-none
               "
             >
               <span
@@ -435,7 +292,7 @@ export function ProjectResults({
                 "
               />
 
-              <span>Results</span>
+              <span>Impact</span>
             </div>
 
             <h2
@@ -444,17 +301,17 @@ export function ProjectResults({
                 mt-6
                 max-w-[520px]
                 font-display
-                text-[clamp(2.7rem,5vw,5rem)]
+                text-[clamp(2.5rem,4.6vw,4.6rem)]
                 font-semibold
                 leading-[0.94]
                 tracking-[var(--portfolio-tracking-display)]
               "
             >
               <span className="text-[var(--portfolio-text-primary)]">
-                Designed
+                Project
               </span>{" "}
               <span className="font-normal text-[var(--portfolio-text-muted)]">
-                to make an impact.
+                outcomes
               </span>
             </h2>
           </div>
@@ -467,17 +324,15 @@ export function ProjectResults({
               className="
                 max-w-[620px]
                 font-body
-                text-[15px]
+                text-[14px]
                 leading-[1.7]
                 tracking-[var(--portfolio-tracking-body)]
                 text-[var(--portfolio-text-secondary)]
-                sm:text-[16px]
+                sm:text-[15px]
               "
             >
-              Le résultat ne se limite pas à une interface ou à une
-              identité visuelle. Chaque décision a été pensée pour
-              apporter plus de clarté, de cohérence et de valeur à
-              l'expérience finale.
+              The project outcomes reflect its goals, from a clearer
+              user experience to a more consistent visual system.
             </p>
           </div>
         </div>
@@ -492,9 +347,9 @@ export function ProjectResults({
             mt-16
             grid
             grid-cols-1
-            gap-3
+            gap-4
             sm:grid-cols-2
-            sm:gap-4
+            sm:gap-5
             lg:mt-20
             lg:grid-cols-4
           "
@@ -504,171 +359,52 @@ export function ProjectResults({
               key={`${index}-${result}`}
               data-results-card
               className="
-                group
                 relative
-                min-h-[220px]
+                min-h-[180px]
                 overflow-hidden
-                rounded-[var(--portfolio-radius-lg)]
+                rounded-2xl
                 border
                 border-[var(--portfolio-border)]
                 bg-[var(--portfolio-surface)]
                 p-6
-                transition-all
+                transition-colors
                 duration-[var(--portfolio-motion-fast)]
-                hover:-translate-y-[2px]
-                hover:bg-[var(--portfolio-background)]
-                dark:bg-white/[0.025]
-                dark:hover:bg-white/[0.04]
+                hover:border-[var(--portfolio-border-strong)]
                 sm:p-7
-                lg:min-h-[250px]
+                lg:min-h-[200px]
                 lg:p-8
               "
             >
-              {/* NUMBER */}
-
-              <div
+              <span
                 data-results-number
                 className="
                   font-display
-                  text-[11px]
-                  font-medium
+                  text-[12px]
+                  font-semibold
                   tracking-[0.08em]
-                  text-[var(--portfolio-text-muted)]
+                  text-[var(--portfolio-accent)]
                 "
               >
                 {String(index + 1).padStart(2, "0")}
-              </div>
-
-              {/* ICON */}
-
-              <div
-                data-results-icon
+              </span>
+              <p
+                data-results-text
                 className="
-                  absolute
-                  right-6
-                  top-6
-                  flex
-                  h-9
-                  w-9
-                  items-center
-                  justify-center
-                  rounded-full
-                  border
-                  border-[var(--portfolio-border)]
-                  bg-[var(--portfolio-background)]
-                  text-[var(--portfolio-text-muted)]
-                  transition-colors
-                  duration-[var(--portfolio-motion-fast)]
-                  group-hover:text-[var(--portfolio-text-secondary)]
-                  sm:right-7
-                  sm:top-7
-                  lg:right-8
-                  lg:top-8
+                  mt-10
+                  max-w-[300px]
+                  font-display
+                  text-[16px]
+                  font-medium
+                  leading-[1.3]
+                  tracking-[-0.025em]
+                  text-[var(--portfolio-text-primary)]
+                  sm:text-[17px]
                 "
               >
-                <HugeiconsIcon
-                  icon={CheckmarkCircle02Icon}
-                  size={16}
-                  strokeWidth={1.6}
-                />
-              </div>
-
-              {/* RESULT */}
-
-              <div
-                className="
-                  absolute
-                  inset-x-6
-                  bottom-6
-                  sm:inset-x-7
-                  sm:bottom-7
-                  lg:inset-x-8
-                  lg:bottom-8
-                "
-              >
-                <p
-                  data-results-text
-                  className="
-                    max-w-[250px]
-                    font-display
-                    text-[18px]
-                    font-semibold
-                    leading-[1.15]
-                    tracking-[-0.025em]
-                    text-[var(--portfolio-text-primary)]
-                    sm:text-[19px]
-                  "
-                >
-                  {result}
-                </p>
-              </div>
+                {result}
+              </p>
             </article>
           ))}
-        </div>
-
-        {/* =====================================================
-            BOTTOM STATEMENT
-        ===================================================== */}
-
-        <div
-          data-results-bottom
-          className="
-            mt-10
-            flex
-            flex-col
-            gap-5
-            border-t
-            border-[var(--portfolio-border)]
-            pt-7
-            sm:flex-row
-            sm:items-center
-            sm:justify-between
-          "
-        >
-          <div
-            className="
-              flex
-              items-center
-              gap-2.5
-              font-display
-              text-[12px]
-              font-medium
-              text-[var(--portfolio-text-muted)]
-            "
-          >
-            <HugeiconsIcon
-              data-results-bottom-icon
-              icon={CheckmarkCircle02Icon}
-              size={15}
-              strokeWidth={1.6}
-            />
-
-            <span>
-              Built with clarity, intention and consistency.
-            </span>
-          </div>
-
-          <span
-            data-results-outcome
-            className="
-              inline-flex
-              items-center
-              gap-2
-              font-display
-              text-[12px]
-              font-medium
-              text-[var(--portfolio-text-muted)]
-            "
-          >
-            <span>Outcome</span>
-
-            <HugeiconsIcon
-              icon={ArrowUpRight01Icon}
-              size={14}
-              strokeWidth={1.6}
-              color="var(--portfolio-accent)"
-            />
-          </span>
         </div>
       </div>
     </section>

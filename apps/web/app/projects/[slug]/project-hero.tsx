@@ -2,6 +2,7 @@
 
 import { useRef } from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 
@@ -413,7 +414,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
             "
           />
 
-          <span>Retour aux projets</span>
+          <span>Back to selected projects</span>
         </Link>
 
         {/* =====================================================
@@ -434,7 +435,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 items-center
                 gap-3
                 font-display
-                text-[12px]
+                text-[11px]
                 font-medium
               "
             >
@@ -469,7 +470,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 mt-7
                 max-w-[900px]
                 font-display
-                text-[clamp(3.5rem,8vw,8rem)]
+                text-[clamp(3.2rem,7.5vw,7.2rem)]
                 font-semibold
                 leading-[0.88]
                 tracking-[var(--portfolio-tracking-display)]
@@ -486,7 +487,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 mt-7
                 max-w-[650px]
                 font-body
-                text-[clamp(1rem,1.4vw,1.2rem)]
+                text-[clamp(0.95rem,1.25vw,1.1rem)]
                 leading-[1.55]
                 tracking-[var(--portfolio-tracking-body)]
                 text-[var(--portfolio-text-secondary)]
@@ -523,7 +524,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                     hover:shadow-[0_12px_30px_rgba(0,0,0,0.12)]
                   "
                 >
-                  <span>Visiter le projet</span>
+                  <span>Visit live project</span>
 
                   <HugeiconsIcon
                     icon={ArrowUpRight01Icon}
@@ -589,7 +590,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                         px-3
                         py-1.5
                         font-display
-                        text-[12px]
+                        text-[11px]
                         font-medium
                         text-[var(--portfolio-text-primary)]
                       "
@@ -634,7 +635,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                         px-3
                         py-1.5
                         font-display
-                        text-[12px]
+                        text-[11px]
                         font-medium
                         text-[var(--portfolio-text-secondary)]
                       "
@@ -669,7 +670,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                   className="
                     mt-2
                     font-display
-                    text-[15px]
+                    text-[14px]
                     font-medium
                     text-[var(--portfolio-text-primary)]
                   "
@@ -699,13 +700,14 @@ export function ProjectHero({ project }: ProjectHeroProps) {
             lg:mt-24
           "
         >
-          <img
+          <Image
             data-project-image
             src={project.image}
-            alt={`${project.title} — project preview`}
+            alt={`${project.title} ${project.category} design case study`}
+            fill
+            priority
+            sizes="(max-width: 1320px) 100vw, 1320px"
             className="
-              h-full
-              w-full
               object-cover
               will-change-transform
             "

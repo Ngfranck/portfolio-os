@@ -14,7 +14,6 @@ import {
 import { JsonLd } from "../../../app/components/seo/JsonLd";
 import {
   getPublishedArticleBySlug,
-  getPublishedArticles,
 } from "../../../services/articles/article.service";
 
 import { ArticlePageAnimations } from "./ArticlePageAnimations";
@@ -48,17 +47,7 @@ type ArticlePageProps = {
   }>;
 };
 
-/* =====================================================
-   STATIC PARAMS
-===================================================== */
-
-export async function generateStaticParams() {
-  const articles = await getPublishedArticles();
-
-  return articles.map((article) => ({
-    slug: article.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 /* =====================================================
    SEO / METADATA

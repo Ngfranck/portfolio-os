@@ -1,3 +1,5 @@
+import type { Metadata } from "next";
+
 import { Hero } from "./components/home/hero";
 
 import { About } from "./components/home/about";
@@ -25,6 +27,34 @@ import { getFeaturedServices } from "../services/services/service.service";
 import { getFeaturedTestimonials } from "../services/testimonials/testimonial.service";
 
 import { getSiteSettings } from "../services/site-settings/site-settings.service";
+
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await getSiteSettings();
+  const title =
+    settings.seoTitle?.trim() ||
+    "Gonar.ui — UX/UI, Web & Brand Designer";
+  const description =
+    settings.seoDescription?.trim() ||
+    "UX/UI, web and brand design focused on creating clear, meaningful and memorable digital experiences.";
+  const image = settings.ogImageUrl?.trim() || "/images/og-image.jpg";
+
+  return {
+    title,
+    description,
+    openGraph: {
+      title,
+      description,
+      images: [{ url: image, alt: "Gonar.ui — UX/UI, Web & Brand Designer" }],
+    },
+    twitter: {
+      title,
+      description,
+      images: [image],
+    },
+  };
+}
 
 export default async function HomePage() {
   const [

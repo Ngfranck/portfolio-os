@@ -4,9 +4,16 @@ import path from "node:path";
 import { PrismaPg } from "@prisma/adapter-pg";
 import dotenv from "dotenv";
 import { PrismaClient } from "../../web/app/generated/prisma/client";
+import { fileURLToPath } from "node:url";
+
+const adminDirectory = path.dirname(fileURLToPath(import.meta.url));
 
 dotenv.config({
-  path: path.resolve(process.cwd(), "../../.env"),
+  path: path.resolve(adminDirectory, "../../../.env"),
+});
+
+dotenv.config({
+  path: path.resolve(adminDirectory, "../../web/.env.local"),
 });
 
 const globalForPrisma = globalThis as unknown as {

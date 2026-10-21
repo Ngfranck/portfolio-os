@@ -3,10 +3,8 @@ import type { Metadata } from "next";
 
 import { notFound } from "next/navigation";
 
-import {
-  getPublishedProjectBySlug,
-  getPublishedProjects,
-} from "../../../services/projects/project.service";
+import { JsonLd } from "../../components/seo/JsonLd";
+import { getPublishedProjectBySlug } from "../../../services/projects/project.service";
 
 import { ProjectHero } from "./project-hero";
 import { ProjectOverview } from "./project-overview";
@@ -22,17 +20,13 @@ interface ProjectPageProps {
   }>;
 }
 
-/* =========================================================
-   STATIC PROJECT ROUTES
-========================================================= */
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://ton-domaine.com");
 
-export async function generateStaticParams() {
-  const projects = await getPublishedProjects();
-
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
-}
+export const dynamic = "force-dynamic";
 
 /* =========================================================
    SEO / METADATA
@@ -47,13 +41,57 @@ export async function generateMetadata({
 
   if (!project) {
     return {
-      title: "Projet introuvable",
+      title: "Project not found",
     };
   }
 
+  const fullDescription =
+    project.shortDescription?.trim() ||
+    project.description?.trim() ||
+    `Explore ${project.title}, a design case study by Gonar.ui.`;
+  const description =
+    fullDescription.length > 160
+      ? `${fullDescription.slice(0, 157).trimEnd()}...`
+      : fullDescription;
+  const image = project.coverImage ?? undefined;
+  const canonical = `/projects/${project.slug}`;
+  const projectDiscipline = project.services
+    .slice(0, 2)
+    .map(({ service }) => service.title)
+    .join(" & ");
+  const seoTitle = `${project.title} — ${projectDiscipline || project.category?.name || "Digital Design"} Case Study`;
+  const keywords = [
+    project.category?.name,
+    ...project.services.map(({ service }) => service.title),
+    ...(project.year ? [String(project.year)] : []),
+    "design case study",
+    "digital design portfolio",
+  ].filter((keyword): keyword is string => Boolean(keyword));
+
   return {
-    title: `${project.title} — Franck.ui`,
-    description: project.description ?? project.shortDescription,
+    title: seoTitle,
+    description,
+    keywords,
+    alternates: {
+      canonical,
+    },
+    openGraph: {
+      type: "article",
+      url: canonical,
+      title: `${seoTitle} | Gonar.ui`,
+      description,
+      locale: "en_US",
+      images: image
+        ? [{ url: image, alt: `${project.title} project case study` }]
+        : undefined,
+      tags: keywords,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: `${seoTitle} | Gonar.ui`,
+      description,
+      images: image ? [image] : undefined,
+    },
   };
 }
 
@@ -94,6 +132,7 @@ export default async function ProjectPage({
 
     image: project.coverImage ?? "",
 
+    website: project.liveUrl ?? undefined,
     liveUrl: project.liveUrl ?? undefined,
 
     featured: project.featured,
@@ -120,9 +159,17 @@ export default async function ProjectPage({
 
     gallery: project.images.map((image) => image.url),
   };
+  const projectKeywords = [
+    projectData.category,
+    ...projectData.services,
+    "brand identity",
+    "UI/UX design",
+    "digital product design",
+  ];
 
   return (
     <main
+      lang="en"
       className="
         min-h-screen
         overflow-x-clip
@@ -132,59 +179,43 @@ export default async function ProjectPage({
         duration-[var(--portfolio-motion-normal)]
       "
     >
-      {/* ===================================================
-          NAVIGATION
-      =================================================== */}
-
-      {/* <Navigation /> */}
-
-      {/* ===================================================
-          HERO
-      =================================================== */}
+      <JsonLd
+        data={{
+          "@context": "https://schema.org",
+          "@type": "CreativeWork",
+          name: `${projectData.title} — ${projectData.category} Case Study`,
+          description: projectData.description,
+          url: new URL(`/projects/${projectData.slug}`, siteUrl).toString(),
+          image: projectData.image
+            ? new URL(projectData.image, siteUrl).toString()
+            : undefined,
+          dateCreated: project.year?.toString(),
+          creator: {
+            "@type": "Person",
+            name: "Gonar.ui",
+          },
+          keywords: projectKeywords.join(", "),
+          inLanguage: "en",
+        }}
+      />
 
       <ProjectHero project={projectData} />
-
-      {/* ===================================================
-          PROJECT OVERVIEW
-      =================================================== */}
-
-      <ProjectOverview overview={projectData.overview} />
-
-      {/* ===================================================
-          PROJECT APPROACH
-      =================================================== */}
-
-      <ProjectApproach approach={projectData.approach} />
-
-      {/* ===================================================
-          PROJECT RESULTS
-      =================================================== */}
-
-      <ProjectResults results={projectData.results} />
-
-      {/* ===================================================
-          PROJECT GALLERY
-      =================================================== */}
+      {Object.values(projectData.overview).every((value) => value.trim()) && (
+        <ProjectOverview overview={projectData.overview} />
+      )}
+      {projectData.approach.length > 0 && (
+        <ProjectApproach approach={projectData.approach} />
+      )}
+      {projectData.results.length > 0 && (
+        <ProjectResults results={projectData.results} />
+      )}
 
       <ProjectGallery
         images={projectData.gallery}
         title={projectData.title}
       />
-
-      {/* ===================================================
-          FINAL CTA
-      =================================================== */}
-
-      <ProjectCTA projectTitle={projectData.title} />
-
-      {/* ===================================================
-          FLOATING LIVE PROJECT BUTTON
-          The component itself decides whether it should
-          appear depending on project.liveUrl.
-      =================================================== */}
-
+      <ProjectCTA />
       <ProjectLiveButton url={projectData.liveUrl} />
     </main>
   );
 }
-

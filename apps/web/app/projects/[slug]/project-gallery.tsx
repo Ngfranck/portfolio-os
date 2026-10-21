@@ -56,25 +56,12 @@ export function ProjectGallery({
         "[data-gallery-image]"
       );
 
-      const footnote = section.querySelector<HTMLElement>(
-        "[data-gallery-footnote]"
-      );
-
-      const footnoteDot = section.querySelector<HTMLElement>(
-        "[data-gallery-footnote-dot]"
-      );
-
-      const footnoteText = section.querySelector<HTMLElement>(
-        "[data-gallery-footnote-text]"
-      );
-
       gsap.set(
         [
           label,
           titleElement,
           description,
           gallery,
-          footnote,
         ].filter(Boolean),
         {
           opacity: 0,
@@ -92,16 +79,6 @@ export function ProjectGallery({
         opacity: 0,
         y: 50,
         clipPath: "inset(0 0 100% 0)",
-      });
-
-      gsap.set(footnoteDot, {
-        opacity: 0,
-        scale: 0.6,
-      });
-
-      gsap.set(footnoteText, {
-        opacity: 0,
-        x: 15,
       });
 
       // ------------------------------------------------------------
@@ -184,54 +161,6 @@ export function ProjectGallery({
             scale: 1,
             duration: 0.85,
             stagger: 0.14,
-            ease: "power3.out",
-          },
-          "-=0.25"
-        );
-      }
-
-      // ------------------------------------------------------------
-      // FOOTNOTE
-      // ------------------------------------------------------------
-
-      const footnoteTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: footnote,
-          start: "top 92%",
-          end: "bottom 30%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      if (footnote) {
-        footnoteTimeline.to(footnote, {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          ease: "power3.out",
-        });
-      }
-
-      if (footnoteDot) {
-        footnoteTimeline.to(
-          footnoteDot,
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.4,
-            ease: "back.out(1.7)",
-          },
-          "-=0.3"
-        );
-      }
-
-      if (footnoteText) {
-        footnoteTimeline.to(
-          footnoteText,
-          {
-            opacity: 1,
-            x: 0,
-            duration: 0.5,
             ease: "power3.out",
           },
           "-=0.25"
@@ -323,7 +252,7 @@ export function ProjectGallery({
                 "
               />
 
-              <span>Selected details</span>
+              <span>Visuals</span>
             </div>
 
             {/* TITLE */}
@@ -333,7 +262,7 @@ export function ProjectGallery({
               className="
                 mt-6
                 font-display
-                text-[clamp(2.8rem,6vw,5.5rem)]
+                text-[clamp(2.6rem,5.3vw,5rem)]
                 font-semibold
                 leading-[0.92]
                 tracking-[var(--portfolio-tracking-display)]
@@ -360,14 +289,14 @@ export function ProjectGallery({
             className="
               max-w-[420px]
               font-body
-              text-[14px]
+              text-[13px]
               leading-[1.7]
               text-[var(--portfolio-text-secondary)]
-              sm:text-[15px]
+              sm:text-[14px]
             "
           >
-            Quelques détails visuels du projet, de l'identité aux
-            différentes interfaces et expériences conçues.
+            A closer look at the visual identity, key screens, and
+            product experience.
           </p>
         </div>
 
@@ -391,7 +320,7 @@ export function ProjectGallery({
           {images[0] && (
             <GalleryImage
               src={images[0]}
-              alt={`${title} — aperçu du projet`}
+              alt={`${title} project design overview`}
               aspect="aspect-[16/9]"
               priority
             />
@@ -414,7 +343,7 @@ export function ProjectGallery({
               {images[1] && (
                 <GalleryImage
                   src={images[1]}
-                  alt={`${title} — détail du projet`}
+                  alt={`${title} visual identity and interface detail`}
                   aspect="aspect-[4/3]"
                 />
               )}
@@ -422,7 +351,7 @@ export function ProjectGallery({
               {images[2] && (
                 <GalleryImage
                   src={images[2]}
-                  alt={`${title} — détail de l'expérience`}
+                  alt={`${title} digital product experience`}
                   aspect="aspect-[4/3]"
                 />
               )}
@@ -436,7 +365,7 @@ export function ProjectGallery({
           {images[3] && (
             <GalleryImage
               src={images[3]}
-              alt={`${title} — vue finale du projet`}
+              alt={`${title} final design presentation`}
               aspect="aspect-[16/9]"
             />
           )}
@@ -460,7 +389,7 @@ export function ProjectGallery({
                 <GalleryImage
                   key={`${image}-${index}`}
                   src={image}
-                  alt={`${title} — détail ${index + 5}`}
+                  alt={`${title} additional design detail ${index + 5}`}
                   aspect="aspect-[4/3]"
                 />
               ))}
@@ -468,38 +397,6 @@ export function ProjectGallery({
           )}
         </div>
 
-        {/* =====================================================
-            FOOTNOTE
-        ===================================================== */}
-
-        <div
-          data-gallery-footnote
-          className="
-            mt-8
-            flex
-            items-center
-            gap-2.5
-            font-display
-            text-[12px]
-            font-medium
-            text-[var(--portfolio-text-muted)]
-          "
-        >
-          <span
-            data-gallery-footnote-dot
-            className="
-              h-1.5
-              w-1.5
-              rounded-full
-              bg-[var(--portfolio-accent)]
-            "
-          />
-
-          <span data-gallery-footnote-text>
-            {images.length} visual
-            {images.length > 1 ? "s" : ""} · {title}
-          </span>
-        </div>
       </div>
     </section>
   );
@@ -569,4 +466,3 @@ function GalleryImage({
     </div>
   );
 }
-

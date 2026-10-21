@@ -8,12 +8,7 @@ import { useGSAP } from "@gsap/react";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 
-import {
-  ArrowDownRight01Icon,
-  Target02Icon,
-  Alert02Icon,
-  Idea01Icon,
-} from "@hugeicons/core-free-icons";
+import { Target02Icon, Alert02Icon, Idea01Icon } from "@hugeicons/core-free-icons";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -70,14 +65,6 @@ export function ProjectOverview({
         "[data-overview-card-description]"
       );
 
-      const bottomStatement = section.querySelector(
-        "[data-overview-bottom-statement]"
-      );
-
-      const bottomIcon = section.querySelector(
-        "[data-overview-bottom-icon]"
-      );
-
       /*
        * -------------------------------------------------------
        * INITIAL STATES
@@ -119,18 +106,6 @@ export function ProjectOverview({
       gsap.set(cardDescriptions, {
         opacity: 0,
         y: 18,
-      });
-
-      gsap.set(bottomStatement, {
-        opacity: 0,
-        x: -25,
-      });
-
-      gsap.set(bottomIcon, {
-        opacity: 0,
-        x: 25,
-        scale: 0.85,
-        rotate: -20,
       });
 
       /*
@@ -238,41 +213,6 @@ export function ProjectOverview({
 
       /*
        * -------------------------------------------------------
-       * BOTTOM STATEMENT
-       * -------------------------------------------------------
-       */
-
-      const bottomTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: bottomStatement,
-          start: "top 88%",
-          end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      bottomTimeline
-        .to(bottomStatement, {
-          opacity: 1,
-          x: 0,
-          duration: 0.7,
-          ease: "power3.out",
-        })
-        .to(
-          bottomIcon,
-          {
-            opacity: 1,
-            x: 0,
-            scale: 1,
-            rotate: 0,
-            duration: 0.65,
-            ease: "back.out(1.4)",
-          },
-          "-=0.4"
-        );
-
-      /*
-       * -------------------------------------------------------
        * REFRESH
        * -------------------------------------------------------
        */
@@ -355,16 +295,15 @@ export function ProjectOverview({
               className="
                 max-w-[850px]
                 font-display
-                text-[clamp(2.2rem,4.5vw,4.5rem)]
+                text-[clamp(2rem,4vw,4rem)]
                 font-semibold
                 leading-[0.95]
                 tracking-[var(--portfolio-tracking-display)]
               "
             >
-              Comprendre le problème
+              Understanding the challenge
               <span className="font-normal text-[var(--portfolio-text-muted)]">
-                {" "}
-                avant de concevoir la solution.
+                {" "}before shaping the solution.
               </span>
             </h2>
           </div>
@@ -439,12 +378,12 @@ export function ProjectOverview({
               className="
                 mt-10
                 font-display
-                text-[20px]
+                text-[18px]
                 font-semibold
                 tracking-[-0.025em]
               "
             >
-              Contexte
+              Context
             </h3>
 
             <p
@@ -452,13 +391,12 @@ export function ProjectOverview({
               className="
                 mt-4
                 font-body
-                text-[14px]
+                text-[13px]
                 leading-[1.7]
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              {overview?.context ||
-                "Présentez ici le contexte dans lequel le projet a été créé, les besoins du client et les éléments qui ont déclenché le projet."}
+              {overview?.context || ""}
             </p>
           </article>
 
@@ -515,7 +453,7 @@ export function ProjectOverview({
               className="
                 mt-10
                 font-display
-                text-[20px]
+                text-[18px]
                 font-semibold
                 tracking-[-0.025em]
               "
@@ -528,13 +466,12 @@ export function ProjectOverview({
               className="
                 mt-4
                 font-body
-                text-[14px]
+                text-[13px]
                 leading-[1.7]
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              {overview?.challenge ||
-                "Expliquez ici le problème principal à résoudre, les contraintes du projet et les difficultés rencontrées."}
+              {overview?.challenge || ""}
             </p>
           </article>
 
@@ -591,12 +528,12 @@ export function ProjectOverview({
               className="
                 mt-10
                 font-display
-                text-[20px]
+                text-[18px]
                 font-semibold
                 tracking-[-0.025em]
               "
             >
-              Objectif
+              Objective
             </h3>
 
             <p
@@ -604,71 +541,17 @@ export function ProjectOverview({
               className="
                 mt-4
                 font-body
-                text-[14px]
+                text-[13px]
                 leading-[1.7]
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              {overview?.objective ||
-                "Présentez ici ce que la conception devait accomplir et les résultats recherchés."}
+              {overview?.objective || ""}
             </p>
           </article>
         </div>
 
-        {/* =====================================================
-            BOTTOM STATEMENT
-        ===================================================== */}
-
-        <div
-          className="
-            mt-14
-            flex
-            flex-col
-            gap-6
-            sm:flex-row
-            sm:items-center
-            sm:justify-between
-          "
-        >
-          <div
-            data-overview-bottom-statement
-            className="
-              max-w-[600px]
-              font-display
-              text-[15px]
-              font-medium
-              leading-[1.5]
-              text-[var(--portfolio-text-secondary)]
-            "
-          >
-            Chaque décision de design part du problème,
-            pas simplement de l'esthétique.
-          </div>
-
-          <div
-            data-overview-bottom-icon
-            className="
-              flex
-              h-11
-              w-11
-              shrink-0
-              items-center
-              justify-center
-              rounded-full
-              border
-              border-[var(--portfolio-border)]
-              bg-[var(--portfolio-surface)]
-            "
-          >
-            <HugeiconsIcon
-              icon={ArrowDownRight01Icon}
-              size={17}
-              strokeWidth={1.5}
-              className="text-[var(--portfolio-accent)]"
-            />
-          </div>
         </div>
-      </div>
     </section>
   );
 }
