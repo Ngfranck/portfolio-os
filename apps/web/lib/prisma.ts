@@ -42,7 +42,11 @@ function getPrismaClient(): PrismaClient {
 }
 
 export const prisma = new Proxy({} as PrismaClient, {
-  get(_target, property) {
+  get(target, property, receiver) {
+    if (property === "then" || typeof property === "symbol") {
+      return Reflect.get(target, property, receiver);
+    }
+
     const client = getPrismaClient();
     const value = Reflect.get(client, property, client) as unknown;
     return typeof value === "function" ? value.bind(client) : value;
