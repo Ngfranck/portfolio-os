@@ -101,7 +101,7 @@ export function CVHero() {
                 "
               >
                 <img
-                  src="/images/about/photo Franck.jpg"
+                  src="/images/about/photo-franck.jpg"
                   alt="Ngoka Franck — Web & Brand Designer"
                   className="
                     absolute
