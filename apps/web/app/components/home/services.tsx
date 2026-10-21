@@ -1007,7 +1007,7 @@ export function ServicesSection({
                 `}
               >
                 <Image
-                  src="/images/projects/mobile.JPG"
+                  src="/images/projects/mobile.jpg"
                   alt="Website design project"
                   fill
                   sizes="(max-width: 768px) 92vw, (max-width: 1024px) 50vw, 620px"

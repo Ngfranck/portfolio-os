@@ -96,8 +96,8 @@ export function WhyChooseMeSection() {
         const statisticsBlock = section.querySelector(
           "[data-why-statistics]"
         );
-        const statisticItems = section.querySelectorAll(
-          "[data-why-stat]"
+        const statisticItems = Array.from(
+          section.querySelectorAll("[data-why-stat]")
         );
 
         const reasonsBlock = section.querySelector(
@@ -106,8 +106,8 @@ export function WhyChooseMeSection() {
         const reasonsLabel = section.querySelector(
           "[data-why-reasons-label]"
         );
-        const reasonCards = section.querySelectorAll(
-          "[data-why-reason]"
+        const reasonCards = Array.from(
+          section.querySelectorAll("[data-why-reason]")
         );
 
         const bottomStatement = section.querySelector(
@@ -122,45 +122,54 @@ export function WhyChooseMeSection() {
 
         // Initial states
 
-        gsap.set(
-          [
-            badge,
-            title,
-            description,
-            cta,
-            statisticsBlock,
-            reasonsLabel,
-            bottomStatement,
-          ],
-          {
+        const headerTargets = [
+          badge,
+          title,
+          description,
+          cta,
+          statisticsBlock,
+          reasonsLabel,
+          bottomStatement,
+        ].filter((target): target is Element => target !== null);
+
+        if (headerTargets.length) {
+          gsap.set(headerTargets, {
             opacity: 0,
             y: 30,
-          }
-        );
+          });
+        }
 
-        gsap.set(statisticItems, {
-          opacity: 0,
-          y: 35,
-        });
+        if (statisticItems.length) {
+          gsap.set(statisticItems, {
+            opacity: 0,
+            y: 35,
+          });
+        }
 
-        gsap.set(reasonCards, {
-          opacity: 0,
-          y: 45,
-        });
+        if (reasonCards.length) {
+          gsap.set(reasonCards, {
+            opacity: 0,
+            y: 45,
+          });
+        }
 
-        gsap.set(bottomText, {
-          opacity: 0,
-          x: -25,
-        });
+        if (bottomText) {
+          gsap.set(bottomText, {
+            opacity: 0,
+            x: -25,
+          });
+        }
 
-        gsap.set(availability, {
-          opacity: 0,
-          x: 25,
-        });
+        if (availability) {
+          gsap.set(availability, {
+            opacity: 0,
+            x: 25,
+          });
+        }
 
         // Header
 
-        if (header) {
+        if (header && badge && title && description && cta) {
           const headerTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: header,
@@ -225,36 +234,40 @@ export function WhyChooseMeSection() {
             },
           });
 
-          gsap.to(statisticItems, {
-            opacity: 1,
-            y: 0,
-            duration: 0.75,
-            stagger: 0.1,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: statisticsBlock,
-              start: "top 78%",
-              end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
-            },
-          });
+          if (statisticItems.length) {
+            gsap.to(statisticItems, {
+              opacity: 1,
+              y: 0,
+              duration: 0.75,
+              stagger: 0.1,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: statisticsBlock,
+                start: "top 78%",
+                end: "bottom 30%",
+                toggleActions: "play reverse play reverse",
+              },
+            });
+          }
         }
 
         // Reasons
 
         if (reasonsBlock) {
-          gsap.to(reasonsLabel, {
-            opacity: 1,
-            y: 0,
-            duration: 0.65,
-            ease: "power3.out",
-            scrollTrigger: {
-              trigger: reasonsBlock,
-              start: "top 82%",
-              end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
-            },
-          });
+          if (reasonsLabel) {
+            gsap.to(reasonsLabel, {
+              opacity: 1,
+              y: 0,
+              duration: 0.65,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: reasonsBlock,
+                start: "top 82%",
+                end: "bottom 30%",
+                toggleActions: "play reverse play reverse",
+              },
+            });
+          }
 
           if (reasonCards.length > 0) {
             gsap.to(reasonCards, {
@@ -285,14 +298,17 @@ export function WhyChooseMeSection() {
             },
           });
 
-          bottomTimeline
-            .to(bottomText, {
+          if (bottomText) {
+            bottomTimeline.to(bottomText, {
               opacity: 1,
               x: 0,
               duration: 0.75,
               ease: "power3.out",
-            })
-            .to(
+            });
+          }
+
+          if (availability) {
+            bottomTimeline.to(
               availability,
               {
                 opacity: 1,
@@ -300,8 +316,9 @@ export function WhyChooseMeSection() {
                 duration: 0.65,
                 ease: "power3.out",
               },
-              "-=0.4"
+              bottomText ? "-=0.4" : undefined
             );
+          }
         }
 
         // Refresh ScrollTrigger

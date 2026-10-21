@@ -399,8 +399,8 @@ export function ToolboxSection() {
           "[data-toolbox-support]"
         );
 
-        const cards = section.querySelectorAll(
-          "[data-toolbox-card]"
+        const cards = Array.from(
+          section.querySelectorAll("[data-toolbox-card]")
         );
 
         const bottomMessage = section.querySelector(
@@ -423,20 +423,21 @@ export function ToolboxSection() {
            INITIAL STATES
         ============================================================ */
 
-        gsap.set(
-          [
-            badge,
-            title,
-            description,
-            supportLine,
-            bottomMessage,
-            marquee,
-          ],
-          {
+        const headerTargets = [
+          badge,
+          title,
+          description,
+          supportLine,
+          bottomMessage,
+          marquee,
+        ].filter((target): target is Element => target !== null);
+
+        if (headerTargets.length) {
+          gsap.set(headerTargets, {
             opacity: 0,
             y: 30,
-          }
-        );
+          });
+        }
 
         if (cards.length > 0) {
           gsap.set(cards, {
@@ -464,7 +465,7 @@ export function ToolboxSection() {
            HEADER
         ============================================================ */
 
-        if (header) {
+        if (header && badge && title && description && supportLine) {
           const headerTimeline = gsap.timeline({
             scrollTrigger: {
               trigger: header,

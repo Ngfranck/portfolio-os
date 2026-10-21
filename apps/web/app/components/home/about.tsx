@@ -79,7 +79,7 @@ export function About({ settings }: { settings: AboutSettings }) {
          * =====================================================
          */
 
-        const cards = section.querySelectorAll("[data-about-card]");
+        const cards = Array.from(section.querySelectorAll("[data-about-card]"));
 
         /*
          * =====================================================
@@ -92,7 +92,7 @@ export function About({ settings }: { settings: AboutSettings }) {
           "[data-about-availability]",
         );
         const profileContent = section.querySelector("[data-about-profile]");
-        const socials = section.querySelectorAll("[data-about-social]");
+        const socials = Array.from(section.querySelectorAll("[data-about-social]"));
         const cvButton = section.querySelector("[data-about-cv]");
 
         /*
@@ -105,13 +105,13 @@ export function About({ settings }: { settings: AboutSettings }) {
           "[data-about-information]",
         );
 
-        const skillsElements = section.querySelectorAll(
+        const skillsElements = Array.from(section.querySelectorAll(
           "[data-about-skill]",
-        );
+        ));
 
-        const experienceElements = section.querySelectorAll(
+        const experienceElements = Array.from(section.querySelectorAll(
           "[data-about-experience]",
-        );
+        ));
 
         /*
          * =====================================================

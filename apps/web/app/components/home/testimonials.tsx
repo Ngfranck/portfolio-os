@@ -144,8 +144,8 @@ export function TestimonialsSection({
           "[data-testimonials-carousel]",
         );
 
-        const cards = section.querySelectorAll(
-          "[data-testimonial-card]",
+        const cards = Array.from(
+          section.querySelectorAll("[data-testimonial-card]"),
         );
 
         const controls = section.querySelector(
@@ -172,20 +172,21 @@ export function TestimonialsSection({
            INITIAL STATES
         ============================================================ */
 
-        gsap.set(
-          [
-            badge,
-            title,
-            description,
-            carousel,
-            controls,
-            bottomCta,
-          ],
-          {
+        const sectionTargets = [
+          badge,
+          title,
+          description,
+          carousel,
+          controls,
+          bottomCta,
+        ].filter((target): target is Element => target !== null);
+
+        if (sectionTargets.length) {
+          gsap.set(sectionTargets, {
             opacity: 0,
             y: 35,
-          },
-        );
+          });
+        }
 
         if (cards.length > 0) {
           gsap.set(cards, {
@@ -195,19 +196,24 @@ export function TestimonialsSection({
           });
         }
 
-        gsap.set(
-          [bottomTitle, bottomDescription],
-          {
-            opacity: 0,
-            x: -25,
-          },
+        const ctaTargets = [bottomTitle, bottomDescription].filter(
+          (target): target is Element => target !== null,
         );
 
-        gsap.set(bottomButton, {
-          opacity: 0,
-          x: 25,
-          scale: 0.96,
-        });
+        if (ctaTargets.length) {
+          gsap.set(ctaTargets, {
+            opacity: 0,
+            x: -25,
+          });
+        }
+
+        if (bottomButton) {
+          gsap.set(bottomButton, {
+            opacity: 0,
+            x: 25,
+            scale: 0.96,
+          });
+        }
 
         /* ============================================================
            HEADER
