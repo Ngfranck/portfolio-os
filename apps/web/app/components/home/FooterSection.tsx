@@ -64,11 +64,11 @@ export function Footer({
         "[data-footer-navigation]",
       );
       const socials = footer.querySelector("[data-footer-socials]");
-      const navigationItems = footer.querySelectorAll(
-        "[data-footer-navigation-item]",
+      const navigationItems = Array.from(
+        footer.querySelectorAll("[data-footer-navigation-item]"),
       );
-      const socialItems = footer.querySelectorAll(
-        "[data-footer-social-item]",
+      const socialItems = Array.from(
+        footer.querySelectorAll("[data-footer-social-item]"),
       );
       const bottomBar = footer.querySelector(
         "[data-footer-bottom]",
@@ -242,7 +242,7 @@ export function Footer({
 
       const columnsTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: brand,
+          trigger: brand ?? navigation ?? socials ?? footer,
           start: "top 88%",
           end: "bottom 20%",
           toggleActions: "play reverse play reverse",
@@ -318,7 +318,8 @@ export function Footer({
 
       const bottomTimeline = gsap.timeline({
         scrollTrigger: {
-          trigger: bottomBar,
+          trigger:
+            bottomBar ?? copyright ?? microMessage ?? backToTop ?? footer,
           start: "top 92%",
           end: "bottom 20%",
           toggleActions: "play reverse play reverse",

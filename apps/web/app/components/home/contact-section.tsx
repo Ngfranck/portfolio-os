@@ -136,8 +136,8 @@ export function ContactSection({
         const contactLinks = section.querySelector(
           "[data-contact-links]"
         );
-        const contactItems = section.querySelectorAll(
-          "[data-contact-item]"
+        const contactItems = Array.from(
+          section.querySelectorAll("[data-contact-item]")
         );
 
         const footerLine = section.querySelector(
@@ -177,40 +177,54 @@ export function ContactSection({
           }
         );
 
-        gsap.set(title, {
-          opacity: 0,
-          y: 45,
-        });
+        if (title) {
+          gsap.set(title, {
+            opacity: 0,
+            y: 45,
+          });
+        }
 
-        gsap.set(cta, {
-          y: 24,
-          scale: 0.97,
-        });
+        if (cta) {
+          gsap.set(cta, {
+            y: 24,
+            scale: 0.97,
+          });
+        }
 
-        gsap.set(availabilityCard, {
-          opacity: 0,
-          x: 35,
-          y: 20,
-        });
+        if (availabilityCard) {
+          gsap.set(availabilityCard, {
+            opacity: 0,
+            x: 35,
+            y: 20,
+          });
+        }
 
-        gsap.set(contactForm, {
-          y: 20,
-        });
+        if (contactForm) {
+          gsap.set(contactForm, {
+            y: 20,
+          });
+        }
 
-        gsap.set(contactLinks, {
-          opacity: 0,
-          x: 35,
-          y: 20,
-        });
+        if (contactLinks) {
+          gsap.set(contactLinks, {
+            opacity: 0,
+            x: 35,
+            y: 20,
+          });
+        }
 
-        gsap.set(contactItems, {
-          opacity: 0,
-          x: 25,
-        });
+        if (contactItems.length) {
+          gsap.set(contactItems, {
+            opacity: 0,
+            x: 25,
+          });
+        }
 
-        gsap.set(footerMessage, {
-          x: -20,
-        });
+        if (footerMessage) {
+          gsap.set(footerMessage, {
+            x: -20,
+          });
+        }
 
         /*
          * =====================================================
