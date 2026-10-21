@@ -1,11 +1,11 @@
 "use client";
 
+import Link from "next/link";
 import { useRef } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowRight01Icon,
   ArrowUpRight01Icon,
-  SparklesIcon,
 } from "@hugeicons/core-free-icons";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -13,11 +13,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-interface ProjectCTAProps {
-  projectTitle: string;
-}
-
-export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
+export function ProjectCTA() {
   const sectionRef = useRef<HTMLElement | null>(null);
 
   useGSAP(
@@ -36,12 +32,6 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
         return;
       }
 
-      const glow = section.querySelector<HTMLElement>(
-        "[data-project-cta-glow]"
-      );
-      const secondaryGlow = section.querySelector<HTMLElement>(
-        "[data-project-cta-secondary-glow]"
-      );
       const eyebrow = section.querySelector<HTMLElement>(
         "[data-project-cta-eyebrow]"
       );
@@ -57,21 +47,9 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
       const actionLinks = section.querySelectorAll<HTMLElement>(
         "[data-project-cta-action]"
       );
-      const bottomLabel = section.querySelector<HTMLElement>(
-        "[data-project-cta-bottom]"
-      );
-      const bottomLabelItems = section.querySelectorAll<HTMLElement>(
-        "[data-project-cta-bottom-item]"
-      );
-
       // ------------------------------------------------------------
       // INITIAL STATES
       // ------------------------------------------------------------
-
-      gsap.set([glow, secondaryGlow].filter(Boolean), {
-        opacity: 0,
-        scale: 0.8,
-      });
 
       gsap.set(eyebrow, {
         opacity: 0,
@@ -99,51 +77,6 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
         y: 18,
         scale: 0.97,
       });
-
-      gsap.set(bottomLabel, {
-        opacity: 0,
-        y: 20,
-      });
-
-      gsap.set(bottomLabelItems, {
-        opacity: 0,
-        y: 10,
-      });
-
-      // ------------------------------------------------------------
-      // BACKGROUND GLOW
-      // ------------------------------------------------------------
-
-      const glowTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: section,
-          start: "top 82%",
-          end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      if (glow) {
-        glowTimeline.to(glow, {
-          opacity: 0.4,
-          scale: 1,
-          duration: 1.4,
-          ease: "power3.out",
-        });
-      }
-
-      if (secondaryGlow) {
-        glowTimeline.to(
-          secondaryGlow,
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 1.1,
-            ease: "power3.out",
-          },
-          "-=1"
-        );
-      }
 
       // ------------------------------------------------------------
       // MAIN CONTENT
@@ -223,42 +156,6 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
       }
 
       // ------------------------------------------------------------
-      // BOTTOM PROJECT LABEL
-      // ------------------------------------------------------------
-
-      const bottomTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: bottomLabel,
-          start: "top 92%",
-          end: "bottom 30%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      if (bottomLabel) {
-        bottomTimeline.to(bottomLabel, {
-          opacity: 1,
-          y: 0,
-          duration: 0.55,
-          ease: "power3.out",
-        });
-      }
-
-      if (bottomLabelItems.length > 0) {
-        bottomTimeline.to(
-          bottomLabelItems,
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.45,
-            stagger: 0.08,
-            ease: "power3.out",
-          },
-          "-=0.3"
-        );
-      }
-
-      // ------------------------------------------------------------
       // REFRESH SCROLLTRIGGER
       // ------------------------------------------------------------
 
@@ -294,54 +191,6 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
       "
     >
       {/* =====================================================
-          BACKGROUND — RADIAL GLOW
-      ===================================================== */}
-
-      <div
-        data-project-cta-glow
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-1/2
-          top-1/2
-          -z-10
-          h-[520px]
-          w-[520px]
-          -translate-x-1/2
-          -translate-y-1/2
-          rounded-full
-          bg-[radial-gradient(circle,var(--portfolio-accent-soft)_0%,transparent_68%)]
-          opacity-40
-          blur-3xl
-          transition-opacity
-          duration-700
-          dark:opacity-25
-        "
-      />
-
-      {/* Subtle secondary glow */}
-
-      <div
-        data-project-cta-secondary-glow
-        aria-hidden="true"
-        className="
-          pointer-events-none
-          absolute
-          left-[20%]
-          top-[15%]
-          -z-10
-          h-40
-          w-40
-          rounded-full
-          bg-[var(--portfolio-accent)]
-          opacity-[0.025]
-          blur-[90px]
-          dark:opacity-[0.045]
-        "
-      />
-
-      {/* =====================================================
           CONTENT
       ===================================================== */}
 
@@ -373,12 +222,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
             text-[var(--portfolio-text-muted)]
           "
         >
-          <HugeiconsIcon
-            icon={SparklesIcon}
-            size={15}
-            strokeWidth={1.7}
-            color="var(--portfolio-accent)"
-          />
+          <span className="h-1.5 w-1.5 rounded-full bg-[var(--portfolio-accent)]" />
 
           <span>Have something in mind?</span>
         </div>
@@ -393,7 +237,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
             mt-8
             max-w-[950px]
             font-display
-            text-[clamp(3.4rem,8vw,7.8rem)]
+            text-[clamp(3.1rem,7.2vw,7rem)]
             font-semibold
             leading-[0.88]
             tracking-[-0.065em]
@@ -405,7 +249,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
               text-[var(--portfolio-text-primary)]
             "
           >
-            Let's create
+            Let&apos;s create
           </span>
 
           <span
@@ -429,16 +273,16 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
             mt-8
             max-w-[650px]
             font-body
-            text-[15px]
+            text-[14px]
             leading-[1.65]
             tracking-[-0.01em]
             text-[var(--portfolio-text-secondary)]
-            sm:text-[16px]
+            sm:text-[15px]
           "
         >
-          Ce projet est une illustration de mon approche. Si vous recherchez
-          une identité, une interface ou une expérience digitale pensée avec
-          précision, parlons de votre projet.
+          Need a brand identity, a thoughtful UI/UX design, or a digital
+          product experience? Let’s discuss your goals and create a solution
+          tailored to your audience.
         </p>
 
         {/* ===================================================
@@ -458,7 +302,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
         >
           {/* PRIMARY */}
 
-          <a
+          <Link
             data-project-cta-action
             href="/#contact"
             className="
@@ -484,7 +328,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
               dark:hover:shadow-[0_16px_45px_rgba(0,0,0,0.3)]
             "
           >
-            <span>Parlons de votre projet</span>
+            <span>Start a project</span>
 
             <HugeiconsIcon
               icon={ArrowUpRight01Icon}
@@ -498,11 +342,11 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
                 group-hover:-translate-y-0.5
               "
             />
-          </a>
+          </Link>
 
           {/* SECONDARY */}
 
-          <a
+          <Link
             data-project-cta-action
             href="/#projects"
             className="
@@ -529,7 +373,7 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
               dark:hover:border-[var(--portfolio-text-muted)]
             "
           >
-            <span>Voir d'autres projets</span>
+            <span>Explore more projects</span>
 
             <HugeiconsIcon
               icon={ArrowRight01Icon}
@@ -542,44 +386,9 @@ export function ProjectCTA({ projectTitle }: ProjectCTAProps) {
                 group-hover:translate-x-0.5
               "
             />
-          </a>
+          </Link>
         </div>
 
-        {/* ===================================================
-            BOTTOM PROJECT LABEL
-        =================================================== */}
-
-        <div
-          data-project-cta-bottom
-          className="
-            mt-20
-            flex
-            items-center
-            gap-3
-            font-body
-            text-[10px]
-            font-medium
-            uppercase
-            tracking-[0.16em]
-            text-[var(--portfolio-text-muted)]
-            sm:mt-24
-          "
-        >
-          <span data-project-cta-bottom-item>Project</span>
-
-          <span
-            data-project-cta-bottom-item
-            aria-hidden="true"
-            className="
-              h-1
-              w-1
-              rounded-full
-              bg-[var(--portfolio-accent)]
-            "
-          />
-
-          <span data-project-cta-bottom-item>{projectTitle}</span>
-        </div>
       </div>
     </section>
   );

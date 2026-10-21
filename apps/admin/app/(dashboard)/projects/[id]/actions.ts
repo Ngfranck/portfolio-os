@@ -4,6 +4,20 @@ import { prisma } from "@/lib/prisma";
 import type { Prisma } from "../../../../../web/app/generated/prisma/client";
 import { z } from "zod";
 
+function getImageUrl(value: unknown): string | null {
+  let current = value;
+  const seen = new Set<object>();
+
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    current = (current as Record<string, unknown>).url;
+  }
+
+  return typeof current === "string" && current.trim()
+    ? current.trim()
+    : null;
+}
+
 export async function getProjectReferenceData() {
   const [categories, services, skills] =
     await Promise.all([
@@ -556,6 +570,8 @@ export async function getProjectById(
       };
     }
 
+    const coverImageUrl = getImageUrl(project.coverImage);
+
     return {
       success: true as const,
 
@@ -588,12 +604,12 @@ export async function getProjectById(
           project.featured,
 
         coverImage:
-          project.coverImage
+          coverImageUrl
             ? {
-                url: project.coverImage,
+                url: coverImageUrl,
 
                 name:
-                  project.coverImage
+                  coverImageUrl
                     .split("/")
                     .pop() ??
                   "Image de couverture",

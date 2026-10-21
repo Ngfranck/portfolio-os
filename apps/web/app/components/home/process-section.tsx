@@ -10,7 +10,6 @@ import {
   Compass01Icon,
   Idea01Icon,
   PencilEdit01Icon,
-  Rocket01Icon,
 } from "@hugeicons/core-free-icons";
 
 import gsap from "gsap";
@@ -22,31 +21,124 @@ gsap.registerPlugin(ScrollTrigger);
 const processSteps = [
   {
     number: "01",
-    title: "Discover",
+    title: "Listening & Understanding",
+    phase: "Project foundation",
     description:
-      "Nous commençons par comprendre votre vision, vos objectifs, votre audience et les enjeux de votre projet.",
+      "Every project starts with understanding the people, the problem and the ambition behind the idea.",
+    details:
+      "I start by listening carefully to your needs, objectives, constraints and expectations. This first stage helps clarify the project scope, identify the real problem to solve and establish a shared understanding of what success should look like.",
+    focus: [
+      "Project goals",
+      "Business objectives",
+      "User needs",
+      "Constraints and expectations",
+      "Project scope",
+    ],
     icon: Compass01Icon,
   },
   {
     number: "02",
-    title: "Strategy",
+    title: "Research & Analysis",
+    phase: "Evidence and insight",
     description:
-      "Nous définissons une direction claire et construisons une stratégie capable de transformer vos idées en résultats.",
+      "I turn initial assumptions into insights through research, analysis and structured thinking.",
+    details:
+      "Depending on the project, I analyse the existing product, users, competitors, market context and available data. The goal is to identify opportunities, clarify priorities and make design decisions based on evidence rather than assumptions.",
+    focus: [
+      "User research",
+      "Competitive analysis",
+      "Product audit",
+      "Market context",
+      "Opportunity identification",
+    ],
     icon: Idea01Icon,
   },
   {
     number: "03",
-    title: "Design",
+    title: "Contract & 50% Deposit",
+    phase: "Clear collaboration",
     description:
-      "Nous transformons la stratégie en identité, interface et expérience digitale cohérente, élégante et mémorable.",
-    icon: PencilEdit01Icon,
+      "Once the direction is clear, we formalize the collaboration and secure the project.",
+    details:
+      "Before design production begins, we define the scope, deliverables, timeline, responsibilities and revision process. A signed contract and a 50% deposit are required to officially reserve the project slot and begin the work.",
+    reassurance:
+      "Clear expectations protect both the client and the creative process.",
+    focus: [
+      "Scope and deliverables",
+      "Timeline and responsibilities",
+      "Revision framework",
+      "Signed contract",
+      "50% project deposit",
+    ],
+    icon: Compass01Icon,
   },
   {
     number: "04",
-    title: "Deliver",
+    title: "Ideation & Concept Development",
+    phase: "Creative direction",
     description:
-      "Nous finalisons, optimisons et préparons une solution prête à être utilisée, développée et déployée.",
-    icon: Rocket01Icon,
+      "I explore directions, references and visual ideas before defining the final design language.",
+    details:
+      "This is where ideas begin to take shape. I explore creative directions through moodboards, references, visual exploration and conceptual thinking. The objective is to establish a strong direction before moving into detailed interface or visual design.",
+    focus: [
+      "Moodboards and references",
+      "Creative directions",
+      "Concept exploration",
+      "Art direction",
+      "Visual language",
+    ],
+    icon: Idea01Icon,
+  },
+  {
+    number: "05",
+    title: "Sketches & Wireframing",
+    phase: "Experience structure",
+    description:
+      "I structure the experience before investing in visual details.",
+    details:
+      "Before polishing the interface, I explore layouts, information hierarchy and user flows through sketches and wireframes. This allows us to validate the structure and experience before moving into high-fidelity design.",
+    focus: [
+      "User flows",
+      "Information architecture",
+      "Sketches and wireframes",
+      "Layout exploration",
+      "Interaction structure",
+    ],
+    icon: PencilEdit01Icon,
+  },
+  {
+    number: "06",
+    title: "Design & Craft",
+    phase: "Design production",
+    description:
+      "I transform validated ideas into refined, functional and consistent experiences.",
+    details:
+      "Once the direction and structure are validated, I move into the detailed design phase. I craft interfaces, visual systems and brand elements with attention to hierarchy, accessibility, consistency, interaction and visual quality.",
+    focus: [
+      "UI and web design",
+      "Mobile app design",
+      "Brand identity",
+      "Design systems and prototyping",
+      "Visual and responsive design",
+    ],
+    icon: PencilEdit01Icon,
+  },
+  {
+    number: "07",
+    title: "Collaborative Feedback",
+    phase: "Review and refinement",
+    description:
+      "The best results come from thoughtful collaboration and focused iterations.",
+    details:
+      "Design is a collaborative process. I present the work, collect structured feedback and refine the solution through focused iterations. The objective is to move forward with clarity while keeping the project aligned with its goals, users and visual direction.",
+    focus: [
+      "Design presentation",
+      "Client feedback and review",
+      "Focused iterations",
+      "Refinement",
+      "Final validation",
+    ],
+    icon: Compass01Icon,
   },
 ];
 
@@ -495,6 +587,7 @@ export function ProcessSection() {
     <section
       ref={sectionRef}
       id="process"
+      aria-labelledby="process-heading"
       className="
         relative
         overflow-hidden
@@ -570,11 +663,12 @@ export function ProcessSection() {
             />
           </span>
 
-          <span>How it works</span>
+          <span>My process</span>
         </div>
 
         {/* Heading */}
         <h2
+          id="process-heading"
           data-process-heading
           className="
             mt-6
@@ -585,12 +679,7 @@ export function ProcessSection() {
             tracking-[var(--portfolio-tracking-display)]
           "
         >
-          <span className="text-[var(--portfolio-text-primary)]">
-            Process
-          </span>{" "}
-          <span className="font-normal text-[var(--portfolio-text-muted)]">
-            is Everything
-          </span>
+          From ideas to purposeful experiences.
         </h2>
 
         {/* Description */}
@@ -607,8 +696,7 @@ export function ProcessSection() {
             text-[var(--portfolio-text-secondary)]
           "
         >
-          Une méthode claire et structurée pour transformer
-          une idée en expérience digitale mémorable.
+          A structured and collaborative process designed to turn complex ideas into clear, useful and meaningful digital experiences.
         </p>
       </div>
 
@@ -619,6 +707,10 @@ export function ProcessSection() {
       <div className="relative mx-auto mt-16 max-w-[1500px]">
         <div
           ref={carouselRef}
+          id="process-steps"
+          role="region"
+          aria-label="Seven steps in my design process"
+          tabIndex={0}
           className="
             scrollbar-none
             flex
@@ -628,6 +720,10 @@ export function ProcessSection() {
             overflow-x-auto
             pb-5
             py-20
+            focus-visible:outline
+            focus-visible:outline-2
+            focus-visible:outline-offset-4
+            focus-visible:outline-[var(--portfolio-text-primary)]
             lg:gap-5
           "
         >
@@ -720,7 +816,7 @@ export function ProcessSection() {
                 <p
                   className="
                     mt-4
-                    min-h-[105px]
+                    min-h-[96px]
                     font-body
                     text-[15px]
                     leading-[1.55]
@@ -730,6 +826,60 @@ export function ProcessSection() {
                 >
                   {step.description}
                 </p>
+
+                <details className="mt-5">
+                  <summary
+                    className="
+                      w-fit
+                      cursor-pointer
+                      font-body
+                      text-[13px]
+                      font-medium
+                      text-[var(--portfolio-text-secondary)]
+                      underline
+                      decoration-[var(--portfolio-border)]
+                      underline-offset-4
+                      transition-colors
+                      hover:text-[var(--portfolio-text-primary)]
+                      focus-visible:outline
+                      focus-visible:outline-2
+                      focus-visible:outline-offset-4
+                      focus-visible:outline-[var(--portfolio-text-primary)]
+                    "
+                  >
+                    Read more
+                  </summary>
+                  <div className="mt-4">
+                    <p className="font-body text-[14px] leading-[1.6] text-[var(--portfolio-text-secondary)]">
+                      {step.details}
+                    </p>
+                    {step.reassurance && (
+                      <p className="mt-3 font-body text-[14px] font-medium leading-[1.55] text-[var(--portfolio-text-primary)]">
+                        {step.reassurance}
+                      </p>
+                    )}
+                    <ul className="mt-4 flex flex-wrap gap-2">
+                      {step.focus.map((item) => (
+                        <li
+                          key={item}
+                          className="
+                            rounded-full
+                            border
+                            border-[var(--portfolio-border)]
+                            px-3
+                            py-1.5
+                            font-body
+                            text-[12px]
+                            leading-tight
+                            text-[var(--portfolio-text-secondary)]
+                          "
+                        >
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </details>
               </div>
 
               {/* Separator */}
@@ -762,7 +912,7 @@ export function ProcessSection() {
                   group-hover:text-[var(--portfolio-text-primary)]
                 "
               >
-                Step {step.number}
+                {step.phase}
               </div>
             </article>
           ))}
@@ -778,7 +928,8 @@ export function ProcessSection() {
         >
           <button
             type="button"
-            aria-label="Étapes précédentes"
+            aria-label="Previous process steps"
+            aria-controls="process-steps"
             data-cursor="magnetic"
             onClick={() => scrollCarousel("left")}
             className="
@@ -809,7 +960,8 @@ export function ProcessSection() {
 
           <button
             type="button"
-            aria-label="Étapes suivantes"
+            aria-label="Next process steps"
+            aria-controls="process-steps"
             data-cursor="magnetic"
             onClick={() => scrollCarousel("right")}
             className="
@@ -887,7 +1039,7 @@ export function ProcessSection() {
               />
             </span>
 
-            Je vous accompagne à chaque étape
+            A clear process, from first conversation to final refinement
           </div>
 
           <p
@@ -900,8 +1052,7 @@ export function ProcessSection() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Une collaboration claire, fluide et sans
-            complexité inutile.
+            Thoughtful collaboration keeps every decision aligned with your goals and the people you want to reach.
           </p>
         </div>
 
@@ -931,7 +1082,7 @@ export function ProcessSection() {
               hover:bg-[var(--portfolio-surface)]
             "
           >
-            Voir mes projets
+            View projects
           </a>
 
           {/* Primary CTA */}
@@ -958,7 +1109,7 @@ export function ProcessSection() {
               hover:shadow-[0_8px_24px_rgba(17,17,17,0.12)]
             "
           >
-            <span>Me contacter</span>
+            <span>Start a project</span>
 
             <span
               className="

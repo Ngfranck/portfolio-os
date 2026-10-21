@@ -13,6 +13,8 @@ import { getPublishedArticles } from "../../services/articles/article.service";
 
 import { ArticlesPageAnimations } from "./ArticlesPageAnimations";
 
+export const dynamic = "force-dynamic";
+
 function formatArticleDate(date: Date | null) {
   if (!date) {
     return "";

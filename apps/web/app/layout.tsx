@@ -72,81 +72,67 @@ const signatrue = localFont({
   display: "swap",
 });
 
-const siteUrl = "https://ton-domaine.com";
+const siteUrl =
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+    : "https://ton-domaine.com");
+
+const defaultSeoTitle = "Gonar.ui — UX/UI, Web & Brand Designer";
+const defaultSeoDescription =
+  "UX/UI, web and brand design focused on creating clear, meaningful and memorable digital experiences.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-
   title: {
-    default: "Gonar.ui — Web & Brand Designer",
-    template: "%s — Gonar.ui",
+    default: defaultSeoTitle,
+    template: "%s | Gonar.ui",
   },
-
-  description:
-    "Portfolio de Gonar.ui, Web & Brand Designer spécialisé en UI/UX design, identité visuelle et expériences digitales.",
-
+  description: defaultSeoDescription,
   keywords: [
     "Gonar.ui",
-    "Franck Designer",
+    "UX/UI Designer",
     "Web Designer",
     "Brand Designer",
-    "UI Designer",
-    "UX Designer",
-    "UI/UX Designer",
     "Brand Identity",
     "Digital Product Design",
     "Portfolio Designer",
   ],
-
-  authors: [
-    {
-      name: "Gonar.ui",
-    },
-  ],
-
+  authors: [{ name: "Gonar.ui" }],
   creator: "Gonar.ui",
-
   publisher: "Gonar.ui",
-
   applicationName: "Gonar.ui Portfolio",
-
   alternates: {
     canonical: "/",
     languages: {
-      "fr-FR": "/",
+      "en-US": "/",
     },
   },
-
   openGraph: {
     type: "website",
-    locale: "fr_FR",
+    locale: "en_US",
     url: "/",
     siteName: "Gonar.ui",
-    title: "Gonar.ui — Web & Brand Designer",
-    description:
-      "Portfolio de Gonar.ui, Web & Brand Designer spécialisé en UI/UX design, identité visuelle et expériences digitales.",
+    title: defaultSeoTitle,
+    description: defaultSeoDescription,
     images: [
       {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Gonar.ui — Web & Brand Designer",
+        alt: "Gonar.ui — UX/UI, Web & Brand Designer",
       },
     ],
   },
-
   twitter: {
     card: "summary_large_image",
-    title: "Gonar.ui — Web & Brand Designer",
-    description:
-      "Portfolio de Gonar.ui, Web & Brand Designer spécialisé en UI/UX design, identité visuelle et expériences digitales.",
+    title: defaultSeoTitle,
+    description: defaultSeoDescription,
     images: ["/images/og-image.jpg"],
   },
-
   robots: {
     index: true,
     follow: true,
-
     googleBot: {
       index: true,
       follow: true,
@@ -155,7 +141,6 @@ export const metadata: Metadata = {
       "max-video-preview": -1,
     },
   },
-
   category: "design",
 };
 
@@ -165,7 +150,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${sfProDisplay.variable} ${signatrue.variable}`}
       >
@@ -178,9 +163,9 @@ export default function RootLayout({
                 "@id": `${siteUrl}/#person`,
                 name: "Gonar.ui",
                 url: siteUrl,
-                jobTitle: "Web & Brand Designer",
+                jobTitle: "UX/UI, Web & Brand Designer",
                 description:
-                  "Web & Brand Designer spécialisé en UI/UX design, identité visuelle et expériences digitales.",
+                  defaultSeoDescription,
               },
               {
                 "@type": "WebSite",
@@ -188,7 +173,7 @@ export default function RootLayout({
                 name: "Gonar.ui",
                 url: siteUrl,
                 description:
-                  "Portfolio de Gonar.ui, Web & Brand Designer spécialisé en UI/UX design, identité visuelle et expériences digitales.",
+                  defaultSeoDescription,
                 author: {
                   "@id": `${siteUrl}/#person`,
                 },

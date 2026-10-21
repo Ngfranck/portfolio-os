@@ -78,10 +78,6 @@ export function ProjectApproach({
         "[data-approach-arrow]"
       );
 
-      const microStatement = section.querySelector(
-        "[data-approach-micro]"
-      );
-
       /*
        * -------------------------------------------------------
        * INITIAL STATES
@@ -128,11 +124,6 @@ export function ProjectApproach({
         opacity: 0,
         scale: 0.8,
         rotate: -20,
-      });
-
-      gsap.set(microStatement, {
-        opacity: 0,
-        y: 20,
       });
 
       /*
@@ -249,28 +240,6 @@ export function ProjectApproach({
 
       /*
        * -------------------------------------------------------
-       * MICRO STATEMENT
-       * -------------------------------------------------------
-       */
-
-      const microTimeline = gsap.timeline({
-        scrollTrigger: {
-          trigger: microStatement,
-          start: "top 90%",
-          end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
-        },
-      });
-
-      microTimeline.to(microStatement, {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        ease: "power3.out",
-      });
-
-      /*
-       * -------------------------------------------------------
        * REFRESH SCROLLTRIGGER
        * -------------------------------------------------------
        */
@@ -371,7 +340,7 @@ export function ProjectApproach({
                 mt-6
                 max-w-[520px]
                 font-display
-                text-[clamp(2.7rem,5vw,5rem)]
+                text-[clamp(2.5rem,4.6vw,4.6rem)]
                 font-semibold
                 leading-[0.94]
                 tracking-[var(--portfolio-tracking-display)]
@@ -403,17 +372,16 @@ export function ProjectApproach({
               className="
                 max-w-[620px]
                 font-body
-                text-[15px]
+                text-[14px]
                 leading-[1.7]
                 tracking-[var(--portfolio-tracking-body)]
                 text-[var(--portfolio-text-secondary)]
-                sm:text-[16px]
+                sm:text-[15px]
               "
             >
-              Chaque projet suit une approche structurée qui permet
-              de transformer une problématique en une solution claire,
-              cohérente et adaptée aux objectifs de la marque ou du
-              produit.
+              A focused design process turns the project brief into a
+              clear, useful experience aligned with the product and its
+              audience.
             </p>
           </div>
         </div>
@@ -524,12 +492,12 @@ export function ProjectApproach({
                     className="
                       flex-1
                       font-display
-                      text-[20px]
+                      text-[18px]
                       font-semibold
                       leading-[1.1]
                       tracking-[-0.025em]
                       text-[var(--portfolio-text-primary)]
-                      sm:text-[23px]
+                      sm:text-[21px]
                     "
                   >
                     {step.title}
@@ -611,11 +579,11 @@ export function ProjectApproach({
                         className="
                           max-w-[680px]
                           font-body
-                          text-[13px]
+                          text-[12px]
                           leading-[1.7]
                           text-[var(--portfolio-text-secondary)]
-                          sm:text-[14px]
-                          lg:text-[15px]
+                          sm:text-[13px]
+                          lg:text-[14px]
                         "
                       >
                         {step.description}
@@ -628,36 +596,6 @@ export function ProjectApproach({
           })}
         </div>
 
-        {/* =====================================================
-            MICRO STATEMENT
-        ===================================================== */}
-
-        <div
-          data-approach-micro
-          className="
-            mt-8
-            flex
-            items-center
-            gap-3
-            font-display
-            text-[12px]
-            font-medium
-            text-[var(--portfolio-text-muted)]
-          "
-        >
-          <span
-            className="
-              h-1.5
-              w-1.5
-              rounded-full
-              bg-[var(--portfolio-accent)]
-            "
-          />
-
-          <span>
-            Strategy · Design · Iteration · Delivery
-          </span>
-        </div>
       </div>
     </section>
   );

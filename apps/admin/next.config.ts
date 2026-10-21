@@ -2,7 +2,9 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
-  basePath: "/admin",
+  ...(process.env.NODE_ENV === "production"
+    ? { basePath: "/admin" }
+    : {}),
 };
 
 export default nextConfig;

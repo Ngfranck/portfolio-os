@@ -86,6 +86,39 @@ type OverviewData = {
   objective: string;
 };
 
+function normalizeCoverImage(value: unknown): {
+  url: string;
+  name: string;
+} | null {
+  let current = value;
+  let name: string | undefined;
+  const seen = new Set<object>();
+
+  while (current && typeof current === "object" && !seen.has(current)) {
+    seen.add(current);
+    const image = current as Record<string, unknown>;
+
+    if (typeof image.name === "string" && image.name.trim()) {
+      name ??= image.name.trim();
+    }
+
+    current = image.url;
+  }
+
+  if (typeof current !== "string" || !current.trim()) {
+    return null;
+  }
+
+  const url = current.trim();
+  return {
+    url,
+    name:
+      name ??
+      url.split("/").pop()?.split("?")[0] ??
+      "Image de couverture",
+  };
+}
+
 type LoadedProject = {
   id: string;
   title?: string | null;
@@ -100,7 +133,7 @@ type LoadedProject = {
   liveUrl?: string | null;
   caseStudyUrl?: string | null;
   featured?: boolean | null;
-  coverImage?: string | null;
+  coverImage?: unknown;
   overview?: Partial<OverviewData> | null;
   roles?: Array<{
     id?: string;
@@ -706,17 +739,7 @@ export default function ProjectEditorPage() {
         setCaseStudyUrl(project.caseStudyUrl ?? "");
         setFeatured(Boolean(project.featured));
 
-        const savedCoverUrl = project.coverImage ?? null;
-        setCoverImage(
-          savedCoverUrl
-            ? {
-                url: savedCoverUrl,
-                name:
-                  savedCoverUrl.split("/").pop()?.split("?")[0] ||
-                  "Image de couverture",
-              }
-            : null,
-        );
+        setCoverImage(normalizeCoverImage(project.coverImage));
 
         setOverview({
           context: project.overview?.context ?? "",

@@ -118,7 +118,7 @@ export function ProjectLiveButton({
       href={url}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Voir le projet en ligne"
+      aria-label="Visit the live project"
       className="
         group
         fixed
@@ -173,7 +173,7 @@ export function ProjectLiveButton({
         />
       </span>
 
-      <span>Voir le projet</span>
+      <span>Visit live project</span>
 
       {/* Arrow */}
       <span ref={arrowRef} className="flex shrink-0">
