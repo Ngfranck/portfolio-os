@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 
@@ -14,12 +15,21 @@ import { ArticlesPageAnimations } from "./ArticlesPageAnimations";
 
 export const dynamic = "force-dynamic";
 
+export const metadata: Metadata = {
+  title: "Design Journal: UX/UI, Branding & Digital Products",
+  description:
+    "Explore practical insights on UX/UI design, brand identity, design systems and digital product strategy by Franck Ngoka.",
+  alternates: {
+    canonical: "/articles",
+  },
+};
+
 function formatArticleDate(date: Date | null) {
   if (!date) {
     return "";
   }
 
-  return new Intl.DateTimeFormat("fr-FR", {
+  return new Intl.DateTimeFormat("en-US", {
     day: "numeric",
     month: "long",
     year: "numeric",
@@ -106,7 +116,7 @@ export default async function ArticlesPage() {
               className="
                 max-w-[760px]
                 font-display
-                text-[clamp(3rem,7vw,6.5rem)]
+                text-h1
                 font-bold
                 leading-[0.92]
                 tracking-[-0.06em]
@@ -137,9 +147,9 @@ export default async function ArticlesPage() {
                 sm:leading-7
               "
             >
-              Une sélection de réflexions autour du design,
-              des produits digitaux, du branding et de la
-              technologie.
+              Practical perspectives on UX/UI design, digital products,
+              brand identity and the technology shaping better online
+              experiences.
             </p>
           </div>
         </div>

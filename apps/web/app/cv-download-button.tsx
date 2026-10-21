@@ -74,7 +74,7 @@ export default function CVPage() {
               "
             />
 
-            Retour au portfolio
+            Back to portfolio
           </Link>
 
           <a
@@ -113,7 +113,7 @@ export default function CVPage() {
               "
             />
 
-            Télécharger
+            Download CV
           </a>
         </div>
       </header>
@@ -173,7 +173,7 @@ export default function CVPage() {
               <h1
                 className="
                   font-display
-                  text-[clamp(3.5rem,8vw,7rem)]
+                  text-h1
                   font-semibold
                   leading-[0.9]
                   tracking-[var(--portfolio-tracking-display)]
@@ -202,9 +202,8 @@ export default function CVPage() {
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                Web & Brand Designer spécialisé dans la création
-                d'identités visuelles, d'interfaces et
-                d'expériences digitales cohérentes.
+                UX/UI, web and brand designer creating distinctive identities,
+                intuitive interfaces and cohesive digital experiences.
               </p>
             </div>
 
@@ -287,7 +286,7 @@ export default function CVPage() {
               text-[var(--portfolio-text-muted)]
             "
           >
-            Profil
+            Profile
           </h2>
 
           <p
@@ -299,11 +298,9 @@ export default function CVPage() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Je conçois des marques, des produits digitaux et des
-            expériences web en combinant stratégie, direction
-            artistique, UX et UI design. Mon approche cherche à
-            transformer des problématiques complexes en
-            expériences simples, cohérentes et mémorables.
+            I design brands, digital products and web experiences by bringing
+            together strategy, art direction, UX and UI. My approach turns
+            complex challenges into clear, cohesive and memorable experiences.
           </p>
         </section>
 
@@ -337,7 +334,7 @@ export default function CVPage() {
                 text-[var(--portfolio-text-muted)]
               "
             >
-              Expérience
+              Experience
             </h2>
 
             <div className="space-y-10">
@@ -359,7 +356,7 @@ export default function CVPage() {
                     text-[var(--portfolio-text-muted)]
                   "
                 >
-                  2026 — Aujourd'hui
+                  2026 — Present
                 </span>
 
                 <div>
@@ -382,7 +379,7 @@ export default function CVPage() {
                       text-[var(--portfolio-text-secondary)]
                     "
                   >
-                    Agence / Freelance
+                    Agency / Freelance
                   </p>
 
                   <p
@@ -395,9 +392,8 @@ export default function CVPage() {
                       text-[var(--portfolio-text-secondary)]
                     "
                   >
-                    Conception d'identités visuelles, interfaces
-                    digitales et expériences web pour différents
-                    projets et marques.
+                    Creating visual identities, digital interfaces and web
+                    experiences for a range of brands and projects.
                   </p>
                 </div>
               </article>
@@ -420,7 +416,7 @@ export default function CVPage() {
                     text-[var(--portfolio-text-muted)]
                   "
                 >
-                  Expérience précédente
+                  Previous experience
                 </span>
 
                 <div>
@@ -456,9 +452,8 @@ export default function CVPage() {
                       text-[var(--portfolio-text-secondary)]
                     "
                   >
-                    Recherche, architecture de l'information,
-                    conception d'interfaces et création de
-                    systèmes de design pour des produits digitaux.
+                    User research, information architecture, interface design
+                    and design systems for digital products.
                   </p>
                 </div>
               </article>
@@ -492,7 +487,7 @@ export default function CVPage() {
               text-[var(--portfolio-text-muted)]
             "
           >
-            Compétences
+            Skills
           </h2>
 
           <div
@@ -532,7 +527,7 @@ export default function CVPage() {
                 ],
               },
               {
-                title: "Outils",
+                title: "Tools",
                 items: [
                   "Figma",
                   "Adobe Illustrator",
@@ -598,7 +593,7 @@ export default function CVPage() {
               text-[var(--portfolio-text-muted)]
             "
           >
-            Formation
+            Education
           </h2>
 
           <div>
@@ -609,7 +604,7 @@ export default function CVPage() {
                 font-semibold
               "
             >
-              Licence en Génie Logiciel
+              Bachelor's Degree in Software Engineering
             </h3>
 
             <p
@@ -620,7 +615,7 @@ export default function CVPage() {
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Génie logiciel & développement informatique
+              Software engineering & development
             </p>
           </div>
         </section>
@@ -649,7 +644,7 @@ export default function CVPage() {
               text-[var(--portfolio-text-muted)]
             "
           >
-            Projets sélectionnés
+            Selected projects
           </h2>
 
           <div className="space-y-3">
@@ -734,7 +729,7 @@ export default function CVPage() {
                   font-semibold
                 "
               >
-                Besoin de mon CV ?
+                Need my CV?
               </p>
 
               <p
@@ -745,8 +740,7 @@ export default function CVPage() {
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                Téléchargez la version PDF pour la conserver ou
-                la partager.
+                Download the PDF version to save or share.
               </p>
             </div>
 
@@ -783,7 +777,7 @@ export default function CVPage() {
                 strokeWidth={1.7}
               />
 
-              Télécharger mon CV
+              Download my CV
 
               <HugeiconsIcon
                 icon={ArrowUpRight01Icon}

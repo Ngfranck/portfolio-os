@@ -95,7 +95,7 @@ export function ContactSection({
       }
     } catch {
       setErrorMessage(
-        "Une erreur inattendue est survenue. Veuillez réessayer ou me contacter directement par email."
+        "Something went wrong. Please try again or contact me directly by email."
       );
     } finally {
       setIsSubmitting(false);
@@ -237,7 +237,7 @@ export function ContactSection({
             scrollTrigger: {
               trigger: section,
               start: "top 78%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -292,7 +292,7 @@ export function ContactSection({
             scrollTrigger: {
               trigger: availabilityCard,
               start: "top 82%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -331,7 +331,7 @@ export function ContactSection({
             scrollTrigger: {
               trigger: contactForm,
               start: "top 88%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -347,7 +347,7 @@ export function ContactSection({
             scrollTrigger: {
               trigger: contactLinks,
               start: "top 86%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -383,7 +383,7 @@ export function ContactSection({
             scrollTrigger: {
               trigger: footerLine,
               start: "top 90%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -555,8 +555,8 @@ export function ContactSection({
 
               <span>
                 {isAvailable
-                  ? "Disponible pour de nouveaux projets"
-                  : "Actuellement indisponible"}
+                  ? "Available for new projects"
+                  : "Currently unavailable"}
               </span>
             </div>
 
@@ -576,7 +576,7 @@ export function ContactSection({
               "
             >
               <span className="text-[var(--portfolio-text-primary)]">
-                Un projet en
+                Have a project
               </span>
 
               <br />
@@ -587,7 +587,7 @@ export function ContactSection({
                   text-[var(--portfolio-text-muted)]
                 "
               >
-                tête ?
+                in mind?
               </span>
             </h2>
 
@@ -605,11 +605,9 @@ export function ContactSection({
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Vous avez une idée, un projet ou simplement
-              l&apos;envie d&apos;échanger ? Parlons-en et voyons
-              comment transformer votre vision en une
-              expérience digitale claire, élégante et
-              mémorable.
+              Have an idea, a product to improve or a brand ready to grow?
+              Tell me what you are working on. We can shape a clear,
+              considered digital experience around your goals and audience.
             </p>
 
             {/* CTA */}
@@ -620,7 +618,7 @@ export function ContactSection({
                   data-contact-cta
                   data-cursor="magnetic"
                   href={`mailto:${settings.contactEmail}`}
-                  aria-label={`Envoyer un email à ${settings.contactEmail}`}
+                  aria-label={`Email ${settings.contactEmail}`}
                   className="
                     group
                     inline-flex
@@ -653,7 +651,7 @@ export function ContactSection({
                     aria-hidden="true"
                   />
 
-                  <span>Parlons de votre projet</span>
+                  <span>Let&apos;s discuss your project</span>
 
                   <HugeiconsIcon
                     icon={ArrowUpRight01Icon}
@@ -742,8 +740,8 @@ export function ContactSection({
                   </span>
 
                   {isAvailable
-                    ? "Disponible pour de nouveaux projets"
-                    : "Actuellement indisponible"}
+                    ? "Available for new projects"
+                    : "Currently unavailable"}
                 </div>
 
                 <HugeiconsIcon
@@ -766,8 +764,8 @@ export function ContactSection({
                 "
               >
                 {isAvailable
-                  ? "Je suis actuellement disponible pour accompagner de nouveaux projets et collaborations."
-                  : "Je ne suis actuellement pas disponible pour de nouveaux projets, mais vous pouvez tout de même me laisser un message."}
+                  ? "I am available to collaborate on selected brand, web and digital product projects."
+                  : "I am not taking on new projects right now, but you are welcome to leave a message."}
               </p>
             </div>
 
@@ -776,7 +774,7 @@ export function ContactSection({
             <form
               data-contact-form
               onSubmit={handleSubmit}
-              aria-label="Formulaire de contact"
+              aria-label="Contact form"
               className="
                 mt-6
                 space-y-5
@@ -797,7 +795,7 @@ export function ContactSection({
                     tracking-[-0.03em]
                   "
                 >
-                  Envoyez-moi un message
+                  Tell me about your project
                 </h3>
 
                 <p
@@ -809,7 +807,7 @@ export function ContactSection({
                     text-[var(--portfolio-text-secondary)]
                   "
                 >
-                  Présentez-moi votre projet et vos besoins.
+                  Share your goals, audience and what you would like to create.
                 </p>
               </div>
 
@@ -820,7 +818,7 @@ export function ContactSection({
                   htmlFor="contact-name"
                   className={labelClassName}
                 >
-                  Nom
+                  Name
                 </label>
 
                 <input
@@ -833,7 +831,7 @@ export function ContactSection({
                   maxLength={100}
                   value={formData.name}
                   onChange={handleChange}
-                  placeholder="Votre nom complet"
+                  placeholder="Your full name"
                   className={fieldClassName}
                 />
               </div>
@@ -845,7 +843,7 @@ export function ContactSection({
                   htmlFor="contact-email"
                   className={labelClassName}
                 >
-                  Email
+                  Email address
                 </label>
 
                 <input
@@ -857,7 +855,7 @@ export function ContactSection({
                   maxLength={254}
                   value={formData.email}
                   onChange={handleChange}
-                  placeholder="vous@exemple.com"
+                  placeholder="you@example.com"
                   className={fieldClassName}
                 />
               </div>
@@ -869,7 +867,7 @@ export function ContactSection({
                   htmlFor="contact-subject"
                   className={labelClassName}
                 >
-                  Sujet
+                  Subject
                 </label>
 
                 <input
@@ -881,7 +879,7 @@ export function ContactSection({
                   maxLength={150}
                   value={formData.subject}
                   onChange={handleChange}
-                  placeholder="Quel est votre projet ?"
+                  placeholder="What are you working on?"
                   className={fieldClassName}
                 />
               </div>
@@ -893,7 +891,7 @@ export function ContactSection({
                   htmlFor="contact-message"
                   className={labelClassName}
                 >
-                  Message
+                  Project details
                 </label>
 
                 <textarea
@@ -905,7 +903,7 @@ export function ContactSection({
                   rows={5}
                   value={formData.message}
                   onChange={handleChange}
-                  placeholder="Décrivez votre projet, vos objectifs et vos besoins..."
+                  placeholder="Describe your project, goals, audience and any key requirements..."
                   className={`${fieldClassName} min-h-[140px] resize-y`}
                 />
               </div>
@@ -987,8 +985,8 @@ export function ContactSection({
               >
                 <span>
                   {isSubmitting
-                    ? "Envoi en cours..."
-                    : "Envoyer le message"}
+                    ? "Sending..."
+                    : "Send message"}
                 </span>
 
                 <HugeiconsIcon
@@ -1014,8 +1012,7 @@ export function ContactSection({
                   text-[var(--portfolio-text-muted)]
                 "
               >
-                Vos informations sont utilisées uniquement
-                pour répondre à votre demande.
+                Your information is used only to respond to your enquiry.
               </p>
             </form>
 
@@ -1043,7 +1040,7 @@ export function ContactSection({
                     data-contact-item
                     data-cursor="magnetic"
                     href={`mailto:${settings.contactEmail}`}
-                    aria-label={`Envoyer un email à ${settings.contactEmail}`}
+                    aria-label={`Email ${settings.contactEmail}`}
                     className="
                       group
                       flex
@@ -1141,7 +1138,7 @@ export function ContactSection({
                     href={settings.whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Contacter Gonar.ui sur WhatsApp"
+                    aria-label="Contact Gonar.ui on WhatsApp"
                     className="
                       group
                       flex
@@ -1206,7 +1203,7 @@ export function ContactSection({
                             text-[var(--portfolio-text-primary)]
                           "
                         >
-                          Échanger avec moi
+                          Message me on WhatsApp
                         </span>
                       </div>
                     </div>
@@ -1238,7 +1235,7 @@ export function ContactSection({
                     href={settings.linkedinUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    aria-label="Voir le profil LinkedIn de Gonar.ui"
+                    aria-label="View Gonar.ui's LinkedIn profile"
                     className="
                       group
                       flex

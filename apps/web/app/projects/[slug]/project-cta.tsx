@@ -87,7 +87,7 @@ export function ProjectCTA() {
           trigger: section,
           start: "top 76%",
           end: "bottom 18%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 

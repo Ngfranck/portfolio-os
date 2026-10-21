@@ -11,10 +11,10 @@ const experiences = [
     period: "2025",
     role: "Web & Brand Designer",
     company: "Polaris",
-    location: "Douala, Cameroun",
+    location: "Douala, Cameroon",
     type: "Freelance",
     description:
-      "Conception d'identités visuelles et d'expériences web pour des marques tech et lifestyle, avec une approche orientée branding, UX et conversion.",
+      "Designed visual identities and web experiences for technology and lifestyle brands, connecting brand strategy, user experience and conversion-focused design.",
     skills: [
       "Brand Identity",
       "Web Design",
@@ -24,21 +24,21 @@ const experiences = [
       "Conversion",
     ],
     highlights: [
-      "Rebranding complet d'une startup SaaS",
-      "Site e-commerce avec +35% de taux de conversion après refonte",
-      "Création d'un mini design system pour les assets marketing",
+      "Led a complete rebrand for a SaaS startup",
+      "Redesigned an e-commerce website, increasing its conversion rate by 35%",
+      "Created a compact design system for marketing assets",
     ],
     current: false,
   },
 
   {
-    period: "Nov. 2024 — Août 2025",
+    period: "Nov. 2024 — Aug. 2025",
     role: "Graphic Designer",
     company: "AIC Cameroun",
-    location: "Douala, Cameroun",
+    location: "Douala, Cameroon",
     type: "Professional Experience",
     description:
-      "Conception de supports visuels destinés aux réseaux sociaux, campagnes publicitaires et supports print, tout en participant à la stratégie de communication visuelle.",
+      "Created visual assets for social media, advertising campaigns and print while contributing to the organization's visual communication strategy.",
     skills: [
       "Graphic Design",
       "Social Media",
@@ -47,21 +47,21 @@ const experiences = [
       "Presentation Design",
     ],
     highlights: [
-      "Création de visuels pour les réseaux sociaux",
-      "Conception de supports pour les campagnes publicitaires",
-      "Réalisation de présentations PowerPoint",
+      "Produced visual assets for social media",
+      "Designed materials for advertising campaigns",
+      "Created PowerPoint presentations",
     ],
     current: false,
   },
 
   {
-    period: "Jan. 2023 — Août 2023",
+    period: "Jan. 2023 — Aug. 2023",
     role: "Junior Web Designer",
     company: "Eureka Design & Konsulding",
     location: "",
     type: "Professional Experience",
     description:
-      "Conception d'interfaces mobiles et desktop pour des startups en phase de lancement, de la recherche et du wireframing jusqu'aux prototypes et maquettes haute fidélité.",
+      "Designed mobile and desktop interfaces for early-stage startups, from research and wireframes through interactive prototypes and high-fidelity mockups.",
     skills: [
       "UX Design",
       "UI Design",
@@ -70,21 +70,21 @@ const experiences = [
       "Design System",
     ],
     highlights: [
-      "Design UX complet d'une application mobile de gestion de tâches",
-      "Landing page fintech ayant généré +45% de leads",
-      "Création d'un kit UI réutilisable pour plusieurs projets internes",
+      "Designed the end-to-end user experience for a task management app",
+      "Designed a fintech landing page that generated 45% more leads",
+      "Built a reusable UI kit for multiple internal projects",
     ],
     current: false,
   },
 
   {
-    period: "Juin 2022 — Août 2022",
-    role: "Beginner Web Designer",
+    period: "Jun. 2022 — Aug. 2022",
+    role: "Entry-Level Web Designer",
     company: "Crystal Art Technology",
     location: "",
     type: "Professional Experience",
     description:
-      "Participation à la conception de maquettes web et mobile, aux brainstormings créatifs et à la production d'éléments graphiques destinés aux expériences digitales.",
+      "Contributed to web and mobile mockups, creative workshops and the production of graphic assets for digital experiences.",
     skills: [
       "Web Design",
       "Mobile Design",
@@ -93,9 +93,9 @@ const experiences = [
       "Graphic Design",
     ],
     highlights: [
-      "Première maquette de page d'accueil validée et intégrée",
-      "Animation d'un logo pour une vidéo d'introduction",
-      "Création d'icônes personnalisées pour une application interne",
+      "Delivered an approved and implemented homepage mockup",
+      "Animated a logo for an introductory video",
+      "Created custom icons for an internal application",
     ],
     current: false,
   },
@@ -206,9 +206,8 @@ export function CVExperience() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Un parcours professionnel construit autour du
-            design visuel, de l'expérience utilisateur et de
-            la conception de produits digitaux.
+            A professional journey shaped by visual design, user experience
+            and digital product design.
           </p>
         </div>
 

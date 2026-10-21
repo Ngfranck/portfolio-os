@@ -1,15 +1,33 @@
 import type { MetadataRoute } from "next";
+import { getPublishedArticles } from "../services/articles/article.service";
+import { getPublishedProjects } from "../services/projects/project.service";
 
-import { articles } from "../data/articles";
+const baseUrl = (
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL}`
+    : "http://localhost:3000")
+).replace(/\/+$/, "");
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://ton-domaine.com";
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const [articles, projects] = await Promise.all([
+    getPublishedArticles(),
+    getPublishedProjects(),
+  ]);
 
   const articleUrls = articles.map((article) => ({
     url: `${baseUrl}/articles/${article.slug}`,
-    lastModified: new Date(),
+    lastModified: article.publishedAt ?? article.updatedAt,
     changeFrequency: "monthly" as const,
     priority: 0.7,
+  }));
+  const projectUrls = projects.map((project) => ({
+    url: `${baseUrl}/projects/${project.slug}`,
+    lastModified: project.updatedAt,
+    changeFrequency: "monthly" as const,
+    priority: 0.8,
   }));
 
   return [
@@ -26,5 +44,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.9,
     },
     ...articleUrls,
+    ...projectUrls,
   ];
 }

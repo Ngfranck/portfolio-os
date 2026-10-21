@@ -8,27 +8,27 @@ const contactMessageSchema = z.object({
   name: z
     .string()
     .trim()
-    .min(2, "Le nom doit contenir au moins 2 caractères.")
-    .max(100, "Le nom est trop long."),
+    .min(2, "Your name must be at least 2 characters long.")
+    .max(100, "Your name is too long."),
 
   email: z
     .string()
     .trim()
-    .email("Veuillez saisir une adresse email valide.")
-    .max(254, "L'adresse email est trop longue.")
+    .email("Enter a valid email address.")
+    .max(254, "Your email address is too long.")
     .transform((value) => value.toLowerCase()),
 
   subject: z
     .string()
     .trim()
-    .min(3, "Le sujet doit contenir au moins 3 caractères.")
-    .max(150, "Le sujet est trop long."),
+    .min(3, "The subject must be at least 3 characters long.")
+    .max(150, "The subject is too long."),
 
   message: z
     .string()
     .trim()
-    .min(10, "Le message doit contenir au moins 10 caractères.")
-    .max(5000, "Le message est trop long."),
+    .min(10, "Your message must be at least 10 characters long.")
+    .max(5000, "Your message is too long."),
 });
 
 export type ContactMessageInput = z.input<
@@ -55,7 +55,7 @@ export async function createContactMessage(
       success: false,
       error:
         validation.error.issues[0]?.message ??
-        "Veuillez vérifier les informations saisies.",
+        "Please check the information you entered.",
     };
   }
 
@@ -74,7 +74,7 @@ export async function createContactMessage(
     return {
       success: true,
       message:
-        "Votre message a bien été envoyé. Merci pour votre prise de contact !",
+        "Your message has been sent. Thank you for getting in touch.",
     };
   } catch (error) {
     console.error(
@@ -85,7 +85,7 @@ export async function createContactMessage(
     return {
       success: false,
       error:
-        "Une erreur est survenue lors de l'envoi. Veuillez réessayer ou me contacter directement par email.",
+        "We could not send your message. Please try again or contact me directly by email.",
     };
   }
 }

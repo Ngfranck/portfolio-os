@@ -225,7 +225,7 @@ export function TestimonialsSection({
               trigger: section,
               start: "top 78%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -279,7 +279,7 @@ export function TestimonialsSection({
               trigger: carousel,
               start: "top 82%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -300,7 +300,7 @@ export function TestimonialsSection({
               trigger: carousel,
               start: "top 76%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -319,7 +319,7 @@ export function TestimonialsSection({
               trigger: controls,
               start: "top 88%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -334,7 +334,7 @@ export function TestimonialsSection({
               trigger: bottomCta,
               start: "top 82%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -539,9 +539,8 @@ export function TestimonialsSection({
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Des collaborations basées sur l'écoute, la
-            compréhension des besoins et la recherche
-            constante de solutions pertinentes.
+            Clear communication, a shared understanding of your goals and
+            thoughtful design decisions shape every collaboration.
           </p>
         </div>
 
@@ -743,7 +742,7 @@ export function TestimonialsSection({
                 <button
                   key={testimonial.id}
                   type="button"
-                  aria-label={`Afficher le témoignage ${
+                  aria-label={`Show testimonial ${
                     index + 1
                   }`}
                   aria-current={
@@ -773,7 +772,7 @@ export function TestimonialsSection({
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                aria-label="Témoignage précédent"
+                aria-label="Previous testimonial"
                 data-cursor="magnetic"
                 onClick={() => scrollCarousel("left")}
                 className="
@@ -800,7 +799,7 @@ export function TestimonialsSection({
 
               <button
                 type="button"
-                aria-label="Témoignage suivant"
+                aria-label="Next testimonial"
                 data-cursor="magnetic"
                 onClick={() => scrollCarousel("right")}
                 className="
@@ -890,7 +889,7 @@ export function TestimonialsSection({
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Parlons de votre prochaine idée.
+              Let&apos;s talk about your next idea.
             </p>
           </div>
 

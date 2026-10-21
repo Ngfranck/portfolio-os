@@ -279,7 +279,7 @@ const articles: Array<{
       "A design system is more than a collection of components. It's a shared language that helps products evolve consistently over time.",
     category: "Design Systems",
     publishedAt: "2026-08-01",
-    readTime: "8 min read",
+    readTime: "5 min read",
     cover: "/images/articles/design-system.jpg",
     featured: true,
     content: [
@@ -339,6 +339,43 @@ const articles: Array<{
         text:
           "The best systems create enough structure to maintain consistency while remaining flexible enough to support new ideas.",
       },
+      {
+        type: "heading",
+        text: "Build around real product work",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Start with the screens, tasks and patterns a product team uses every day. Look for repeated decisions: form fields, navigation, data tables, empty states and feedback messages. These patterns are strong candidates for shared components because they solve a recurring problem rather than adding abstraction for its own sake.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Prioritize by frequency, impact and consistency. A component used across several critical journeys is usually more valuable than a rarely used visual detail. This keeps the system focused on work that improves both product quality and team efficiency.",
+      },
+      {
+        type: "heading",
+        text: "Document decisions, not just components",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Useful documentation explains when to use a pattern, what problem it solves, how it behaves and which accessibility considerations matter. Include examples of correct usage and edge cases. Clear guidance helps teams make consistent choices without turning the system into a set of rigid rules.",
+      },
+      {
+        type: "heading",
+        text: "Create a sustainable contribution model",
+      },
+      {
+        type: "paragraph",
+        text:
+          "A design system stays relevant when product teams can propose improvements and understand how decisions are made. Define who reviews contributions, how changes are tested and how updates are communicated. Treat feedback as part of maintenance, not as an exception to the process.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "A scalable design system is ultimately a product in its own right. When its principles, components and governance respond to real team needs, it supports faster delivery without sacrificing accessibility, craft or a coherent brand experience.",
+      },
     ],
   },
 
@@ -350,7 +387,7 @@ const articles: Array<{
       "Before designing interfaces, understanding the real problem can completely change the direction of a product.",
     category: "Product Design",
     publishedAt: "2026-07-01",
-    readTime: "6 min read",
+    readTime: "4 min read",
     cover: "/images/articles/product-design.jpg",
     content: [
       {
@@ -360,21 +397,54 @@ const articles: Array<{
       },
       {
         type: "heading",
-        text: "Understand the real problem",
+        text: "Separate the problem from the proposed solution",
       },
       {
         type: "paragraph",
         text:
-          "A request such as 'we need a dashboard' is not necessarily the problem. It is a proposed solution. The designer's responsibility is to understand what users actually need to accomplish.",
+          "A request such as 'we need a dashboard' is a starting point, not a complete problem statement. Ask what decision the dashboard should support, who needs that information and what currently makes the task difficult. The answers may reveal that a dashboard is useful—or that a simpler workflow would solve the problem better.",
       },
       {
         type: "heading",
-        text: "Design around outcomes",
+        text: "Understand the context and constraints",
       },
       {
         type: "paragraph",
         text:
-          "Interfaces become more useful when they are designed around user outcomes instead of isolated screens. Every interaction should have a clear purpose.",
+          "Good discovery considers user goals alongside product, business and technical realities. Review existing journeys, customer feedback, support requests and available analytics. Speak with people who use or operate the product whenever possible. This evidence helps separate recurring needs from assumptions based on a single opinion.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Constraints are part of the design brief. A project may have a fixed launch date, an existing design system, regulatory requirements or limited engineering capacity. Naming those conditions early makes it easier to prioritize the essential experience and choose a solution the team can realistically deliver.",
+      },
+      {
+        type: "heading",
+        text: "Frame the opportunity clearly",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Turn what you learn into a concise problem statement. Describe who is experiencing the issue, what they are trying to achieve, what gets in their way and why addressing it matters. A strong statement gives the team a shared focus without prescribing the interface too early.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Then define what a useful outcome would look like. Depending on the project, that could mean a task is easier to complete, information is easier to find or a user understands the next step with less uncertainty. Keep the intended outcome specific enough to guide design and evaluation.",
+      },
+      {
+        type: "heading",
+        text: "Explore and validate before polishing",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Use sketches, flows or low-fidelity wireframes to compare possible approaches before investing in detailed visuals. Share those concepts with stakeholders and, when practical, test them with representative users. Early feedback is less costly to act on and can expose missing assumptions while the design is still flexible.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Better questions do not slow down product design. They help teams spend their effort on the right problem, make clearer trade-offs and build digital products around outcomes that matter to both users and the business.",
       },
     ],
   },
@@ -386,31 +456,50 @@ const articles: Array<{
       "A strong brand identity creates consistency across every interaction, from the first visual impression to the product experience.",
     category: "Branding",
     publishedAt: "2026-06-01",
-    readTime: "7 min read",
+    readTime: "4 min read",
     cover: "/images/articles/brand-identity.jpg",
     content: [
       {
         type: "paragraph",
         text:
-          "A logo is only one element of a brand identity. A strong identity should influence the entire experience people have with a company.",
+          "A logo is one recognizable part of a brand identity, but it cannot carry the whole experience on its own. People encounter a brand through its website, product interface, social content, sales materials and customer communications. A coherent identity connects those moments and makes the organization easier to recognize and understand.",
       },
       {
         type: "heading",
-        text: "Identity becomes experience",
+        text: "Build a system, not a collection of assets",
       },
       {
         type: "paragraph",
         text:
-          "Typography, color, imagery, tone of voice and interaction design all contribute to the way a brand is perceived.",
+          "A practical visual identity brings together typography, color, imagery, graphic elements and art direction. These components need clear relationships and rules so the brand can adapt to different formats without losing its character. A flexible system gives a team enough consistency to build recognition and enough room to respond to context.",
       },
       {
         type: "heading",
-        text: "Consistency builds recognition",
+        text: "Connect visual identity to the digital product",
       },
       {
         type: "paragraph",
         text:
-          "When these elements work together consistently, users begin to recognize the brand without necessarily seeing its logo.",
+          "The interface is a major brand touchpoint. Type scales, spacing, buttons, iconography, illustration and interaction states should feel related to the broader identity. When brand direction and UX/UI design are considered together, the product feels intentional rather than like a generic interface carrying a logo.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "That connection should support usability. Brand expression cannot come at the expense of readable text, clear hierarchy, accessible contrast or familiar interaction patterns. The strongest digital identities make the experience distinctive while helping people understand where they are and what they can do.",
+      },
+      {
+        type: "heading",
+        text: "Make consistency easy to maintain",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Brand guidelines should answer practical questions: which logo version fits a format, how colors are paired, how imagery is selected and how layouts behave at different sizes. Shared design tokens and reusable components can carry those decisions into websites and digital products, reducing visual drift as the experience grows.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Consistency is not about making every touchpoint identical. It is about creating enough shared signals that each interaction feels like part of the same brand. A well-designed visual identity system helps teams communicate with clarity, earn recognition over time and deliver a more cohesive customer experience.",
       },
     ],
   },
@@ -422,7 +511,7 @@ const articles: Array<{
       "Understanding both design and technical constraints helps create more realistic and meaningful digital experiences.",
     category: "Design & Technology",
     publishedAt: "2026-05-01",
-    readTime: "5 min read",
+    readTime: "4 min read",
     cover: "/images/articles/design-technology.jpg",
     content: [
       {
@@ -437,22 +526,41 @@ const articles: Array<{
       {
         type: "paragraph",
         text:
-          "Technical constraints are not necessarily limitations. They can help designers discover simpler and more effective solutions.",
+          "Technical constraints are not necessarily barriers to good design. Understanding a product's platform, integrations, performance requirements and implementation effort helps a designer explore solutions that are both useful and achievable. A constraint can even reveal an opportunity to simplify a workflow or remove an unnecessary step.",
       },
       {
         type: "heading",
-        text: "Collaboration improves the result",
+        text: "Bring design and engineering together early",
       },
       {
         type: "paragraph",
         text:
-          "When designers and developers collaborate early, problems can be identified before they become expensive to solve.",
+          "When designers and developers work together during discovery and exploration, they can identify dependencies before they become expensive to resolve. Engineers can explain how existing systems behave; designers can clarify user goals and interaction intent. Those perspectives improve decisions before the interface is fully polished.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "Shared artifacts make the collaboration concrete. User flows explain how screens connect, prototypes communicate timing and behavior, and component libraries show which patterns already exist. Short design reviews help the team surface edge cases such as loading, empty, error and responsive states.",
+      },
+      {
+        type: "heading",
+        text: "Treat implementation as part of the experience",
+      },
+      {
+        type: "paragraph",
+        text:
+          "A design is not finished when a mockup is approved. During implementation, review the interface in its real environment, compare it with the intended behavior and discuss necessary trade-offs. This feedback loop helps preserve the visual hierarchy, accessibility and usability that informed the original concept.",
+      },
+      {
+        type: "paragraph",
+        text:
+          "The best digital experiences come from a shared understanding of the problem and a respectful partnership between disciplines. When design and technology inform each other throughout the process, teams can deliver work that is thoughtful, feasible and valuable to the people who use it.",
       },
     ],
   },
 ];
 
-// Compétences disponibles dans l'éditeur de projets.
+// Skills available in the project editor.
 const skills = [
   // DESIGN
   {
@@ -460,7 +568,7 @@ const skills = [
     slug: "ux-research",
     type: "DESIGN",
     description:
-      "Recherche utilisateur et analyse des besoins.",
+      "Researching user needs, behaviors and pain points to inform product decisions.",
     featured: true,
     sortOrder: 0,
   },
@@ -469,16 +577,16 @@ const skills = [
     slug: "user-journey-mapping",
     type: "DESIGN",
     description:
-      "Cartographie des parcours utilisateurs.",
+      "Mapping end-to-end user journeys to reveal friction and design opportunities.",
     featured: true,
     sortOrder: 1,
   },
   {
-    name: "Architecture de l'information",
+    name: "Information Architecture",
     slug: "architecture-information",
     type: "DESIGN",
     description:
-      "Organisation et structuration des contenus.",
+      "Organizing content and product information so people can find what they need.",
     featured: true,
     sortOrder: 2,
   },
@@ -487,16 +595,16 @@ const skills = [
     slug: "wireframing",
     type: "DESIGN",
     description:
-      "Conception de structures d'interfaces.",
+      "Structuring screen layouts and interface wireframes around user needs.",
     featured: true,
     sortOrder: 3,
   },
   {
-    name: "Prototypage",
+    name: "Prototyping",
     slug: "prototypage",
     type: "DESIGN",
     description:
-      "Création de prototypes interactifs.",
+      "Building interactive prototypes to communicate and validate design concepts.",
     featured: true,
     sortOrder: 4,
   },
@@ -505,7 +613,7 @@ const skills = [
     slug: "ui-design",
     type: "DESIGN",
     description:
-      "Conception d'interfaces utilisateur.",
+      "Designing clear, accessible and consistent user interfaces.",
     featured: true,
     sortOrder: 5,
   },
@@ -514,7 +622,7 @@ const skills = [
     slug: "interaction-design",
     type: "DESIGN",
     description:
-      "Conception des interactions et des comportements.",
+      "Designing meaningful interactions, feedback and interface behavior.",
     featured: true,
     sortOrder: 6,
   },
@@ -523,7 +631,7 @@ const skills = [
     slug: "design-system",
     type: "DESIGN",
     description:
-      "Création et maintenance de systèmes de design.",
+      "Creating and maintaining reusable design systems for product teams.",
     featured: true,
     sortOrder: 7,
   },
@@ -532,25 +640,25 @@ const skills = [
     slug: "responsive-design",
     type: "DESIGN",
     description:
-      "Conception d'interfaces adaptatives.",
+      "Designing interfaces that adapt clearly and consistently across screen sizes and devices.",
     featured: true,
     sortOrder: 8,
   },
   {
-    name: "Accessibilité numérique",
+    name: "Digital Accessibility",
     slug: "accessibilite-numerique",
     type: "DESIGN",
     description:
-      "Conception d'interfaces accessibles.",
+      "Applying accessibility principles to make digital experiences usable by more people.",
     featured: true,
     sortOrder: 9,
   },
   {
-    name: "Identité visuelle",
+    name: "Visual Identity",
     slug: "identite-visuelle",
     type: "DESIGN",
     description:
-      "Création d'identités visuelles cohérentes.",
+      "Building distinctive, cohesive visual identities across brand touchpoints.",
     featured: true,
     sortOrder: 10,
   },
@@ -559,7 +667,7 @@ const skills = [
     slug: "product-design",
     type: "DESIGN",
     description:
-      "Conception globale de produits numériques.",
+      "Connecting strategy, UX and UI to shape coherent digital products.",
     featured: true,
     sortOrder: 11,
   },
@@ -570,7 +678,7 @@ const skills = [
     slug: "html-css",
     type: "DEVELOPMENT",
     description:
-      "Structure et mise en forme des interfaces web.",
+      "Structuring web content and styling responsive user interfaces.",
     featured: true,
     sortOrder: 12,
   },
@@ -579,7 +687,7 @@ const skills = [
     slug: "javascript",
     type: "DEVELOPMENT",
     description:
-      "Développement des interactions web.",
+      "Building interactive behavior and dynamic experiences for the web.",
     featured: false,
     sortOrder: 13,
   },
@@ -588,7 +696,7 @@ const skills = [
     slug: "typescript",
     type: "DEVELOPMENT",
     description:
-      "Développement JavaScript avec typage statique.",
+      "Writing maintainable JavaScript with static type checking.",
     featured: false,
     sortOrder: 14,
   },
@@ -597,7 +705,7 @@ const skills = [
     slug: "nextjs",
     type: "DEVELOPMENT",
     description:
-      "Développement d'applications web avec Next.js.",
+      "Building modern web applications with the Next.js framework.",
     featured: true,
     sortOrder: 15,
   },
@@ -608,7 +716,7 @@ const skills = [
     slug: "figma",
     type: "TOOL",
     description:
-      "Conception d'interfaces et prototypage.",
+      "Designing user interfaces and creating interactive prototypes.",
     featured: true,
     sortOrder: 16,
   },
@@ -617,7 +725,7 @@ const skills = [
     slug: "figjam",
     type: "TOOL",
     description:
-      "Collaboration, ateliers et idéation.",
+      "Facilitating collaboration, workshops and early-stage ideation.",
     featured: true,
     sortOrder: 17,
   },
@@ -626,7 +734,7 @@ const skills = [
     slug: "adobe-illustrator",
     type: "TOOL",
     description:
-      "Création graphique et illustration vectorielle.",
+      "Creating visual assets, brand graphics and vector illustrations.",
     featured: true,
     sortOrder: 18,
   },
@@ -635,7 +743,7 @@ const skills = [
     slug: "adobe-photoshop",
     type: "TOOL",
     description:
-      "Retouche et composition d'images.",
+      "Editing and compositing images for polished visual communication.",
     featured: false,
     sortOrder: 19,
   },
@@ -644,11 +752,53 @@ const skills = [
     slug: "framer",
     type: "TOOL",
     description:
-      "Conception et publication de sites web.",
+      "Designing and publishing responsive websites.",
     featured: true,
     sortOrder: 20,
   },
 ] satisfies Prisma.SkillCreateInput[];
+
+const serviceDescriptions: Record<
+  string,
+  { shortDescription: string; description: string }
+> = {
+  "Brand Identity": {
+    shortDescription:
+      "Distinctive visual identity systems that make your brand recognizable and consistent.",
+    description:
+      "Brand strategy, art direction, logo design and visual guidelines shaped into a flexible identity system for digital and physical touchpoints.",
+  },
+  "UI/UX Design": {
+    shortDescription:
+      "User-centered digital experiences that make complex tasks clear and intuitive.",
+    description:
+      "Research, information architecture, user flows, wireframes and interface design that connect user needs with clear product goals.",
+  },
+  "Web Design": {
+    shortDescription:
+      "Responsive websites with clear structure, strong visual direction and purposeful calls to action.",
+    description:
+      "Strategy-led website design that brings brand identity, responsive layouts, accessible interactions and content hierarchy together.",
+  },
+  "UX Design": {
+    shortDescription:
+      "Research-backed user journeys and product flows designed around real needs.",
+    description:
+      "User research, journey mapping, information architecture and usability-focused flows that reduce friction across digital products.",
+  },
+  "UI Design": {
+    shortDescription:
+      "Polished, accessible interfaces that make digital products easier to use.",
+    description:
+      "High-fidelity interface design, interaction states, responsive layouts and reusable components for consistent product experiences.",
+  },
+  "Product Design": {
+    shortDescription:
+      "End-to-end digital product design connecting strategy, user experience and interface craft.",
+    description:
+      "Product discovery, UX architecture, interface design and scalable design systems focused on meaningful user and business outcomes.",
+  },
+};
 
 async function seed() {
   console.log("🌱 Starting database seed...");
@@ -682,6 +832,10 @@ async function seed() {
         .replace(/&/g, "and")
         .replace(/\//g, "-")
         .replace(/\s+/g, "-");
+      const serviceCopy = serviceDescriptions[serviceName] ?? {
+        shortDescription: `${serviceName} designed with clarity, consistency and your audience in mind.`,
+        description: `${serviceName} shaped around your brand, user needs and project goals, with considered visual direction and a clear, practical outcome.`,
+      };
 
       const service = await prisma.service.upsert({
         where: {
@@ -689,11 +843,14 @@ async function seed() {
         },
         update: {
           title: serviceName,
+          shortDescription: serviceCopy.shortDescription,
+          description: serviceCopy.description,
         },
         create: {
           title: serviceName,
           slug: serviceSlug,
-          shortDescription: serviceName,
+          shortDescription: serviceCopy.shortDescription,
+          description: serviceCopy.description,
           featured: true,
         },
       });
@@ -773,7 +930,7 @@ async function seed() {
           deleteMany: {},
           create: projectData.gallery.map((url, index) => ({
             url,
-            alt: `${projectData.title} — image ${index + 1}`,
+            alt: `${projectData.title} design case study image ${index + 1}`,
             title: projectData.title,
             sortOrder: index,
           })),
@@ -836,7 +993,7 @@ async function seed() {
         images: {
           create: projectData.gallery.map((url, index) => ({
             url,
-            alt: `${projectData.title} — image ${index + 1}`,
+            alt: `${projectData.title} design case study image ${index + 1}`,
             title: projectData.title,
             sortOrder: index,
           })),
@@ -902,7 +1059,7 @@ async function seed() {
     console.log(`  ✓ ${article.title} seeded successfully`);
   }
 
-  // Initialisation des compétences
+  // Seed skills.
   console.log("\n→ Seeding skills...");
 
   for (const skillData of skills) {

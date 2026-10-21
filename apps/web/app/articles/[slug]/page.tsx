@@ -17,13 +17,11 @@ import {
 
 import { ArticlePageAnimations } from "./ArticlePageAnimations";
 
-/**
- * URL du site :
- * - En développement : http://localhost:3000
- * - En production : définir NEXT_PUBLIC_SITE_URL avec le domaine réel.
- */
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000"
+  process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL}`
+    : "http://localhost:3000")
 ).replace(/\/+$/, "");
 
 function getAbsoluteUrl(pathOrUrl: string): string {
@@ -61,7 +59,7 @@ export async function generateMetadata({
 
   if (!article) {
     return {
-      title: "Article introuvable",
+      title: "Article not found",
     };
   }
 
@@ -86,7 +84,7 @@ export async function generateMetadata({
       url: articleUrl,
       type: "article",
       publishedTime: publishedAt,
-      authors: ["Gonar.ui"],
+      authors: ["Franck Ngoka"],
       section: article.category?.name ?? "Journal",
 
       images: coverImageUrl
@@ -130,7 +128,7 @@ export default async function ArticlePage({
     : undefined;
 
   const formattedDate = article.publishedAt
-    ? new Intl.DateTimeFormat("fr-FR", {
+    ? new Intl.DateTimeFormat("en-US", {
         day: "numeric",
         month: "long",
         year: "numeric",
@@ -162,12 +160,12 @@ export default async function ArticlePage({
 
           author: {
             "@type": "Person",
-            name: "Gonar.ui",
+            name: "Franck Ngoka",
             url: siteUrl,
           },
 
           publisher: {
-            "@type": "Person",
+            "@type": "Organization",
             name: "Gonar.ui",
             url: siteUrl,
           },
@@ -198,7 +196,7 @@ export default async function ArticlePage({
             href="/articles"
             data-article-back
             data-cursor="view"
-            aria-label="Retour aux articles"
+            aria-label="Back to articles"
             className="
               group
               inline-flex
@@ -255,13 +253,16 @@ export default async function ArticlePage({
               mt-6
               max-w-[850px]
               font-display
-              text-[clamp(3rem,7vw,3.5rem)]
+              text-h1
               font-bold
               leading-[0.92]
               tracking-[-0.06em]
             "
           >
-            {article.title}
+            <span className="text-[var(--portfolio-accent)]">
+              {article.title.split(/\s+/, 1)[0]}
+            </span>{" "}
+            {article.title.split(/\s+/).slice(1).join(" ")}
           </h1>
 
           {/* EXCERPT */}
@@ -488,7 +489,7 @@ export default async function ArticlePage({
             href="/articles"
             data-article-footer-button
             data-cursor="magnetic"
-            aria-label="Voir tous les articles"
+            aria-label="View all articles"
             className="
               group
               inline-flex

@@ -73,7 +73,7 @@ export function ArticlesPageAnimations({
             trigger: hero,
             start: "top 90%",
             end: "bottom 30%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         });
 
@@ -198,7 +198,7 @@ export function ArticlesPageAnimations({
             trigger: featuredSection,
             start: "top 82%",
             end: "bottom 18%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         });
 
@@ -351,7 +351,7 @@ export function ArticlesPageAnimations({
             trigger: latestSection,
             start: "top 82%",
             end: "bottom 15%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         });
 

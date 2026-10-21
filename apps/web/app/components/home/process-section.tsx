@@ -328,7 +328,7 @@ export function ProcessSection() {
               trigger: headerBadge,
               start: "top 82%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -379,7 +379,7 @@ export function ProcessSection() {
               trigger: card,
               start: "top 86%",
               end: "bottom 18%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -473,7 +473,7 @@ export function ProcessSection() {
               trigger: controls,
               start: "top 92%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -490,7 +490,7 @@ export function ProcessSection() {
               trigger: bottomCta,
               start: "top 88%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 

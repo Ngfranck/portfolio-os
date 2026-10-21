@@ -119,7 +119,7 @@ export function ProjectOverview({
           trigger: section,
           start: "top 78%",
           end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -153,7 +153,7 @@ export function ProjectOverview({
           trigger: cards[0]?.parentElement,
           start: "top 82%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 

@@ -6,12 +6,12 @@ import {
 } from "@hugeicons/core-free-icons";
 const education = [
   {
-    period: "En cours",
-    degree: "Licence en Génie Logiciel",
+    period: "In progress",
+    degree: "Bachelor's Degree in Software Engineering",
     school: "Institut Universitaire de la Côte",
-    type: "Formation supérieure",
+    type: "Undergraduate degree",
     description:
-      "Approfondissement en développement logiciel, architecture web et conception orientée objet. Les projets académiques sont axés sur l’UX et le design d’interfaces interactives.",
+      "Advanced study in software development, web architecture and object-oriented design. Academic projects include user experience and interactive interface design.",
     skills: [
       "Software Engineering",
       "Web Development",
@@ -23,11 +23,11 @@ const education = [
   },
   {
     period: "2022",
-    degree: "BTS Génie Logiciel",
+    degree: "Higher National Diploma (BTS) in Software Engineering",
     school: "Institut Universitaire de la Côte",
-    type: "Formation supérieure",
+    type: "Higher education",
     description:
-      "Formation ayant permis d’acquérir des bases solides en développement logiciel et en architecture web, avec des projets de fin d’études axés sur l’UX et les interfaces interactives.",
+      "Built a strong foundation in software development and web architecture, with final projects focused on user experience and interactive interfaces.",
     skills: [
       "Software Engineering",
       "Web Architecture",
@@ -141,8 +141,8 @@ export function CVEducation() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Un parcours en génie logiciel qui constitue une base technique
-            solide pour ma pratique du design digital.
+            Software engineering provides a strong technical foundation for
+            my digital design practice.
           </p>
         </div>
         {/* =====================================================
@@ -372,7 +372,7 @@ export function CVEducation() {
                       text-[var(--portfolio-text-secondary)]
                     "
                   >
-                    Formation en cours
+                    In progress
                   </span>
                 </div>
               )}
@@ -423,10 +423,9 @@ export function CVEducation() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Mon parcours en génie logiciel constitue une base importante de ma
-            pratique du design. Il me permet de comprendre aussi bien les enjeux
-            visuels et UX que les contraintes techniques liées aux produits
-            digitaux.
+            My software engineering background is an important part of how I
+            approach design. It helps me consider visual and user experience
+            needs alongside the technical constraints of digital products.
           </p>
         </div>
       </div>

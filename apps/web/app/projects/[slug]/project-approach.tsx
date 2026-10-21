@@ -137,7 +137,7 @@ export function ProjectApproach({
           trigger: section,
           start: "top 78%",
           end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -181,7 +181,7 @@ export function ProjectApproach({
           trigger: accordion,
           start: "top 82%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 

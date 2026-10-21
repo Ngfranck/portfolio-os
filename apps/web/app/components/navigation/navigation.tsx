@@ -138,7 +138,7 @@ export function Navigation() {
 
           <a
             href="/"
-            aria-label="Retour à l'accueil"
+            aria-label="Go to the homepage"
             data-cursor="magnetic"
             className="
               flex shrink-0 items-center
@@ -347,7 +347,7 @@ export function Navigation() {
 
           <a
             href="/"
-            aria-label="Retour à l'accueil"
+            aria-label="Go to the homepage"
             onClick={closeMobileMenu}
             data-cursor="magnetic"
             className="

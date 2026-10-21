@@ -111,7 +111,7 @@ export function ProjectResults({
           trigger: section,
           start: "top 78%",
           end: "bottom 25%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -155,7 +155,7 @@ export function ProjectResults({
           trigger: resultsGrid,
           start: "top 82%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 

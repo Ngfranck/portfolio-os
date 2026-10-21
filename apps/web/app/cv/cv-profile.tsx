@@ -136,7 +136,7 @@ export function CVProfile() {
               text-[var(--portfolio-text-muted)]
             "
           >
-            <span>Douala, Cameroun</span>
+            <span>Douala, Cameroon</span>
 
             <span className="opacity-40">•</span>
 
@@ -193,7 +193,7 @@ export function CVProfile() {
             className="
               mt-7
               font-display
-              text-[clamp(3rem,6vw,5.8rem)]
+              text-h1
               font-bold
               leading-[0.9]
               tracking-[-0.06em]
@@ -245,12 +245,11 @@ export function CVProfile() {
               sm:leading-8
             "
           >
-            Web & Brand Designer avec plus de 3 ans
-            d’expérience en UX/UI, identité visuelle et
-            design produit. J’aide les startups et
-            entreprises à transformer leurs idées en
-            expériences digitales performantes, alliant
-            créativité, stratégie et résultats mesurables.
+            UX/UI, web and brand designer with over three years of experience
+            across visual identity and digital product design. I help startups
+            and businesses turn ideas into useful digital experiences through
+            thoughtful strategy, clear interfaces and distinctive visual
+            direction.
           </p>
 
 
@@ -301,7 +300,7 @@ export function CVProfile() {
                   strokeWidth={1.7}
                 />
 
-                <span>Télécharger mon CV</span>
+                <span>Download my CV</span>
               </a>
 
               {/* CONTACT */}
