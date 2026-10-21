@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -233,13 +232,14 @@ export default async function ArticlesPage() {
               >
                 {featuredArticle.coverImage ? (
                   <>
-                    <Image
+                    <img
                       src={featuredArticle.coverImage}
                       alt={featuredArticle.title}
-                      fill
-                      priority
-                      sizes="(max-width: 1024px) 100vw, 590px"
                       className="
+                        absolute
+                        inset-0
+                        h-full
+                        w-full
                         object-cover
                         transition-transform
                         duration-700
@@ -527,12 +527,14 @@ export default async function ArticlesPage() {
                   "
                 >
                   {article.coverImage ? (
-                    <Image
+                    <img
                       src={article.coverImage}
                       alt={article.title}
-                      fill
-                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 380px"
                       className="
+                        absolute
+                        inset-0
+                        h-full
+                        w-full
                         object-cover
                         transition-transform
                         duration-700

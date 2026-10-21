@@ -1,7 +1,6 @@
 
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -433,13 +432,16 @@ function GalleryImage({
         bg-[var(--portfolio-surface)]
       `}
     >
-      <Image
+      <img
         src={src}
         alt={alt}
-        fill
-        priority={priority}
-        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 1200px"
+        loading={priority ? "eager" : "lazy"}
+        fetchPriority={priority ? "high" : "auto"}
         className="
+          absolute
+          inset-0
+          h-full
+          w-full
           object-cover
           transition-transform
           duration-700

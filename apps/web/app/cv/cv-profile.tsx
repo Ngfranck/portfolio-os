@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowDown01Icon,
@@ -51,12 +50,14 @@ export function CVProfile() {
               bg-[var(--portfolio-dark)]
             "
           >
-<Image
+<img
   src="/images/about/photo Franck.jpg"
   alt="Ngoka Franck Junior"
-  fill
-  sizes="(max-width: 1024px) 100vw, 260px"
   className="
+    absolute
+    inset-0
+    h-full
+    w-full
     object-cover
     grayscale
     transition-transform

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useRef } from "react";
 
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -1006,13 +1005,15 @@ export function ServicesSection({
                   bg-[#111111]
                 `}
               >
-                <Image
+                <img
                   src="/images/projects/mobile.jpg"
                   alt="Website design project"
-                  fill
-                  sizes="(max-width: 768px) 92vw, (max-width: 1024px) 50vw, 620px"
                   loading="lazy"
                   className="
+                    absolute
+                    inset-0
+                    h-full
+                    w-full
                     object-cover
                     object-top
                     opacity-90

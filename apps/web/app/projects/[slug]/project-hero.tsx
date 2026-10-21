@@ -2,7 +2,6 @@
 
 import { useRef } from "react";
 import Link from "next/link";
-import Image from "next/image";
 
 import { HugeiconsIcon } from "@hugeicons/react";
 
@@ -700,14 +699,15 @@ export function ProjectHero({ project }: ProjectHeroProps) {
             lg:mt-24
           "
         >
-          <Image
+          <img
             data-project-image
             src={project.image}
             alt={`${project.title} ${project.category} design case study`}
-            fill
-            priority
-            sizes="(max-width: 1320px) 100vw, 1320px"
             className="
+              absolute
+              inset-0
+              h-full
+              w-full
               object-cover
               will-change-transform
             "
