@@ -12,6 +12,8 @@ import { CustomCursor } from "./components/cursor/CustomCursor";
 
 import { PageLoader } from "./components/loading/PageLoader";
 
+import { PageScrollManager } from "./components/navigation/PageScrollManager";
+
 import "./globals.css";
 
 const sfProDisplay = localFont({
@@ -119,7 +121,7 @@ export const metadata: Metadata = {
     description: defaultSeoDescription,
     images: [
       {
-        url: "/images/og-image.jpg",
+        url: "/opengraph-image",
         width: 1200,
         height: 630,
         alt: "Franck Ngoka — UX/UI, Web & Brand Designer in Cameroon",
@@ -130,7 +132,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: defaultSeoTitle,
     description: defaultSeoDescription,
-    images: ["/images/og-image.jpg"],
+    images: ["/opengraph-image"],
   },
   robots: {
     index: true,
@@ -185,6 +187,7 @@ export default function RootLayout({
         />
 
         <ThemeProvider>
+          <PageScrollManager />
           <PageLoader />
           <Navigation />
           <CustomCursor />
