@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -539,13 +538,15 @@ export function ProjectsSection({
                     bg-[var(--portfolio-surface-soft)]
                   "
                 >
-                  <Image
+                  <img
                     data-project-image
                     src={project.image}
                     alt={`${project.title} ${project.category} portfolio project`}
-                    fill
-                    sizes="(max-width: 768px) 92vw, (max-width: 1280px) 48vw, 620px"
                     className="
+                      absolute
+                      inset-0
+                      h-full
+                      w-full
                       object-cover
                       transition-transform
                       duration-700

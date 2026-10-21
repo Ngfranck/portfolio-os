@@ -1,5 +1,4 @@
 
-import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import type { Metadata } from "next";
@@ -359,14 +358,11 @@ export default async function ArticlePage({
                 border-[var(--portfolio-border)]
               "
             >
-              <Image
+              <img
                 src={article.coverImage}
                 alt={article.title}
-                fill
-                priority
-                sizes="(max-width: 640px) 100vw, (max-width: 1180px) 100vw, 1180px"
                 data-article-cover-image
-                className="object-cover will-change-transform"
+                className="absolute inset-0 h-full w-full object-cover will-change-transform"
               />
             </div>
           </div>

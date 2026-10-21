@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useState } from "react";
 
 import { HugeiconsIcon } from "@hugeicons/react";
@@ -153,12 +152,11 @@ export function Navigation() {
               focus-visible:ring-offset-transparent
             "
           >
-            <Image
+            <img
               src="/images/logo/logo.svg"
               alt="Gonar.ui"
               width={120}
               height={40}
-              priority
               className={`
                 h-auto w-[78px]
                 transition-all
@@ -363,12 +361,11 @@ export function Navigation() {
               focus-visible:ring-offset-2
             "
           >
-            <Image
+            <img
               src="/images/logo/logo.svg"
               alt="Gonar.ui"
               width={120}
               height={40}
-              priority
               className={`
                 h-auto w-[72px]
                 transition-all

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
 
@@ -634,13 +633,15 @@ export function About({ settings }: { settings: AboutSettings }) {
                 bg-[var(--portfolio-dark)]
               "
             >
-              <Image
+              <img
                 data-about-image
                 src="/images/about/photo Franck.jpg"
                 alt="Ngoka Franck"
-                fill
-                sizes="(max-width: 1024px) 100vw, 400px"
                 className="
+                  absolute
+                  inset-0
+                  h-full
+                  w-full
                   object-cover
                   grayscale
                   will-change-transform

@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowDown01Icon,
@@ -101,16 +100,14 @@ export function CVHero() {
                   bg-[var(--portfolio-dark)]
                 "
               >
-                <Image
+                <img
                   src="/images/about/photo Franck.jpg"
                   alt="Ngoka Franck — Web & Brand Designer"
-                  fill
-                  priority
-                  sizes="
-                    (max-width: 1024px) 90vw,
-                    360px
-                  "
                   className="
+                    absolute
+                    inset-0
+                    h-full
+                    w-full
                     object-cover
                     grayscale
                     transition-transform
