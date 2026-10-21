@@ -38,7 +38,7 @@ export async function generateMetadata(): Promise<Metadata> {
   const description =
     settings.seoDescription?.trim() ||
     "Based in Douala, Cameroon, Franck Ngoka creates distinctive brand identities, intuitive websites and user-centered digital products for ambitious businesses.";
-  const image = settings.ogImageUrl?.trim() || "/images/og-image.jpg";
+  const image = settings.ogImageUrl?.trim() || "/opengraph-image";
 
   return {
     title,
@@ -46,7 +46,14 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      images: [{ url: image, alt: "Franck Ngoka — UX/UI, Web & Brand Designer in Cameroon" }],
+      images: [
+        {
+          url: image,
+          width: 1200,
+          height: 630,
+          alt: "Franck Ngoka — UX/UI, Web & Brand Designer in Cameroon",
+        },
+      ],
     },
     twitter: {
       title,
