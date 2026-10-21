@@ -350,11 +350,14 @@ export function Hero({
   );
 
   const displayName = ownerName?.trim() || siteName;
+  const nameParts = displayName.split(/\s+/);
+  const highlightedNamePart = nameParts.pop() ?? displayName;
+  const namePrefix = nameParts.join(" ");
   const displayTagline = siteTagline?.trim() || "Web & Brand Designer";
 
   const displayDescription =
     siteDescription?.trim() ||
-    "Je conçois des identités, des interfaces et des expériences digitales qui transforment les idées en marques mémorables.";
+    "I design distinctive brand identities, intuitive interfaces and thoughtful digital experiences that turn complex ideas into clear, memorable products.";
 
   return (
     <section
@@ -588,7 +591,7 @@ export function Hero({
                 max-w-full
                 break-words
                 font-display
-                text-[clamp(2.5rem,5.5vw,5rem)]
+                text-h1
                 font-semibold
                 leading-[0.95]
                 tracking-[-0.055em]
@@ -597,7 +600,10 @@ export function Hero({
                 lg:whitespace-nowrap
               "
             >
-              {displayName}
+              {namePrefix && `${namePrefix} `}
+              <span className="text-[var(--portfolio-accent)]">
+                {highlightedNamePart}
+              </span>
             </h1>
 
             <p className="mt-4 max-w-xl font-signature text-sm leading-relaxed text-[var(--portfolio-text-secondary)] sm:text-base">
@@ -636,8 +642,8 @@ export function Hero({
 
               <span>
                 {isAvailableForProjects
-                  ? "Disponible pour vos projets"
-                  : "Actuellement indisponible"}
+                  ? "Available for selected projects"
+                  : "Currently unavailable for new projects"}
               </span>
             </div>
 

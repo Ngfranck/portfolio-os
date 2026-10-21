@@ -34,10 +34,10 @@ export async function generateMetadata(): Promise<Metadata> {
   const settings = await getSiteSettings();
   const title =
     settings.seoTitle?.trim() ||
-    "Gonar.ui — UX/UI, Web & Brand Designer";
+    "Franck Ngoka | UX/UI, Web & Brand Designer in Cameroon";
   const description =
     settings.seoDescription?.trim() ||
-    "UX/UI, web and brand design focused on creating clear, meaningful and memorable digital experiences.";
+    "Based in Douala, Cameroon, Franck Ngoka creates distinctive brand identities, intuitive websites and user-centered digital products for ambitious businesses.";
   const image = settings.ogImageUrl?.trim() || "/images/og-image.jpg";
 
   return {
@@ -46,7 +46,7 @@ export async function generateMetadata(): Promise<Metadata> {
     openGraph: {
       title,
       description,
-      images: [{ url: image, alt: "Gonar.ui — UX/UI, Web & Brand Designer" }],
+      images: [{ url: image, alt: "Franck Ngoka — UX/UI, Web & Brand Designer in Cameroon" }],
     },
     twitter: {
       title,

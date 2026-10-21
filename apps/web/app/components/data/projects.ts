@@ -51,10 +51,10 @@ export const projects: Project[] = [
     year: "2026",
 
     description:
-      "Une identité visuelle et une expérience digitale pensées pour construire une marque distinctive, cohérente et mémorable.",
+      "A distinctive visual identity and digital experience designed to make Plumage recognizable, coherent and memorable.",
 
     shortDescription:
-      "Une identité visuelle et une expérience digitale pensées pour construire une marque distinctive et mémorable.",
+      "A distinctive visual identity and cohesive digital experience for Plumage.",
 
     role: [
       "Brand Designer",
@@ -75,13 +75,13 @@ export const projects: Project[] = [
 
     overview: {
       context:
-        "Plumage avait besoin d'une identité capable d'exprimer clairement sa personnalité tout en restant suffisamment flexible pour fonctionner sur différents supports.",
+        "Plumage needed an identity that could express its personality clearly while adapting naturally across digital and physical touchpoints.",
 
       challenge:
-        "Le principal défi était de créer une présence visuelle distinctive tout en maintenant une expérience digitale simple, cohérente et facilement reconnaissable.",
+        "The challenge was to build a distinctive visual presence without compromising a simple, consistent and recognizable digital experience.",
 
       objective:
-        "Construire un langage visuel cohérent et une expérience digitale capable de renforcer la perception de la marque à chaque point de contact.",
+        "Create a cohesive visual language and digital experience that strengthens brand recognition at every touchpoint.",
     },
 
     approach: [
@@ -89,36 +89,36 @@ export const projects: Project[] = [
         number: "01",
         title: "Discover",
         description:
-          "Comprendre la marque, son positionnement, son audience et les enjeux auxquels elle doit répondre.",
+          "Explore the brand, its positioning, its audience and the needs the identity must address.",
       },
 
       {
         number: "02",
         title: "Define",
         description:
-          "Définir une direction visuelle claire et établir les principes qui guideront l'identité et l'expérience digitale.",
+          "Set a clear art direction and define the principles behind the brand identity and digital experience.",
       },
 
       {
         number: "03",
         title: "Design",
         description:
-          "Transformer la stratégie en un système visuel cohérent à travers l'identité, l'interface et les différents supports.",
+          "Translate the strategy into a consistent visual system across the identity, interface and brand materials.",
       },
 
       {
         number: "04",
         title: "Refine",
         description:
-          "Affiner les détails, les interactions et les composants afin de créer une expérience finale plus précise et cohérente.",
+          "Refine the visual details, interactions and components to deliver a polished, cohesive experience.",
       },
     ],
 
     results: [
-      "Une identité visuelle plus distinctive.",
-      "Un langage visuel cohérent sur les différents supports.",
-      "Une expérience digitale plus claire et intuitive.",
-      "Un système suffisamment flexible pour accompagner l'évolution de la marque.",
+      "A distinctive visual identity that reflects the brand's personality.",
+      "A consistent visual language across digital and physical touchpoints.",
+      "A clearer, more intuitive digital brand experience.",
+      "A flexible identity system designed to grow with the brand.",
     ],
 
     gallery: [
@@ -143,10 +143,10 @@ export const projects: Project[] = [
     year: "2026",
 
     description:
-      "Une expérience digitale moderne pensée pour connecter identité de marque, tourisme et expérience utilisateur.",
+      "Brand identity and UX/UI design for a travel platform, bringing destination discovery and trip planning into a clear digital experience.",
 
     shortDescription:
-      "Une expérience digitale moderne pensée pour connecter identité de marque, tourisme et expérience utilisateur.",
+      "A travel platform connecting a distinctive brand identity with intuitive destination discovery and booking.",
 
     role: [
       "Brand Designer",
@@ -167,13 +167,13 @@ export const projects: Project[] = [
 
     overview: {
       context:
-        "Safara est une plateforme orientée tourisme qui cherche à créer une expérience digitale plus moderne autour de la découverte et de la réservation.",
+        "Safara is a travel platform designed to make discovering destinations and planning trips more intuitive.",
 
       challenge:
-        "Le défi consistait à rendre l'expérience suffisamment intuitive pour faciliter la découverte tout en construisant une identité visuelle forte et reconnaissable.",
+        "The challenge was to simplify destination discovery while building a distinctive, recognizable visual identity.",
 
       objective:
-        "Créer une expérience digitale cohérente reliant l'identité de la marque, la découverte des destinations et les actions principales de l'utilisateur.",
+        "Create a cohesive digital experience that connects the brand identity, destination discovery and key booking actions.",
     },
 
     approach: [
@@ -181,36 +181,36 @@ export const projects: Project[] = [
         number: "01",
         title: "Research",
         description:
-          "Identifier les besoins des utilisateurs et comprendre les principaux moments de l'expérience touristique.",
+          "Identify traveler needs and map the most important moments in the trip-planning journey.",
       },
 
       {
         number: "02",
         title: "Structure",
         description:
-          "Organiser les contenus et les parcours afin de rendre la navigation plus claire et naturelle.",
+          "Organize content and user flows to make navigation clear and destination discovery effortless.",
       },
 
       {
         number: "03",
         title: "Visual Design",
         description:
-          "Développer une direction visuelle capable de traduire l'univers du voyage tout en restant moderne et fonctionnelle.",
+          "Develop a modern, functional visual direction that captures the spirit of travel.",
       },
 
       {
         number: "04",
         title: "Experience",
         description:
-          "Assembler les différents éléments dans une expérience digitale cohérente et orientée utilisateur.",
+          "Bring the brand and user flows together in a consistent, user-centered digital experience.",
       },
     ],
 
     results: [
-      "Une direction visuelle plus cohérente.",
-      "Une hiérarchie de contenu plus claire.",
-      "Une expérience de découverte plus fluide.",
-      "Une identité digitale plus reconnaissable.",
+      "A distinctive visual identity tailored to the travel experience.",
+      "Clearer content hierarchy across destination pages.",
+      "A smoother journey from browsing destinations to taking action.",
+      "A more recognizable and consistent digital brand experience.",
     ],
 
     gallery: [
@@ -235,10 +235,10 @@ export const projects: Project[] = [
     year: "2026",
 
     description:
-      "Une expérience mobile dédiée à la gestion financière, pensée pour rendre les données complexes plus simples à comprendre.",
+      "Mobile app UX/UI design for personal finance, making complex financial information easier to understand through clear hierarchy and intuitive interactions.",
 
     shortDescription:
-      "Une expérience mobile dédiée à la gestion financière, pensée pour rendre les données complexes plus simples à comprendre.",
+      "A personal finance app that makes financial data clearer and easier to navigate.",
 
     role: [
       "Product Designer",
@@ -259,13 +259,13 @@ export const projects: Project[] = [
 
     overview: {
       context:
-        "Gestro est une expérience mobile dédiée à la gestion financière et à la compréhension des données personnelles.",
+        "Gestro is a personal finance app that helps people understand and manage their financial data on mobile.",
 
       challenge:
-        "Les informations financières peuvent rapidement devenir complexes. L'enjeu était donc de présenter ces données de manière plus claire et accessible.",
+        "Financial information can feel complex and overwhelming, so the interface needed to make key figures easier to understand and act on.",
 
       objective:
-        "Concevoir une expérience mobile permettant de comprendre rapidement sa situation financière et de prendre de meilleures décisions.",
+        "Design a mobile experience that helps people understand their financial position and make informed everyday decisions.",
     },
 
     approach: [
@@ -273,36 +273,36 @@ export const projects: Project[] = [
         number: "01",
         title: "Understand",
         description:
-          "Comprendre les habitudes, les besoins et les difficultés rencontrées dans la gestion financière quotidienne.",
+          "Understand users' habits, needs and pain points when managing day-to-day finances.",
       },
 
       {
         number: "02",
         title: "Simplify",
         description:
-          "Transformer des informations complexes en contenus simples, hiérarchisés et facilement compréhensibles.",
+          "Turn complex financial data into clear, prioritized information that is easy to scan.",
       },
 
       {
         number: "03",
         title: "Design",
         description:
-          "Construire une interface claire autour des informations et actions les plus importantes.",
+          "Design a mobile interface around the most important financial insights and actions.",
       },
 
       {
         number: "04",
         title: "Refine",
         description:
-          "Améliorer les interactions, les états et la hiérarchie visuelle afin de rendre l'expérience plus fluide.",
+          "Refine interaction patterns, interface states and visual hierarchy for a smoother experience.",
       },
     ],
 
     results: [
-      "Une lecture plus claire des informations financières.",
-      "Une hiérarchie visuelle mieux structurée.",
-      "Une expérience mobile plus simple à comprendre.",
-      "Une interface conçue autour des besoins prioritaires de l'utilisateur.",
+      "Financial information presented with greater clarity.",
+      "A stronger visual hierarchy for key insights.",
+      "A more intuitive mobile personal finance experience.",
+      "Core interface flows shaped around everyday user needs.",
     ],
 
     gallery: [
@@ -327,10 +327,10 @@ export const projects: Project[] = [
     year: "2026",
 
     description:
-      "Une plateforme digitale pensée pour simplifier la gestion des organisations, des collaborateurs et des opérations quotidiennes.",
+      "B2B SaaS product design for an operations platform, bringing employee management, contracts, attendance and daily tasks into a clear, consistent experience.",
 
     shortDescription:
-      "Une expérience digitale conçue pour centraliser les opérations et rendre la gestion quotidienne plus claire et efficace.",
+      "A unified operations platform designed to make everyday business management clearer and more efficient.",
 
     role: [
       "Product Designer",
@@ -351,13 +351,13 @@ export const projects: Project[] = [
 
     overview: {
       context:
-        "Nexma est une plateforme destinée à centraliser différents aspects de la gestion d'une organisation, notamment les collaborateurs, les contrats, le pointage, les tâches et certaines opérations internes.",
+        "Nexma is a business operations platform that brings employee records, contracts, attendance, tasks and internal workflows into one product.",
 
       challenge:
-        "Le principal défi était de structurer un ensemble important d'informations et de fonctionnalités sans rendre l'expérience complexe pour les utilisateurs.",
+        "The challenge was to organize a broad set of information and features without making the experience difficult to navigate.",
 
       objective:
-        "Créer une expérience produit claire et cohérente permettant aux utilisateurs de retrouver rapidement les informations importantes et d'effectuer leurs tâches quotidiennes avec moins de friction.",
+        "Create a clear, consistent product experience that helps teams find essential information and complete routine tasks with less friction.",
     },
 
     approach: [
@@ -365,36 +365,36 @@ export const projects: Project[] = [
         number: "01",
         title: "Understand",
         description:
-          "Analyser les besoins des utilisateurs et comprendre les différents modules, rôles et flux nécessaires au fonctionnement de la plateforme.",
+          "Map user needs and understand the platform's modules, roles and essential business workflows.",
       },
 
       {
         number: "02",
         title: "Structure",
         description:
-          "Organiser les informations, les modules et les parcours afin de créer une architecture claire et facilement navigable.",
+          "Organize information, modules and user flows into a clear, navigable product architecture.",
       },
 
       {
         number: "03",
         title: "Design",
         description:
-          "Concevoir une interface cohérente à travers les différents modules en utilisant des composants et des patterns réutilisables.",
+          "Create a cohesive interface across product modules with reusable components and interaction patterns.",
       },
 
       {
         number: "04",
         title: "Refine",
         description:
-          "Affiner les interactions, les états, les tableaux et les détails d'interface afin d'améliorer la compréhension et l'efficacité du produit.",
+          "Refine interactions, states, data tables and interface details to improve usability and efficiency.",
       },
     ],
 
     results: [
-      "Une structure produit plus claire.",
-      "Une navigation mieux organisée entre les différents modules.",
-      "Une interface cohérente à travers l'expérience.",
-      "Un système conçu pour accompagner l'évolution du produit.",
+      "A clearer structure for a multi-module operations platform.",
+      "More intuitive navigation between everyday business workflows.",
+      "A consistent interface across the product experience.",
+      "A scalable design system ready to support future product growth.",
     ],
 
     gallery: [

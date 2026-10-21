@@ -32,7 +32,7 @@ export default function PlaygroundPage() {
             size="body-lg"
             className="mt-6 max-w-2xl text-text-secondary"
           >
-            Laboratoire visuel du Design System de notre portfolio.
+            A visual showcase of the portfolio's design system.
           </Text>
 
         </Container>

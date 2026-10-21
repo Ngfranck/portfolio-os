@@ -212,7 +212,7 @@ export function About({ settings }: { settings: AboutSettings }) {
             trigger: section,
             start: "top 78%",
             end: "bottom 20%",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         });
 
@@ -263,7 +263,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: card,
               start: "top 84%",
               end: "bottom 18%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -291,7 +291,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: profileImage,
               start: "top 86%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -312,7 +312,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: availability,
               start: "top 88%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -333,7 +333,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: profileContent,
               start: "top 88%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -355,7 +355,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: socials[0],
               start: "top 90%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -376,7 +376,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: cvButton,
               start: "top 92%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -397,7 +397,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: informationContent,
               start: "top 88%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -419,7 +419,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: skillsElements[0],
               start: "top 91%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -441,7 +441,7 @@ export function About({ settings }: { settings: AboutSettings }) {
               trigger: experienceElements[0],
               start: "top 91%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -568,7 +568,8 @@ export function About({ settings }: { settings: AboutSettings }) {
               will-change-transform
             "
           >
-            A designer focused on turning complexity into clarity.
+            Franck Ngoka is a UX/UI, web and brand designer focused on turning
+            complex ideas into clear digital experiences.
           </p>
 
           <h2
@@ -733,8 +734,9 @@ export function About({ settings }: { settings: AboutSettings }) {
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                UX/UI & Web & Brand Designer focused on creating purposeful
-                digital experiences.
+                UX/UI, web and brand designer creating purposeful digital
+                products, memorable brand identities and intuitive web
+                experiences.
               </p>
 
               {/* SOCIALS */}

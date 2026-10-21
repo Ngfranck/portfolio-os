@@ -232,7 +232,7 @@ export function CVHero() {
               className="
                 mt-7
                 font-display
-                text-[clamp(3.5rem,8vw,7.5rem)]
+                text-h1
                 font-bold
                 leading-[0.86]
                 tracking-[-0.06em]
@@ -312,9 +312,9 @@ export function CVHero() {
                 sm:leading-8
               "
             >
-              Je conçois des identités visuelles, des interfaces
-              et des expériences digitales qui transforment les
-              idées en solutions claires, cohérentes et mémorables.
+              I create distinctive visual identities, intuitive interfaces
+              and digital experiences that turn ideas into clear, cohesive
+              and memorable solutions.
             </p>
 
             {/* =================================================
@@ -362,7 +362,7 @@ export function CVHero() {
                   strokeWidth={1.7}
                 />
 
-                <span>Télécharger mon CV</span>
+                <span>Download my CV</span>
               </a>
 
               {/* CONTACT */}

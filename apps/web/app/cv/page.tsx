@@ -1,4 +1,5 @@
 import Link from "next/link";
+import type { Metadata } from "next";
 import { HugeiconsIcon } from "@hugeicons/react";
 import {
   ArrowLeft01Icon,
@@ -9,6 +10,16 @@ import { CVProfile } from "./cv-profile";
 import { CVExperience } from "./cv-experience";
 import { CVSkills } from "./cv-skills";
 import { CVEducation } from "./cv-education";
+
+export const metadata: Metadata = {
+  title: "About Franck Ngoka | UX/UI, Web & Brand Designer",
+  description:
+    "Explore Franck Ngoka's experience, education and expertise in UX/UI design, visual identity, web design and digital product design.",
+  alternates: {
+    canonical: "/cv",
+  },
+};
+
 export default function CVPage() {
   return (
     <main

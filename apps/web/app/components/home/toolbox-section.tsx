@@ -471,7 +471,7 @@ export function ToolboxSection() {
               trigger: header,
               start: "top 82%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -530,7 +530,7 @@ export function ToolboxSection() {
               trigger: cards[0],
               start: "top 82%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -545,7 +545,7 @@ export function ToolboxSection() {
               trigger: bottomMessage,
               start: "top 86%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -586,7 +586,7 @@ export function ToolboxSection() {
               trigger: marquee,
               start: "top 92%",
               end: "bottom 35%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -739,9 +739,9 @@ export function ToolboxSection() {
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Une sélection d'outils que j'utilise pour
-              transformer une idée en identité, interface et
-              expérience digitale cohérente.
+              A focused toolkit for turning a strong idea into a cohesive
+              brand identity, intuitive interface and polished digital
+              experience.
             </p>
 
             {/* SUPPORT LINE */}
@@ -766,7 +766,7 @@ export function ToolboxSection() {
                 color="var(--portfolio-accent)"
               />
 
-              <span>Tools adaptés à chaque projet</span>
+              <span>The right tools for each project</span>
             </div>
           </div>
         </div>

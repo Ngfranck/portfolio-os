@@ -238,7 +238,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           trigger: infoCard,
           start: "top 88%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -307,7 +307,7 @@ export function ProjectHero({ project }: ProjectHeroProps) {
           trigger: heroImageContainer,
           start: "top 88%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -469,13 +469,16 @@ export function ProjectHero({ project }: ProjectHeroProps) {
                 mt-7
                 max-w-[900px]
                 font-display
-                text-[clamp(3.2rem,7.5vw,7.2rem)]
+                text-h1
                 font-semibold
                 leading-[0.88]
                 tracking-[var(--portfolio-tracking-display)]
               "
             >
-              {project.title}
+              <span className="text-[var(--portfolio-accent)]">
+                {project.title.split(/\s+/, 1)[0]}
+              </span>{" "}
+              {project.title.split(/\s+/).slice(1).join(" ")}
             </h1>
 
             {/* DESCRIPTION */}

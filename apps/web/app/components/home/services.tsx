@@ -73,22 +73,22 @@ const fallbackServices: ServiceDisplay[] = [
   {
     title: "Website Design",
     shortDescription:
-      "Des interfaces web élégantes, intuitives et orientées conversion, pensées autour de votre marque et de vos utilisateurs.",
+      "Conversion-focused websites with clear navigation, considered visual hierarchy and responsive experiences built around your brand and audience.",
   },
   {
     title: "Graphic Design",
     shortDescription:
-      "Des créations graphiques fortes et polyvalentes qui renforcent votre image et captivent votre audience.",
+      "Purposeful digital and print assets that bring your visual identity to life and create a consistent presence across every touchpoint.",
   },
   {
     title: "Logo Design",
     shortDescription:
-      "Des identités visuelles distinctives, cohérentes et mémorables qui donnent une véritable personnalité à votre marque.",
+      "Distinctive logos and flexible visual identity systems that make your brand recognizable, consistent and ready to grow.",
   },
   {
     title: "Framer Design",
     shortDescription:
-      "Des expériences digitales modernes, interactives et performantes conçues pour donner vie à vos idées.",
+      "Fast, responsive Framer websites that translate your direction into polished digital experiences and clear calls to action.",
   },
 ];
 
@@ -438,7 +438,7 @@ export function ServicesSection({
               trigger: badge,
               start: "top 82%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -486,7 +486,7 @@ export function ServicesSection({
               trigger: cta,
               start: "top 84%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -521,7 +521,7 @@ export function ServicesSection({
               trigger: card,
               start: "top 84%",
               end: "bottom 18%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -615,7 +615,7 @@ export function ServicesSection({
               trigger: movingPills,
               start: "top 88%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
         }
@@ -638,7 +638,7 @@ export function ServicesSection({
                 trigger: row,
                 start: "top 94%",
                 end: "bottom 20%",
-                toggleActions: "play reverse play reverse",
+                toggleActions: "play none none none",
               },
             },
           );
@@ -833,9 +833,9 @@ export function ServicesSection({
                 }
               `}
             >
-              Explorez une suite de services créatifs conçus
-              pour construire, renforcer et faire évoluer votre
-              marque.
+              From brand identity and UX/UI design to responsive websites,
+              each service connects strategy, visual craft and usability to
+              help your brand grow with clarity.
             </p>
           </div>
 
@@ -879,7 +879,7 @@ export function ServicesSection({
               }
             `}
           >
-            <span>Me contacter</span>
+            <span>Discuss a project</span>
 
             <HugeiconsIcon
               icon={ArrowUpRight01Icon}

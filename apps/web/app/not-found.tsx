@@ -274,7 +274,7 @@ export default function NotFound() {
                 mt-10
                 max-w-[700px]
                 font-display
-                text-[clamp(2rem,4vw,3.5rem)]
+                text-h1
                 font-semibold
                 leading-[0.98]
                 tracking-[var(--portfolio-tracking-display)]
@@ -303,9 +303,8 @@ export default function NotFound() {
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              La page que vous recherchez n'existe pas ou a peut-être
-              été déplacée. Mais votre prochain projet peut toujours
-              commencer ici.
+              The page you are looking for may have moved or no longer exists.
+              Your next brand or digital project can still start here.
             </p>
 
             {/* =================================================
@@ -359,7 +358,7 @@ export default function NotFound() {
                   "
                 />
 
-                <span>Retour à l'accueil</span>
+                <span>Back to home</span>
               </Link>
 
               {/* PROJECTS */}
@@ -397,7 +396,7 @@ export default function NotFound() {
                   dark:hover:bg-white/[0.08]
                 "
               >
-                <span>Voir mes projets</span>
+                <span>Explore selected projects</span>
 
                 <HugeiconsIcon
                   icon={ArrowUpRight01Icon}

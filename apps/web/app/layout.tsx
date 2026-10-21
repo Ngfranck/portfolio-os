@@ -72,15 +72,17 @@ const signatrue = localFont({
   display: "swap",
 });
 
-const siteUrl =
+const siteUrl = (
   process.env.NEXT_PUBLIC_SITE_URL?.trim() ||
-  (process.env.VERCEL_PROJECT_PRODUCTION_URL
-    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
-    : "https://ton-domaine.com");
+  (process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL || process.env.VERCEL_URL}`
+    : "http://localhost:3000")
+).replace(/\/+$/, "");
 
-const defaultSeoTitle = "Gonar.ui — UX/UI, Web & Brand Designer";
+const defaultSeoTitle =
+  "Franck Ngoka | UX/UI, Web & Brand Designer in Cameroon";
 const defaultSeoDescription =
-  "UX/UI, web and brand design focused on creating clear, meaningful and memorable digital experiences.";
+  "Based in Douala, Cameroon, Franck Ngoka creates distinctive brand identities, intuitive websites and user-centered digital products for ambitious businesses.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -90,7 +92,7 @@ export const metadata: Metadata = {
   },
   description: defaultSeoDescription,
   keywords: [
-    "Gonar.ui",
+    "Franck Ngoka",
     "UX/UI Designer",
     "Web Designer",
     "Brand Designer",
@@ -98,8 +100,8 @@ export const metadata: Metadata = {
     "Digital Product Design",
     "Portfolio Designer",
   ],
-  authors: [{ name: "Gonar.ui" }],
-  creator: "Gonar.ui",
+  authors: [{ name: "Franck Ngoka" }],
+  creator: "Franck Ngoka",
   publisher: "Gonar.ui",
   applicationName: "Gonar.ui Portfolio",
   alternates: {
@@ -120,7 +122,7 @@ export const metadata: Metadata = {
         url: "/images/og-image.jpg",
         width: 1200,
         height: 630,
-        alt: "Gonar.ui — UX/UI, Web & Brand Designer",
+        alt: "Franck Ngoka — UX/UI, Web & Brand Designer in Cameroon",
       },
     ],
   },
@@ -161,7 +163,7 @@ export default function RootLayout({
               {
                 "@type": "Person",
                 "@id": `${siteUrl}/#person`,
-                name: "Gonar.ui",
+                name: "Franck Ngoka",
                 url: siteUrl,
                 jobTitle: "UX/UI, Web & Brand Designer",
                 description:

@@ -130,7 +130,7 @@ export function PageLoader() {
     <div
       ref={loaderRef}
       className="fixed inset-0 z-[10000] h-screen w-screen overflow-hidden bg-[#050505] text-white"
-      aria-label="Chargement du portfolio"
+      aria-label="Loading portfolio"
       role="status"
     >
       {/* Main loading area */}

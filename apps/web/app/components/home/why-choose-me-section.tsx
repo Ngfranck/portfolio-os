@@ -20,22 +20,26 @@ gsap.registerPlugin(ScrollTrigger);
 
 const statistics = [
   {
-    value: "03+",
+    value: 3,
+    suffix: "+",
     label: "Years",
     description: "of design experience",
   },
   {
-    value: "40+",
+    value: 40,
+    suffix: "+",
     label: "Projects",
     description: "designed and delivered",
   },
   {
-    value: "20+",
+    value: 20,
+    suffix: "+",
     label: "Brands",
     description: "built and strengthened",
   },
   {
-    value: "100%",
+    value: 100,
+    suffix: "%",
     label: "Design",
     description: "focused on your goals",
   },
@@ -46,21 +50,21 @@ const reasons = [
     number: "01",
     title: "Strategic thinking",
     description:
-      "Je ne commence pas par dessiner. Je commence par comprendre le problème, les objectifs et les utilisateurs afin de construire une direction pertinente.",
+      "I begin with the problem, the people and the goals—not the screen. That context gives every design decision a clear purpose.",
     icon: Target02Icon,
   },
   {
     number: "02",
     title: "Design precision",
     description:
-      "Chaque détail compte : hiérarchie, typographie, espace, interaction et cohérence visuelle sont pensés pour créer une expérience claire et mémorable.",
+      "Typography, spacing, hierarchy and interaction work together to make each experience feel clear, considered and unmistakably on-brand.",
     icon: SparklesIcon,
   },
   {
     number: "03",
     title: "Collaborative process",
     description:
-      "Je privilégie une collaboration transparente avec des échanges réguliers pour faire évoluer rapidement les idées et garder le projet aligné.",
+      "Regular, focused feedback keeps decisions transparent, ideas moving and the final experience aligned with your goals.",
     icon: UserGroupIcon,
   },
 ];
@@ -175,7 +179,7 @@ export function WhyChooseMeSection() {
               trigger: header,
               start: "top 82%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -230,7 +234,7 @@ export function WhyChooseMeSection() {
               trigger: statisticsBlock,
               start: "top 82%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -245,9 +249,48 @@ export function WhyChooseMeSection() {
                 trigger: statisticsBlock,
                 start: "top 78%",
                 end: "bottom 30%",
-                toggleActions: "play reverse play reverse",
+                toggleActions: "play none none none",
               },
             });
+
+            const countEls = Array.from(
+              section.querySelectorAll("[data-why-count]")
+            ) as HTMLElement[];
+
+            if (countEls.length) {
+              countEls.forEach((el, index) => {
+                const target = Number(el.dataset.target ?? "0");
+                const suffix = el.dataset.suffix ?? "";
+                const counter = { value: 0 };
+
+                gsap.to(counter, {
+                  value: target,
+                  duration: 1.8,
+                  delay: index * 0.14,
+                  ease: "power1.inOut",
+                  scrollTrigger: {
+                    trigger: statisticsBlock,
+                    start: "top 80%",
+                    toggleActions: "play none none reverse",
+                  },
+                  onUpdate: () => {
+                    const current = Math.floor(counter.value);
+                    if (target < 10) {
+                      el.textContent = `${String(current).padStart(2, "0")}${suffix}`;
+                      return;
+                    }
+                    el.textContent = `${current}${suffix}`;
+                  },
+                  onComplete: () => {
+                    if (target < 10) {
+                      el.textContent = `${String(target).padStart(2, "0")}${suffix}`;
+                      return;
+                    }
+                    el.textContent = `${target}${suffix}`;
+                  },
+                });
+              });
+            }
           }
         }
 
@@ -264,7 +307,7 @@ export function WhyChooseMeSection() {
                 trigger: reasonsBlock,
                 start: "top 82%",
                 end: "bottom 30%",
-                toggleActions: "play reverse play reverse",
+                toggleActions: "play none none none",
               },
             });
           }
@@ -280,7 +323,7 @@ export function WhyChooseMeSection() {
                 trigger: reasonCards[0],
                 start: "top 84%",
                 end: "bottom 25%",
-                toggleActions: "play reverse play reverse",
+                toggleActions: "play none none none",
               },
             });
           }
@@ -294,7 +337,7 @@ export function WhyChooseMeSection() {
               trigger: bottomStatement,
               start: "top 86%",
               end: "bottom 30%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -490,9 +533,9 @@ export function WhyChooseMeSection() {
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Une approche qui combine stratégie, design et
-              compréhension du produit pour créer des expériences
-              digitales utiles, cohérentes et mémorables.
+              A thoughtful design approach combines brand strategy, user
+              experience and visual craft to create digital products that are
+              useful, coherent and memorable.
             </p>
 
             <a
@@ -515,7 +558,7 @@ export function WhyChooseMeSection() {
                 hover:text-[var(--portfolio-accent)]
               "
             >
-              <span>Parlons de votre projet</span>
+              <span>Let&apos;s discuss your project</span>
 
               <HugeiconsIcon
                 icon={ArrowUpRight01Icon}
@@ -597,7 +640,16 @@ export function WhyChooseMeSection() {
                   group-hover:-translate-y-1
                 "
               >
-                {stat.value}
+                <span
+                  data-why-count
+                  data-target={stat.value}
+                  data-suffix={stat.suffix}
+                >
+                  {stat.value < 10
+                    ? String(stat.value).padStart(2, "0")
+                    : stat.value}
+                  {stat.suffix}
+                </span>
               </div>
 
               {/* Label */}

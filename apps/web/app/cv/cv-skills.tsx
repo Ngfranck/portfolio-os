@@ -14,7 +14,7 @@ const expertise = [
     number: "01",
     title: "Brand Design",
     description:
-      "Création d'identités visuelles cohérentes, distinctives et pensées pour construire une présence de marque forte.",
+      "Developing distinctive, cohesive brand identities that build recognition and create a consistent presence across every touchpoint.",
     skills: [
       "Brand Identity",
       "Visual Identity",
@@ -26,7 +26,7 @@ const expertise = [
     number: "02",
     title: "Web Design",
     description:
-      "Conception de sites web et d'expériences digitales modernes, avec une attention particulière portée à la clarté et à la hiérarchie visuelle.",
+      "Designing modern, responsive websites with clear navigation, purposeful content hierarchy and a strong connection to the brand.",
     skills: [
       "Web Design",
       "Landing Pages",
@@ -38,7 +38,7 @@ const expertise = [
     number: "03",
     title: "UI / UX Design",
     description:
-      "Conception d'interfaces intuitives et de parcours utilisateurs qui transforment des besoins complexes en expériences simples.",
+      "Shaping intuitive interfaces and user journeys that make complex tasks easier to understand and complete.",
     skills: [
       "UX Design",
       "UI Design",
@@ -50,7 +50,7 @@ const expertise = [
     number: "04",
     title: "Product Design",
     description:
-      "Conception de produits digitaux en reliant stratégie, expérience utilisateur, interface et systèmes de design.",
+      "Connecting product strategy, user experience, interface design and reusable systems to create coherent digital products.",
     skills: [
       "Product Design",
       "Design Systems",
@@ -195,9 +195,8 @@ export function CVSkills() {
               text-[var(--portfolio-text-secondary)]
             "
           >
-            Des compétences qui combinent stratégie,
-            créativité et compréhension des produits
-            digitaux.
+            A blend of strategy, creative direction and product thinking for
+            useful, distinctive digital experiences.
           </p>
         </div>
 

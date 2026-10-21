@@ -145,7 +145,7 @@ export function ArticlePageAnimations({
             trigger: page,
             start: "top top",
             end: "top+=220 top",
-            toggleActions: "play reverse play reverse",
+            toggleActions: "play none none none",
           },
         });
 
@@ -221,7 +221,7 @@ export function ArticlePageAnimations({
               trigger: cover,
               start: "top 82%",
               end: "bottom 18%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -268,7 +268,7 @@ export function ArticlePageAnimations({
               trigger: articleContent,
               start: "top 82%",
               end: "bottom 25%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 
@@ -296,7 +296,7 @@ export function ArticlePageAnimations({
               trigger: footerCta,
               start: "top 82%",
               end: "bottom 20%",
-              toggleActions: "play reverse play reverse",
+              toggleActions: "play none none none",
             },
           });
 

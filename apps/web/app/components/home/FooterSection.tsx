@@ -170,7 +170,7 @@ export function Footer({
           trigger: footer,
           start: "top 82%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -245,7 +245,7 @@ export function Footer({
           trigger: brand ?? navigation ?? socials ?? footer,
           start: "top 88%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -322,7 +322,7 @@ export function Footer({
             bottomBar ?? copyright ?? microMessage ?? backToTop ?? footer,
           start: "top 92%",
           end: "bottom 20%",
-          toggleActions: "play reverse play reverse",
+          toggleActions: "play none none none",
         },
       });
 
@@ -552,9 +552,8 @@ export function Footer({
                   text-[var(--portfolio-text-secondary)]
                 "
               >
-                Une idée, une marque ou un produit digital ?
-                Construisons ensemble une expérience claire,
-                cohérente et mémorable.
+                Have an idea, a brand or a digital product in mind? Let&apos;s
+                create a clear, cohesive experience with purpose.
               </p>
             </div>
 
@@ -593,7 +592,7 @@ export function Footer({
                 aria-hidden="true"
               />
 
-              <span>Me contacter</span>
+              <span>Start a conversation</span>
 
               <HugeiconsIcon
                 icon={ArrowUpRight01Icon}
@@ -660,9 +659,9 @@ export function Footer({
                 text-[var(--portfolio-text-secondary)]
               "
             >
-              Web & Brand Designer spécialisé dans la création
-              d&apos;identités, d&apos;interfaces et d&apos;expériences
-              digitales pensées avec intention.
+              Franck Ngoka is a UX/UI, web and brand designer creating
+              distinctive identities, intuitive interfaces and thoughtful
+              digital experiences.
             </p>
 
             <div
