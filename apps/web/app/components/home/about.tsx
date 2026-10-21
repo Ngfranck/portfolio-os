@@ -635,7 +635,7 @@ export function About({ settings }: { settings: AboutSettings }) {
             >
               <img
                 data-about-image
-                src="/images/about/photo Franck.jpg"
+                src="/images/about/photo-franck.jpg"
                 alt="Ngoka Franck"
                 className="
                   absolute
