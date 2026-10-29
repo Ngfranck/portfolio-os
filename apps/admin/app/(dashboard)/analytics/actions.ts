@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { prisma } from "@/lib/prisma";
 
 export type AnalyticsOverview = {
@@ -11,6 +13,7 @@ export type AnalyticsOverview = {
 };
 
 export async function getAnalyticsOverview(): Promise<AnalyticsOverview> {
+  await requireAdmin();
   const [
     projects,
     articles,

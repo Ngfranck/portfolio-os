@@ -1,6 +1,8 @@
 
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -183,6 +185,7 @@ export async function getAdminTestimonials(): Promise<
       testimonials: [];
     }
 > {
+  await requireAdmin();
   try {
     const testimonials = await prisma.testimonial.findMany({
       orderBy: [
@@ -242,6 +245,7 @@ export async function getTestimonialById(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!testimonialId.trim()) {
     return {
       success: false,
@@ -312,6 +316,7 @@ export async function createTestimonial(
       error: string;
     }
 > {
+  await requireAdmin();
   const parsed = parseTestimonialInput(input);
 
   if (!parsed.success) {
@@ -374,6 +379,7 @@ export async function updateTestimonial(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!testimonialId.trim()) {
     return {
       success: false,
@@ -445,6 +451,7 @@ export async function deleteTestimonial(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!testimonialId.trim()) {
     return {
       success: false,

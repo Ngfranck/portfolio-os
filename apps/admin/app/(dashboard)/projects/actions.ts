@@ -1,8 +1,11 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { prisma } from "@/lib/prisma";
 
 export async function getAdminProjects() {
+  await requireAdmin();
   try {
     const projects = await prisma.project.findMany({
       orderBy: {
@@ -59,6 +62,7 @@ export async function getAdminProjects() {
 export async function archiveProject(
   projectId: string,
 ) {
+  await requireAdmin();
   if (!projectId) {
     return {
       success: false as const,
@@ -140,6 +144,7 @@ export async function archiveProject(
 export async function deleteProject(
   projectId: string,
 ) {
+  await requireAdmin();
   if (!projectId) {
     return {
       success: false as const,

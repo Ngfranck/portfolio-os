@@ -1,6 +1,8 @@
 
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -79,6 +81,7 @@ export async function getAdminMessages(): Promise<
       messages: [];
     }
 > {
+  await requireAdmin();
   try {
     const messages = await prisma.contactMessage.findMany({
       orderBy: [
@@ -133,6 +136,7 @@ export async function getContactMessageById(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!messageId.trim()) {
     return {
       success: false,
@@ -200,6 +204,7 @@ export async function updateContactMessageStatus(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!messageId.trim()) {
     return {
       success: false,
@@ -273,6 +278,7 @@ export async function deleteContactMessage(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!messageId.trim()) {
     return {
       success: false,

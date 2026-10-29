@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { prisma } from "@/lib/prisma";
 import type { Prisma } from "../../../../../web/app/generated/prisma/client";
 import { z } from "zod";
@@ -19,6 +21,7 @@ function getImageUrl(value: unknown): string | null {
 }
 
 export async function getProjectReferenceData() {
+  await requireAdmin();
   const [categories, services, skills] =
     await Promise.all([
       prisma.category.findMany({
@@ -478,6 +481,7 @@ async function validateProjectReferences(
 export async function getProjectById(
   projectId: string,
 ) {
+  await requireAdmin();
   if (
     !projectId ||
     projectId === "new"
@@ -756,6 +760,7 @@ export async function getProjectById(
 export async function createProject(
   input: CreateProjectInput,
 ) {
+  await requireAdmin();
   const parsed =
     projectFormSchema.safeParse(input);
 
@@ -1062,6 +1067,7 @@ export async function updateProject(
   projectId: string,
   input: UpdateProjectInput,
 ) {
+  await requireAdmin();
   if (
     !projectId ||
     projectId === "new"
