@@ -1,6 +1,8 @@
 
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -148,6 +150,7 @@ export async function getAdminCategories(): Promise<
       categories: [];
     }
 > {
+  await requireAdmin();
   try {
     const categories = await prisma.category.findMany({
       orderBy: [
@@ -207,6 +210,7 @@ export async function getCategoryById(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!categoryId.trim()) {
     return {
       success: false,
@@ -271,6 +275,7 @@ export async function createCategory(
       error: string;
     }
 > {
+  await requireAdmin();
   const parsed = parseCategoryInput(input);
 
   if (!parsed.success) {
@@ -328,6 +333,7 @@ export async function updateCategory(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!categoryId.trim()) {
     return {
       success: false,
@@ -394,6 +400,7 @@ export async function deleteCategory(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!categoryId.trim()) {
     return {
       success: false,

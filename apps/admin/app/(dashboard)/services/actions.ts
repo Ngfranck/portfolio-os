@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -196,6 +198,7 @@ export async function getAdminServices(): Promise<
       services: [];
     }
 > {
+  await requireAdmin();
   try {
     const services = await prisma.service.findMany({
       orderBy: [
@@ -258,6 +261,7 @@ export async function getServiceById(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!serviceId.trim()) {
     return {
       success: false,
@@ -326,6 +330,7 @@ export async function createService(
       error: string;
     }
 > {
+  await requireAdmin();
   const parsed = parseServiceInput(input);
 
   if (!parsed.success) {
@@ -387,6 +392,7 @@ export async function updateService(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!serviceId.trim()) {
     return {
       success: false,
@@ -473,6 +479,7 @@ export async function deleteService(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!serviceId.trim()) {
     return {
       success: false,
@@ -558,6 +565,7 @@ export async function getServiceProjectData(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!serviceId.trim()) {
     return {
       success: false,
@@ -653,6 +661,7 @@ export async function updateServiceProjects(
       error: string;
     }
 > {
+  await requireAdmin();
   if (!serviceId.trim()) {
     return {
       success: false,

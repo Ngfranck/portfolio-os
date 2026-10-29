@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { prisma } from "@/lib/prisma";
@@ -85,6 +87,7 @@ const settingsSelect = {
 } as const;
 
 export async function getSiteSettings() {
+  await requireAdmin();
   return prisma.siteSettings.upsert({
     where: { id: "main" },
     create: { id: "main" },
@@ -96,6 +99,7 @@ export async function getSiteSettings() {
 export async function updateSiteSettings(
   input: SiteSettingsInput
 ): Promise<{ success: boolean; message: string }> {
+  await requireAdmin();
   const parsed = siteSettingsSchema.safeParse(input);
 
   if (!parsed.success) {

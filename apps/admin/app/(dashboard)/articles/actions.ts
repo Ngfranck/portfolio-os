@@ -1,5 +1,7 @@
 "use server";
 
+import { requireAdmin } from "@/lib/admin-auth";
+
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 
@@ -199,6 +201,7 @@ function revalidateArticlePages(
 ============================================================ */
 
 export async function getAdminArticles() {
+  await requireAdmin();
   try {
     const articles = await prisma.article.findMany({
       orderBy: {
@@ -251,6 +254,7 @@ export async function getAdminArticles() {
 ============================================================ */
 
 export async function getArticleReferenceData() {
+  await requireAdmin();
   try {
     const categories = await prisma.category.findMany({
       orderBy: {
@@ -286,6 +290,7 @@ export async function getArticleReferenceData() {
 ============================================================ */
 
 export async function getArticleById(articleId: string) {
+  await requireAdmin();
   if (!articleId?.trim()) {
     return {
       success: false as const,
@@ -344,6 +349,7 @@ export async function getArticleById(articleId: string) {
 ============================================================ */
 
 export async function createArticle(input: unknown) {
+  await requireAdmin();
   const parsed = parseArticleInput(input);
 
   if (!parsed.success) {
@@ -417,6 +423,7 @@ export async function updateArticle(
   articleId: string,
   input: unknown,
 ) {
+  await requireAdmin();
   if (!articleId?.trim()) {
     return {
       success: false as const,
@@ -519,6 +526,7 @@ export async function updateArticle(
 ============================================================ */
 
 export async function archiveArticle(articleId: string) {
+  await requireAdmin();
   if (!articleId?.trim()) {
     return {
       success: false as const,
@@ -595,6 +603,7 @@ export async function archiveArticle(articleId: string) {
 ============================================================ */
 
 export async function deleteArticle(articleId: string) {
+  await requireAdmin();
   if (!articleId?.trim()) {
     return {
       success: false as const,

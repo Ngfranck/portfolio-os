@@ -23,6 +23,10 @@ const navigationItems = [
     href: "/#services",
   },
   {
+    label: "Gallery",
+    href: "/gallery",
+  },
+  {
     label: "About",
     href: "/#about",
   },

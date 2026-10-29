@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 import { HugeiconsIcon } from "@hugeicons/react";
+import { logoutAdmin } from "@/app/logout/actions";
 
 import {
   Analytics01Icon,
@@ -27,6 +28,11 @@ const navigation = [
     label: "Projects",
     href: "/projects",
     icon: Briefcase01Icon,
+  },
+  {
+    label: "Gallery",
+    href: "/gallery",
+    icon: Folder01Icon,
   },
   {
     label: "Articles",
@@ -322,6 +328,14 @@ export function Sidebar() {
                 className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#48A868]"
               />
             </div>
+            <form action={logoutAdmin}>
+              <button
+                type="submit"
+                className="w-full rounded-lg px-3 py-2 text-left text-xs font-medium text-[#666] transition-colors hover:bg-[#f7f7f5] hover:text-[#111] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E30613]"
+              >
+                Se déconnecter
+              </button>
+            </form>
           </div>
         </div>
       </aside>

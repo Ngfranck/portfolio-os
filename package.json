@@ -8,7 +8,8 @@
     "packages/*"
   ],
   "scripts": {
-    "dev": "turbo run dev",
+    "dev": "npm run prisma:generate && turbo run dev",
+    "prisma:generate": "prisma generate --schema=./apps/web/prisma/schema.prisma",
     "postinstall": "prisma generate --schema=./apps/web/prisma/schema.prisma",
     "build": "turbo run build",
     "lint": "turbo run lint",

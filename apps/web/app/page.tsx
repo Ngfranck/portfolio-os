@@ -6,6 +6,8 @@ import { About } from "./components/home/about";
 
 import { ProjectsSection } from "./components/projects-section";
 
+import { GallerySection } from "./components/home/gallery-section";
+
 import { ProcessSection } from "./components/home/process-section";
 
 import { ServicesSection } from "./components/home/services";
@@ -27,6 +29,8 @@ import { getFeaturedServices } from "../services/services/service.service";
 import { getFeaturedTestimonials } from "../services/testimonials/testimonial.service";
 
 import { getSiteSettings } from "../services/site-settings/site-settings.service";
+
+import { getPublishedGalleryItems } from "../services/gallery/gallery.service";
 
 export const dynamic = "force-dynamic";
 
@@ -69,11 +73,13 @@ export default async function HomePage() {
     services,
     testimonials,
     settings,
+    galleryItems,
   ] = await Promise.all([
     getFeaturedProjects(),
     getFeaturedServices(),
     getFeaturedTestimonials(),
     getSiteSettings(),
+    getPublishedGalleryItems(4),
   ]);
 
   const featuredProjects = projects.map((project) => ({
@@ -120,6 +126,8 @@ export default async function HomePage() {
 />
 
       <ProjectsSection projects={featuredProjects} />
+
+      <GallerySection items={galleryItems} />
 
       <ProcessSection />
 

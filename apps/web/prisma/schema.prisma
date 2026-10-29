@@ -118,6 +118,26 @@ model ProjectImage {
   @@index([projectId, sortOrder])
 }
 
+model GalleryItem {
+  id          String        @id @default(cuid())
+  title       String
+  slug        String        @unique
+  description String?
+  category    String?
+  imageUrl    String
+  imageAlt    String
+  imageData   Bytes?        @db.ByteA
+  imageType   String?       @db.VarChar(50)
+  linkUrl     String?
+  layout      GalleryLayout @default(PORTRAIT)
+  sortOrder   Int           @default(0)
+  published   Boolean       @default(false)
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  @@index([published, sortOrder])
+}
+
 model Category {
   id          String    @id @default(cuid())
   name        String
@@ -271,6 +291,12 @@ enum SkillType {
   DEVELOPMENT
   TOOL
   OTHER
+}
+
+enum GalleryLayout {
+  PORTRAIT
+  SQUARE
+  LANDSCAPE
 }
 
 model SiteSettings {

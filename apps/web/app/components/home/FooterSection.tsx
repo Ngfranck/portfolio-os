@@ -725,6 +725,7 @@ export function Footer({
                 ["About", "/#about"],
                 ["Services", "/#services"],
                 ["Projects", "/#projects"],
+                ["Gallery", "/gallery"],
                 ["Contact", "/#contact"],
               ].map(([label, href]) => (
                 <Link

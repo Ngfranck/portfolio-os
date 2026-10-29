@@ -25,6 +25,34 @@ export function PageLoader() {
 
     document.body.style.overflow = "hidden";
 
+    let intro: gsap.core.Timeline | undefined;
+    const handleVisibilityChange = () => {
+      if (!document.hidden) {
+        return;
+      }
+
+      intro?.kill();
+      gsap.set(loader, {
+        autoAlpha: 0,
+        pointerEvents: "none",
+      });
+      document.body.style.overflow = "";
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    if (document.hidden) {
+      handleVisibilityChange();
+
+      return () => {
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
+        document.body.style.overflow = "";
+      };
+    }
+
     if (reducedMotion) {
       counter.textContent = "100";
       progress.style.transform = "scaleX(1)";
@@ -40,6 +68,10 @@ export function PageLoader() {
 
       return () => {
         window.clearTimeout(timer);
+        document.removeEventListener(
+          "visibilitychange",
+          handleVisibilityChange,
+        );
         document.body.style.overflow = "";
       };
     }
@@ -62,7 +94,7 @@ export function PageLoader() {
         transformOrigin: "left center",
       });
 
-      const intro = gsap.timeline();
+      intro = gsap.timeline();
 
       // Apparition de Gonar
       intro.to(wordmark, {
@@ -121,6 +153,11 @@ export function PageLoader() {
     }, loaderRef);
 
     return () => {
+      document.removeEventListener(
+        "visibilitychange",
+        handleVisibilityChange,
+      );
+      intro?.kill();
       context.revert();
       document.body.style.overflow = "";
     };
