@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { auth } from "./auth";
 
+// Les redirections du proxy doivent inclure le basePath de production.
 const basePath =
   process.env.NODE_ENV === "production" ? "/admin" : "";
 

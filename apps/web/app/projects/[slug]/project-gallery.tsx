@@ -166,9 +166,34 @@ export function ProjectGallery({
         );
       }
 
-      requestAnimationFrame(() => {
-        ScrollTrigger.refresh();
-      });
+      const refresh = () => ScrollTrigger.refresh();
+
+      requestAnimationFrame(refresh);
+
+      let cancelled = false;
+
+      const handleLoad = () => {
+        if (!cancelled) refresh();
+      };
+
+      if (document.readyState === "complete") {
+        refresh();
+      } else {
+        window.addEventListener("load", handleLoad);
+      }
+
+      if (document.fonts?.ready) {
+        document.fonts.ready
+          .then(() => {
+            if (!cancelled) refresh();
+          })
+          .catch(() => {});
+      }
+
+      return () => {
+        cancelled = true;
+        window.removeEventListener("load", handleLoad);
+      };
     },
     {
       scope: sectionRef,

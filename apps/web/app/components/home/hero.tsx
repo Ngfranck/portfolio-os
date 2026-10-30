@@ -67,8 +67,8 @@ export function Hero({
 
       mm.add(
         {
-          desktop: "(min-width: 768px)",
-          mobile: "(max-width: 767px)",
+          desktop: "(min-width: 1024px)",
+          mobile: "(max-width: 1023px)",
           reducedMotion: "(prefers-reduced-motion: reduce)",
         },
         (context) => {
@@ -95,6 +95,8 @@ export function Hero({
             gsap.set(glow, {
               opacity: 0.2,
               scale: 1,
+              xPercent: -50,
+              yPercent: -50,
             });
 
             gsap.set(stars, {
@@ -367,7 +369,7 @@ export function Hero({
       aria-labelledby="hero-title"
       className="
         relative isolate
-        min-h-[100svh]
+        flex min-h-[100svh] flex-col
         overflow-hidden
         bg-[var(--portfolio-background)]
         text-[var(--portfolio-text-primary)]
@@ -381,34 +383,6 @@ export function Hero({
         aria-hidden="true"
         className="pointer-events-none absolute inset-0 z-0 overflow-hidden"
       >
-        {/* ILLUSTRATION DU LOUP */}
-
-        <div
-          ref={wolfRef}
-          className="
-            absolute
-            left-1/2
-            top-[20%]
-            w-[min(72vw,380px)]
-            aspect-[473.25/573.72]
-            -translate-x-1/2
-            -translate-y-1/2
-            bg-[var(--portfolio-text-primary)]
-            opacity-0
-            will-change-[transform,opacity,clip-path]
-          "
-          style={{
-            WebkitMaskImage: "url('/images/hero/wolf.svg')",
-            maskImage: "url('/images/hero/wolf.svg')",
-            WebkitMaskRepeat: "no-repeat",
-            maskRepeat: "no-repeat",
-            WebkitMaskPosition: "center",
-            maskPosition: "center",
-            WebkitMaskSize: "contain",
-            maskSize: "contain",
-          }}
-        />
-
         {/* HALO LUMINEUX */}
 
         <div
@@ -537,19 +511,50 @@ export function Hero({
         />
       </div>
 
+      {/* ILLUSTRATION DU LOUP */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none absolute inset-0 z-0 hidden
+          items-center justify-center
+          lg:flex
+        "
+      >
+        <div
+          ref={wolfRef}
+          className="
+            aspect-[473.25/573.72]
+            w-[min(46vw,380px,40svh)]
+            bg-[var(--portfolio-text-primary)]
+            opacity-0
+            will-change-[transform,opacity,clip-path]
+          "
+          style={{
+            WebkitMaskImage: "url('/images/hero/wolf.svg')",
+            maskImage: "url('/images/hero/wolf.svg')",
+            WebkitMaskRepeat: "no-repeat",
+            maskRepeat: "no-repeat",
+            WebkitMaskPosition: "center",
+            maskPosition: "center",
+            WebkitMaskSize: "contain",
+            maskSize: "contain",
+          }}
+        />
+      </div>
+
       {/* CONTENU */}
 
       <div
         ref={contentRef}
         className="
           relative z-10
-          mx-auto flex
-          min-h-[100svh]
+          mx-auto flex flex-1
           w-full max-w-[1800px]
           flex-col justify-end
-          px-5 pb-10 pt-28
-          sm:px-8 sm:pb-12
-          lg:px-12 lg:pb-14
+          px-5 pb-10 pt-6
+          sm:px-8 sm:pb-12 sm:pt-8
+          lg:min-h-[100svh] lg:px-12 lg:pb-14 lg:pt-28
           xl:px-16
         "
       >
@@ -571,9 +576,9 @@ export function Hero({
         <div
           className="
             grid w-full grid-cols-1
-            items-end gap-7
+            items-center gap-7 text-center
             lg:grid-cols-[minmax(0,1fr)_minmax(320px,440px)]
-            lg:gap-12
+            lg:items-end lg:gap-12 lg:text-left
             xl:grid-cols-[minmax(0,1fr)_460px]
             xl:gap-16
           "
@@ -614,13 +619,13 @@ export function Hero({
 
           {/* PRÉSENTATION ET ACTIONS */}
 
-          <div className="flex w-full flex-col items-start lg:justify-self-end">
+          <div className="flex w-full flex-col items-center lg:items-start lg:justify-self-end">
             {/* DISPONIBILITÉ */}
 
             <div
               ref={badgeRef}
               className="
-                mb-5 inline-flex max-w-full
+                mb-5 inline-flex max-w-full justify-center
                 flex-wrap items-center gap-2
                 rounded-full border
                 border-[var(--portfolio-border)]
@@ -653,6 +658,7 @@ export function Hero({
             <p
               ref={descriptionRef}
               className="
+                mx-auto
                 max-w-[440px]
                 font-body
                 text-base
@@ -660,6 +666,7 @@ export function Hero({
                 tracking-[-0.01em]
                 text-[var(--portfolio-text-secondary)]
                 sm:text-lg
+                lg:mx-0
                 will-change-[transform,opacity]
               "
             >
@@ -671,7 +678,7 @@ export function Hero({
             <div
               ref={actionsRef}
               className="
-                mt-6 flex w-full flex-col gap-3
+                mt-6 flex w-full flex-col items-center gap-3
                 sm:w-auto sm:flex-row
                 will-change-[transform,opacity]
               "
