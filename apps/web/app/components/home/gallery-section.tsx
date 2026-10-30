@@ -1,13 +1,12 @@
 import Link from "next/link";
 
-import { GalleryGrid } from "../gallery/GalleryGrid";
-
-type GalleryItem = Parameters<typeof GalleryGrid>[0]["items"][number];
+import { GalleryCarousel } from "../gallery/GalleryCarousel";
+import type { GalleryCard } from "../gallery/GalleryGrid";
 
 export function GallerySection({
   items,
 }: {
-  items: GalleryItem[];
+  items: GalleryCard[];
 }) {
   if (items.length === 0) {
     return null;
@@ -17,7 +16,7 @@ export function GallerySection({
     <section
       id="gallery"
       aria-labelledby="gallery-section-title"
-      className="mx-auto w-full max-w-[1440px] px-5 py-24 sm:px-8 sm:py-32 lg:px-12 lg:py-40"
+      className="relative mx-auto w-full max-w-[1440px] overflow-x-clip px-5 py-24 sm:px-8 sm:py-32 lg:px-12 lg:py-40"
     >
       <div className="mb-10 flex flex-col gap-6 sm:mb-14 sm:flex-row sm:items-end sm:justify-between">
         <div>
@@ -38,7 +37,7 @@ export function GallerySection({
           Explore the gallery <span aria-hidden="true">↗</span>
         </Link>
       </div>
-      <GalleryGrid items={items} variant="section" />
+      <GalleryCarousel items={items} />
     </section>
   );
 }
