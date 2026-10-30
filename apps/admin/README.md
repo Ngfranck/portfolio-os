@@ -32,6 +32,11 @@ Copy the printed `ADMIN_PASSWORD_HASH` value directly into the admin service's
 environment-variable settings. Do not commit the generated value or share it in
 chat. The password must be at least 14 characters.
 
+The hash contains `$` characters. In `.env.local`, escape them as `\$`
+(`scrypt\$<salt>\$<hash>`), otherwise Next.js expands them and mangles the
+value. In the Vercel dashboard, paste the raw value with plain `$` and no
+backslashes.
+
 Locally, put the values in an ignored environment file (for example
 `apps/admin/.env.local`) and start both apps from the repository root with
 `npm run dev`. This generates the shared Prisma client before either app starts.
@@ -41,6 +46,28 @@ the public web service's environment settings as a substitute for configuring
 the separate admin service.
 For public deployments, also configure Vercel Firewall rate limiting for the
 credentials callback at `/admin/api/auth/callback/credentials`.
+
+## Troubleshooting
+
+If the login form returns
+`{"message":"There was a problem with the server configuration. Check the server logs for more information."}`
+(or Auth.js redirects to its "Configuration" error page), Auth.js cannot read a
+valid `AUTH_SECRET` at runtime. The same error appears on `/admin/api/auth/csrf`
+and `/admin/api/auth/session`.
+
+1. Check that `AUTH_SECRET` exists in the environment variables of the
+   **admin** deployment for the environment being tested (Production, Preview
+   or Development). `.env.local` is not deployed.
+2. Add or fix the value, then trigger a new deployment: environment changes are
+   only applied to builds created afterwards.
+3. Request `/admin/api/auth/csrf` again. It must return a `csrfToken` instead of
+   the error above.
+4. If authentication then says "Identifiants incorrects", check
+   `ADMIN_EMAIL` and `ADMIN_PASSWORD_HASH` in the same place.
+
+To confirm the cause locally, start the admin in production mode with an empty
+secret (`AUTH_SECRET="" NODE_ENV=production next start`): it reproduces exactly
+the same message.
 
 ## Gallery
 
