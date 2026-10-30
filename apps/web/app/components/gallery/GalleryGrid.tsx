@@ -8,9 +8,9 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(ScrollTrigger);
 
-type GalleryLayout = "PORTRAIT" | "SQUARE" | "LANDSCAPE";
+export type GalleryLayout = "PORTRAIT" | "SQUARE" | "LANDSCAPE";
 
-type GalleryCard = {
+export type GalleryCard = {
   id: string;
   title: string;
   description: string | null;

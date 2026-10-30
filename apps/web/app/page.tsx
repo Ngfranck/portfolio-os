@@ -79,7 +79,7 @@ export default async function HomePage() {
     getFeaturedServices(),
     getFeaturedTestimonials(),
     getSiteSettings(),
-    getPublishedGalleryItems(4),
+    getPublishedGalleryItems(8),
   ]);
 
   const featuredProjects = projects.map((project) => ({
