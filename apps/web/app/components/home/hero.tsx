@@ -516,9 +516,12 @@ export function Hero({
       <div
         aria-hidden="true"
         className="
-          pointer-events-none absolute inset-0 z-0 hidden
+          pointer-events-none relative z-0 hidden
+          shrink-0
           items-center justify-center
-          lg:flex
+          md:flex md:pt-[15svh]
+          lg:absolute lg:inset-0 lg:h-auto lg:pt-0
+          lg:pr-[8%]
         "
       >
         <div
@@ -526,6 +529,8 @@ export function Hero({
           className="
             aspect-[473.25/573.72]
             w-[min(46vw,380px,40svh)]
+            md:h-[34svh] md:w-auto
+            lg:h-auto lg:w-[min(42vw,360px,38svh)]
             bg-[var(--portfolio-text-primary)]
             opacity-0
             will-change-[transform,opacity,clip-path]
@@ -554,6 +559,7 @@ export function Hero({
           flex-col justify-end
           px-5 pb-10 pt-6
           sm:px-8 sm:pb-12 sm:pt-8
+          md:pt-10
           lg:min-h-[100svh] lg:px-12 lg:pb-14 lg:pt-28
           xl:px-16
         "
@@ -577,10 +583,10 @@ export function Hero({
           className="
             grid w-full grid-cols-1
             items-center gap-7 text-center
-            lg:grid-cols-[minmax(0,1fr)_minmax(320px,440px)]
-            lg:items-end lg:gap-12 lg:text-left
-            xl:grid-cols-[minmax(0,1fr)_460px]
-            xl:gap-16
+            lg:grid-cols-[minmax(0,1fr)_minmax(280px,380px)]
+            lg:items-end lg:gap-16 lg:text-left
+            xl:grid-cols-[minmax(0,1fr)_420px]
+            xl:gap-24
           "
         >
           {/* NOM */}
