@@ -4,7 +4,7 @@ import { signOut } from "@/auth";
 
 export async function logoutAdmin() {
   await signOut({
-    redirectTo:
-      process.env.NODE_ENV === "production" ? "/admin/login" : "/login",
+    // Next.js préfixe automatiquement le basePath (`/admin` en production).
+    redirectTo: "/login",
   });
 }

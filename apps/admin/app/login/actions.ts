@@ -8,15 +8,12 @@ import { signIn } from "@/auth";
 export async function authenticateAdmin(formData: FormData) {
   try {
     await signIn("credentials", formData, {
-      redirectTo: process.env.NODE_ENV === "production" ? "/admin/" : "/",
+      // Next.js ajoute le basePath (`/admin`) aux redirections de l'application.
+      redirectTo: "/",
     });
   } catch (error) {
     if (error instanceof AuthError) {
-      redirect(
-        process.env.NODE_ENV === "production"
-          ? "/admin/login?error=invalid"
-          : "/login?error=invalid",
-      );
+      redirect("/login?error=invalid");
     }
 
     throw error;

@@ -38,7 +38,7 @@ export function GallerySection({
           Explore the gallery <span aria-hidden="true">↗</span>
         </Link>
       </div>
-      <GalleryGrid items={items} />
+      <GalleryGrid items={items} variant="section" />
     </section>
   );
 }

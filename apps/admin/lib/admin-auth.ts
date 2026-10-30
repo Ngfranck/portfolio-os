@@ -12,6 +12,7 @@ export async function requireAdmin() {
     !configuredEmail ||
     session.user.email.toLowerCase() !== configuredEmail
   ) {
-    redirect(process.env.NODE_ENV === "production" ? "/admin/login" : "/login");
+    // Next.js préfixe automatiquement le basePath (`/admin` en production).
+    redirect("/login");
   }
 }

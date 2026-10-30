@@ -19,18 +19,20 @@ function verifyPassword(password: string, encodedHash: string): boolean {
   return timingSafeEqual(actualHash, expectedBuffer);
 }
 
+const appBasePath =
+  process.env.NODE_ENV === "production" ? "/admin" : "";
+
 export const { handlers, auth, signIn, signOut } = NextAuth({
-  basePath:
-    process.env.NODE_ENV === "production"
-      ? "/admin/api/auth"
-      : "/api/auth",
+  basePath: `${appBasePath}/api/auth`,
   trustHost: true,
   session: {
     strategy: "jwt",
     maxAge: 60 * 60 * 8,
   },
   pages: {
-    signIn: "/login",
+    // Auth.js construit cette URL de façon absolue : elle doit inclure le
+    // basePath de l'application, contrairement aux redirections Next.js.
+    signIn: `${appBasePath}/login`,
   },
   providers: [
     Credentials({
